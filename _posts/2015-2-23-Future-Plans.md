@@ -5,6 +5,8 @@ title: Future Plans
 
 Welcome! 
 
-If I stumble across something interesting and can condense it into a short blog post, it'll go on this site - _Alex_
+Whenever I stumble across something interesting and I can condense it into a short blog post, it will go on this site.
 
-![_config.yml]({{ site.baseurl }}/images/ammonite.jpg =300x)
+Alex
+
+![_config.yml]({{ site.baseurl }}/images/ammonite.jpg)

@@ -9,7 +9,7 @@ name: Alex Riley
 description: ajcr
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: http://i.stack.imgur.com/n2MbU.jpg?s=128&amp;g=1
+avatar: http://i.stack.imgur.com/y58MA.jpg?s=128&g=1
 
 #
 # Flags below are optional
@@ -21,19 +21,20 @@ footer-links:
   email: 
   facebook: 
   flickr: 
-  github: ajcr #barryclark/jekyll-now
+  github: ajcr
   instagram: 
   linkedin: ajcriley
   pinterest: 
   rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
   twitter: #jekyllrb
   stackoverflow: users/3923281/ajcr
+  careers: alex_riley
 
 # Your disqus shortname, entering this will enable commenting on posts
 disqus: 
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics: 
+google_analytics: UA-60182117-1
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
