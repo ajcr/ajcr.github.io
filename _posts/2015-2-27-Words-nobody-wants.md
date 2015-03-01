@@ -5,7 +5,7 @@ title: The words nobody wants for websites
 
 There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/domain-registry-products/zone-file-information/index.xhtml) .com and .net domain names. Is every single English word being used?
 
-Not by a very long way. Checking these domains against a list of over 375,000 words, names and places, it turns out that only around 64% of these words are actually in use. What's more, the most popular words (*online*, *group*, *design*, ...) are incredibly popular: just over 1,000 words account for half of all words that appear in registered .com and .net domains. 
+Not at all. Checking these domains against a list of over 375,000 words, names and places, it turns out that only around 64% of these words are actually in use. What's more, the most popular words (*online*, *group*, *design*, ...) are incredibly popular: just over 1,000 words account for half of all words that appear in registered .com and .net domains. 
 
 This means that an awful lot of words are hardly used at all.
 
