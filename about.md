@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Internet analyst/researcher interested in writing, mathematics and drawing. 
+Internet researcher / data analyst interested in writing, mathematics and drawing. 
 
 ### More Information
 
