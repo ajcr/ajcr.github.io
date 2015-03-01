@@ -7,7 +7,7 @@ There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/
 
 Not by a very long way. Checking these domains against a list of over 375,000 words, names and places, it turns out that only around 64% of these words are in use. What's more, the most popular words (*online*, *group*, *design*, ...) are incredibly popular: just over 1,000 words account for half of all words appearing in registered .com and .net domains. 
 
-This means that, even among the words that are used, there are thousands that are hardly used at all.
+This means that, even among the words that do appear, many are hardly used at all.
 
 <img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
 
