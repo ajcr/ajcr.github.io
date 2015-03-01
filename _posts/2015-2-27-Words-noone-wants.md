@@ -5,9 +5,11 @@ title: The words nobody wants for websites
 
 There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/domain-registry-products/zone-file-information/index.xhtml) .com and .net domain names. Is every single English word being used?
 
-Not by a very long way. Checking these domains against a list of over 375,000 words, names and places, it turns out that only around 64% of these words are in use. What's more, the most popular words (*online*, *group*, *design*, ...) are incredibly popular: just over 1,000 words account for half of all words appearing in registered .com and .net domains. This means that, even among the words that are used, there are thousands that are hardly used at all.
+Not by a very long way. Checking these domains against a list of over 375,000 words, names and places, it turns out that only around 64% of these words are in use. What's more, the most popular words (*online*, *group*, *design*, ...) are incredibly popular: just over 1,000 words account for half of all words appearing in registered .com and .net domains. 
 
-<img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="height: 500px;"/>
+This means that, even among the words that are used, there are thousands that are hardly used at all.
+
+<img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
 
 To find all of this out, I took a list of 130 million split every domain name back into distinct words - *buycheapcars.com* becomes *buy cheap cars* while *dropbox.com* becomes *drop box* - and then counted how many times each individual word appeared. 
 
@@ -32,6 +34,6 @@ Reading through a list of words that appeared only once, I saw **_seqed_** and l
 
 As a rule, longer words are used more infrequently. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in five domains. There are two other 29-letter words, each appearing once only: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. They're both powerful explosives.
 
-Lastly, I checked a list of names. Most are accounted for, but **_Goldarina_** and **_Elladine_** are nowhere to be found. Men, you've not hope of being unique unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
+Lastly, I checked a list of names. Most are accounted for, but **_Goldarina_** and **_Elladine_** are nowhere to be found. Men, you've no hope of being unique unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
 
 However vast the Internet may be, there's still a long way to go before it exhausts the English language.
