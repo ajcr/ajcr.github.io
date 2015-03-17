@@ -11,7 +11,10 @@ This means that the pool of unused or rarely-used words is very large indeed.
 
 <img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
 
-To find all of this out, I took a list of 130 million split every domain name back into distinct words - *buycheapcars.com* becomes *buy cheap cars* while *dropbox.com* becomes *drop box* - and then counted how many times each individual word appeared. 
+To find all of this out, I took a list of 130 million split every domain name back into distinct words - *buycheapcars.com* becomes *buy cheap cars* while *dropbox.com* becomes *drop box* - and then counted how many times each individual word appeared.
+
+This is useful for two reasons:
+- it prevents subwords from being counted, e.g. *buycheapcars.com* has three words: subwords such as *heap* and *car* do not get counted.
 
 Splitting is not a trivial problem. There might be many different ways to break up the domain into recognisable words and finding the "correct" way could require some advanced natural language processing. After some experimentation, I found that simply splitting to the fewest words possible gave the most accurate-looking results and also had the advantage of being much faster than finding and comparing all possible splits. I decided that any domain than could not be split cleanly would be discarded. I wrote a short program based on [this function](https://github.com/ajcr/string-splitter/blob/master/splitter.py) to read a list of English words and spit out the words making up a given domain name.
 
