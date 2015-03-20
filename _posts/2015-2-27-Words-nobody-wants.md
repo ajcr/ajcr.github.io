@@ -23,7 +23,7 @@ My computer ground through the 130 million domains in about four hours, only fai
 
 ---
 
-So if you want to be the proud owner of domain name with a never-before-used word, what are your options? Here a few ideas:
+So if you want to be the proud owner of domain name with a never-before-used word, what are your options? Here are a few ideas:
 
 - **_pewful_** - enough to fill a church pew
 - **_caufle_** - a gang of slaves
@@ -38,8 +38,8 @@ The shortest English word that did not appear in any domain was the five-letter 
 
 Reading through a list of words that appeared only once, I saw **_seqed_** and learned that it is an ancient Egyptian unit of measurement. I smiled at **_winced_**, **_gobbed_** and **_plebby_**. I was surprised that **_meatiest_** is so underused.
 
-As a rule, longer words are used more infrequently. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in five domains. There are two other 29-letter words, each appearing once only: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. They're both powerful explosives.
+As a rule, longer words are used infrequently. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in just five domains. There are two other 29-letter words, each appearing only once: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. These are both powerful explosives.
 
-Lastly, I checked a list of first names. Most are accounted for, but the woman's names **_Goldarina_** and **_Elladine_** are nowhere to be found. If you're male, you've no hope of being unique unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
+Lastly, I checked a list of first names for any which weren't being used. Most are accounted for, but the woman's names **_Goldarina_** and **_Elladine_** are nowhere to be found. If you're male, you've no hope of being unique unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
 
 However vast the Internet may be, there's still a long way to go before it exhausts the English language.
