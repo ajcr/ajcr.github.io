@@ -11,6 +11,8 @@ This means that the pool of unused or rarely-used words is very large indeed.
 
 <img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
 
+---
+
 To find all of this out, I took a list of 130 million domains and split every one back into distinct words. For example, *buycheapcars.com* becomes *buy cheap cars* while *dropbox.com* becomes *drop box*. I then counted how many times each individual word appeared.
 
 This is especially useful because it prevents common substrings from being counted too frequently: *buycheapcars.com* contributes just three words. Subwords such as *heap* and *car* do not get counted at all here.
@@ -18,6 +20,8 @@ This is especially useful because it prevents common substrings from being count
 Splitting is not a trivial problem and took me a little while to work out. There might be many different ways to break up the domain into recognisable words and finding the "correct" way could require some advanced natural language processing (which I ideally wanted to avoid). After some experimentation, I found that simply splitting to the fewest words possible gave the most accurate-looking results and also had the advantage of being much faster than finding and comparing all possible splits. I decided that any domain than could not be split cleanly would be discarded. I wrote a short program based on [this function](https://github.com/ajcr/string-splitter/blob/master/splitter.py) to read a list of English words and spit out the words making up each domain name.
 
 My computer ground through the 130 million domains in about four hours, only failing to split 18 million gobbledegook domains. A bit of cleaning up and I had a long list of 356,580,878 words. The computer whirred for a few more minutes while it counted them.
+
+---
 
 So if you want to be the proud owner of domain name with a never-before-used word, what are your options? Here a few ideas:
 
