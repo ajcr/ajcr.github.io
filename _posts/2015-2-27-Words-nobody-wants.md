@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The words nobody wants for websites
+title: Words nobody wants for websites
 ---
 
 There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/domain-registry-products/zone-file-information/index.xhtml) .com and .net domain names. Is every single English word being used?
