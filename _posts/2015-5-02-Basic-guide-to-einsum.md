@@ -107,9 +107,9 @@ Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broa
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
 | ---------------------------- | ---------------------- | --------------------- |
 | `einsum('i', A)`             | `A`                      | returns a view of `A`|
-| `einsum('i->', A)`           | `np.sum(A)`              | sum the values of `A`  |
+| `einsum('i->', A)`           | `np.sum(A)`              | sums the values of `A`  |
 | `einsum('i,i->i', A, B)`      | `A * B`                | element-wise multiplication of `A` and `B`|
-| `einsum('i,i', A, B)`        | `np.inner(A, B)` **or** `np.dot(A, B)` **or** `(A * B).sum()` | inner product of `A` and `B` |
+| `einsum('i,i', A, B)`        | `np.inner(A, B)` **or** `(A * B).sum()` | inner product of `A` and `B` |
 | `einsum('i,j', A, B)`    | `np.outer(A, B)` **or** `A[:, None] * B` | outer product. `'i,j->ji'` transposes the outer product |
 
 
@@ -119,14 +119,14 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
 | ---------------------------- | ------------------- | ---------------------- |
 | `einsum('ij', A)`            | `A`                     | returns a view of `A`|
 | `einsum('ji', A)`            | `A.T`                   |view of the transpose of `A` |
-| `einsum('ii->i', A)`            | `np.diag(A)`          | view the main diagonal of `A` (by repeating a label for an array) |
-| `einsum('ii', A)`            | `np.trace(A)`                   | sum the main diagonal of `A`  |
-| `einsum('ij->', A)`          | `np.sum(A)`             | sum all the values of `A` |
-| `einsum('ij->j', A)`          | `np.sum(A, axis=0)`    | sum the columns of `A` |
-| `einsum('ij->i', A)`          | `np.sum(A, axis=1)`    | sum the rows of `A` |
+| `einsum('ii->i', A)`            | `np.diag(A)`          | view the main diagonal of `A`|
+| `einsum('ii', A)`            | `np.trace(A)`                   | sums main diagonal of `A`  |
+| `einsum('ij->', A)`          | `np.sum(A)`             | sums the values of `A` |
+| `einsum('ij->j', A)`          | `np.sum(A, axis=0)`    | sums the columns of `A` |
+| `einsum('ij->i', A)`          | `np.sum(A, axis=1)`    | sums the rows of `A` |
 | `einsum('ij,ij->ij', A, B)`  | `A * B`    | element-wise multiplication of `A` and `B` |
 | `einsum('ij,ji->ij', A, B)` | `A * B.T`   | element-wise multiplication of `A` and `B.T` |
-| `einsum('ij,jk', A, B)`  | `np.dot(A, B)`    | matrix multiplication of `A` and `B`. To return the transpose, append '`->ki'` |
+| `einsum('ij,jk', A, B)`  | `np.dot(A, B)`    | matrix multiplication of `A` and `B`. To return the transpose, append `'->ki'` |
 | `einsum('ij,jk->ij', A, B)` | `np.inner(A, B)` | inner product of `A` and `B` (sum product over the last axes) |
 | `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` | broadcasting: 3D array, each row of `A` multiplied by `B` |  
 | `einsum('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | broadcasting: 4D array, each value of `A` multiplied by `B` |
