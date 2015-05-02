@@ -57,13 +57,9 @@ To use `einsum` we need to label axes of the arrays we're going to operate on.
 
 The function lets us do that in one of two ways: using a string of letters, or using lists of integers. For simplicity, this post will stick to the first option (which appears to be the more commonly-used of the two).
 
-Take the matrix multiplication example from the documentation. For two 2D arrays `A` and `B`, matrix multiplication can be denoted with the string of letters `'ij,jk->ik'`:
+Take the matrix multiplication example from the documentation. For two 2D arrays `A` and `B`, matrix multiplication can be done with `np.einsum('ij,jk->ik', A, B)`.
 
-``` python
-np.einsum('ij,jk->ik', A, B)
-```
-
-What does this mean? Think of the string `'ij,jk->ik'` split in two at the arrow `->`. The first part labels the axes of the *input* arrays: `'ij'` labels `A` and `'jk'` labels `B`. The second part of the string labels the axes of the single *output* array with the letters `'ik'`. In other words, we're putting two 2D arrays in and getting a new 2D array out.
+What does this string mean? Well, think of `'ij,jk->ik'` split in two at the arrow `->`. The first part labels the axes of the *input* arrays: `'ij'` labels `A` and `'jk'` labels `B`. The second part of the string labels the axes of the single *output* array with the letters `'ik'`. In other words, we're putting two 2D arrays in and getting a new 2D array out.
 
 Here's a picture to show what's going on. The two arrays I'll use are:
 
@@ -72,7 +68,7 @@ Here's a picture to show what's going on. The two arrays I'll use are:
 >>> B = np.array([[0, 1, 0],[1, 1, 0],[1, 1, 1]])
 ```
 
-Then drawing on the labels we have:
+Then drawing on the labels our matrix multiplication `np.einsum('ij,jk->ik', A, B)` looks like this:
 
 <img src="{{ site.baseurl }}/images/matrix_mul_reduce.png" "colour-pairs" style="width: 500px;"/>
 
