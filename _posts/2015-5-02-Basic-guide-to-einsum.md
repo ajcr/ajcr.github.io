@@ -100,12 +100,6 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
 
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
-
- 
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
 | ---------------------------- | ---------------------- | --------------------- |
 | `einsum('i', A)`             | `A`                      | returns a view of `A`|
