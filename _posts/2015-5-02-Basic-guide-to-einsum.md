@@ -9,7 +9,7 @@ Often they've read the (informative but terse) documentation and are unsure how 
 
 `einsum` itself is one of NumPy's jewels and can frequently lead to significant increases in speed and efficiency. It does take a little while to get used to the notation and, once understood, sometimes a few attempts to apply it correctly to a problem. This post is a basic introduction to what this function does and how it can be used to replace more familiar array operations.
 
-### What `einsum` does
+## What `einsum` does
 
 Suppose you have two arrays, `A` and `B`. Now suppose that you want to...
 
@@ -51,7 +51,7 @@ It's not limited to two arrays either. The function can operation can be perform
 
 
 
-### How to use `einsum`
+## How to use `einsum`
 
 To use `einsum` we need to label axes of the arrays we're going to operate on. 
 
@@ -74,7 +74,7 @@ Here's a picture to show what's going on. The two arrays I'll use are:
 
 Then drawing on the labels we have:
 
-<img src="{{ site.baseurl }}/images/matrix_mul_reduce.png" "colour-pairs" style="width: 400px;"/>
+<img src="{{ site.baseurl }}/images/matrix_mul_reduce.png" "colour-pairs" style="width: 500px;"/>
 
 To understand how the output array is calculated, remember these three rules:
 
@@ -96,7 +96,7 @@ It should now be easier to see how the matrix multiplication worked. The image b
 <img src="{{ site.baseurl }}/images/matrix_mul_full_and_reduce.png" "colour-pairs" style="width: 400px;"/>
 
 
-### A glossary of simple operations
+## A glossary of simple operations
 
 That's really all you need to start using `einsum`. Knowing how to multiply different axes together and then how to sum the products, we can express a lot of different operations succinctly, especially when a lot of dimensions are involved. Because `einsum` allows broadcasting and doesn't build arrays with unnecessary dimensions when we want to sum over an axis, it can be more memory-efficient.
 
@@ -105,34 +105,34 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
  
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
-| :------------------          | :----------------        | :------               |
+|:---------------------------- |:---------------------- | :--------------------- |
 | `einsum('i', A)`             | `A`                      | returns a view of `A`|
 | `einsum('i->', A)`           | `np.sum(A)`              | sum the values of `A`  |
-| `einsum('i,i->i', A, B)`      | `A * B`                |element-wise multiplication of `A` and `B`|
-| `einsum('i,i', A, B)`        | `np.inner(A, B)` **or** `np.dot(A, B)` **or** `(A * B).sum()` |inner product of `A` and `B`|
-| `einsum('i,j', A, B)`    | `np.outer(A, B)` **or** `A[:, None] * B` | outer product. `'i,j->ji'` transposes the outer product|
+| `einsum('i,i->i', A, B)`      | `A * B`                | element-wise multiplication of `A` and `B`|
+| `einsum('i,i', A, B)`        | `np.inner(A, B)` **or** `np.dot(A, B)` **or** `(A * B).sum()` | inner product of `A` and `B` |
+| `einsum('i,j', A, B)`    | `np.outer(A, B)` **or** `A[:, None] * B` | outer product. `'i,j->ji'` transposes the outer product |
 
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
 
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
-| :------------------          | :----------------    | :------               |
+|:---------------------------- |:------------------- |:---------------------- |
 | `einsum('ij', A)`            | `A`                     | returns a view of `A`|
 | `einsum('ji', A)`            | `A.T`                   |view of the transpose of `A` |
 | `einsum('ii->i', A)`            | `np.diag(A)`          | view the main diagonal of `A` (by repeating a label for an array) |
 | `einsum('ii', A)`            | `np.trace(A)`                   | sum the main diagonal of `A`  |
-| `einsum('ij->', A)`          | `np.sum(A)`             |sum all the values of `A` |
-| `einsum('ij->j', A)`          | `np.sum(A, axis=0)`    |sum the columns of `A` |
-| `einsum('ij->i', A)`          | `np.sum(A, axis=1)`    |sum the rows of `A` |
+| `einsum('ij->', A)`          | `np.sum(A)`             | sum all the values of `A` |
+| `einsum('ij->j', A)`          | `np.sum(A, axis=0)`    | sum the columns of `A` |
+| `einsum('ij->i', A)`          | `np.sum(A, axis=1)`    | sum the rows of `A` |
 | `einsum('ij,ij->ij', A, B)`  | `A * B`    | element-wise multiplication of `A` and `B` |
 | `einsum('ij,ji->ij', A, B)` | `A * B.T`   | element-wise multiplication of `A` and `B.T` |
 | `einsum('ij,jk', A, B)`  | `np.dot(A, B)`    | matrix multiplication of `A` and `B`. To return the transpose, append '`->ki'` |
 | `einsum('ij,jk->ij', A, B)` | `np.inner(A, B)` | inner product of `A` and `B` (sum product over the last axes) |
-| `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` |     broadcasting: 3D array, each row of `A` multiplied by `B` |  
+| `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` | broadcasting: 3D array, each row of `A` multiplied by `B` |  
 | `einsum('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | broadcasting: 4D array, each value of `A` multiplied by `B` |
 
  
-### A few quirks to watch out for
+## A few quirks to watch out for
 
 Here a few things to be mindful of when using the function.
 
