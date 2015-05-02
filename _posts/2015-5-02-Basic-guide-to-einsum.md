@@ -105,7 +105,7 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
  
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
-|:---------------------------- |:---------------------- | :--------------------- |
+| ---------------------------- | ---------------------- | --------------------- |
 | `einsum('i', A)`             | `A`                      | returns a view of `A`|
 | `einsum('i->', A)`           | `np.sum(A)`              | sum the values of `A`  |
 | `einsum('i,i->i', A, B)`      | `A * B`                | element-wise multiplication of `A` and `B`|
@@ -115,8 +115,8 @@ Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broa
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
 
-| `einsum` operation           | Plain NumPy equivalent | Comments                |
-|:---------------------------- |:------------------- |:---------------------- |
+| `einsum` operation           | Plain NumPy equivalent | Comments |
+| ---------------------------- | ------------------- | ---------------------- |
 | `einsum('ij', A)`            | `A`                     | returns a view of `A`|
 | `einsum('ji', A)`            | `A.T`                   |view of the transpose of `A` |
 | `einsum('ii->i', A)`            | `np.diag(A)`          | view the main diagonal of `A` (by repeating a label for an array) |
@@ -131,6 +131,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
 | `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` | broadcasting: 3D array, each row of `A` multiplied by `B` |  
 | `einsum('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | broadcasting: 4D array, each value of `A` multiplied by `B` |
 
+If you're familiar with these results, it's possible to start applying the ideas to arrays with more dimensions.
  
 ## A few quirks to watch out for
 
