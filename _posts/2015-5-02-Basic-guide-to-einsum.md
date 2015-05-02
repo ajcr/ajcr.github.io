@@ -74,15 +74,15 @@ Then drawing on the labels our matrix multiplication `np.einsum('ij,jk->ik', A, 
 
 To understand how the output array is calculated, remember these three rules:
 
-**(1) Repeating letters between input arrays means that values along those axes will be multiplied together. The products make up the values of the output array.**
+- **Repeating letters between input arrays means that values along those axes will be multiplied together. The products make up the values of the output array.**
 
 In this case, we used the letter `j` twice: once for `A` and once for `B`. This means that we're multiplying the rows of `A` with the columns of `B`. Obviously this will only work if the axis labelled by `j` is the same length in both arrays (or the length is 1 in either array). This is element-wise multiplication.
 
-**(2) Omitting a letter from the output means that values along that axis will be summed.**
+- **Omitting a letter from the output means that values along that axis will be summed.**
 
-Here, `j` is not included in output labelling. Had the output signature been `'ijk'` we would have ended up with a 3x3x3 array of products. Leaving it out sums along the axis and explicitly reduces the number of dimensions in the final array by 1. (And if we gave *no* output labels and just write `->` we'd simply sum the whole array.)
+Here, `j` is not included in output labelling. Had the output signature been `'ijk'` we would have ended up with a 3x3x3 array of products. Leaving it out sums along the axis and explicitly reduces the number of dimensions in the final array by 1. (And if we gave *no* output labels but just write the arrow, we'd simply sum the whole array.)
 
-**(3) We can return the unsummed axes in any order we like.**
+- **We can return the unsummed axes in any order we like.**
 
 If we leave out the arrow `'->'`, NumPy will take the labels that appeared once and arrange them in alphabetical order (so in fact `'ij,jk->ik'` is equivalent to just `'ij,jk'`). If we wanted to control what our output looked we can choose the order of the output labels ourself. For example, `'ij,jk->ki'` delivers the transpose of the matrix multiplication (notice that `k` and `i` were switched in the output labelling). 
 
@@ -99,6 +99,12 @@ That's really all you need to start using `einsum`. Knowing how to multiply diff
 Below are two tables showing how `einsum` can stand in for various NumPy operations. It's useful to play about with these to get the hang of the notation.
 
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
+
  
 | `einsum` operation           | Plain NumPy equivalent | Comments                |
 | ---------------------------- | ---------------------- | --------------------- |
@@ -106,7 +112,7 @@ Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broa
 | `einsum('i->', A)`           | `np.sum(A)`              | sums the values of `A`  |
 | `einsum('i,i->i', A, B)`      | `A * B`                | element-wise multiplication of `A` and `B`|
 | `einsum('i,i', A, B)`        | `np.inner(A, B)` **or** `(A * B).sum()` | inner product of `A` and `B` |
-| `einsum('i,j', A, B)`    | `np.outer(A, B)` **or** `A[:, None] * B` | outer product. `'i,j->ji'` transposes the outer product |
+| `einsum('i,j', A, B)`    | `np.outer(A, B)` **or** `A[:, None] * B` | outer product, `'i,j->ji'` transposes the outer product |
 
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
@@ -122,10 +128,10 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
 | `einsum('ij->i', A)`          | `np.sum(A, axis=1)`    | sums the rows of `A` |
 | `einsum('ij,ij->ij', A, B)`  | `A * B`    | element-wise multiplication of `A` and `B` |
 | `einsum('ij,ji->ij', A, B)` | `A * B.T`   | element-wise multiplication of `A` and `B.T` |
-| `einsum('ij,jk', A, B)`  | `np.dot(A, B)`    | matrix multiplication of `A` and `B`. To return the transpose, append `'->ki'` |
+| `einsum('ij,jk', A, B)`  | `np.dot(A, B)`    | matrix multiplication of `A` and `B`, to return the transpose, append `'->ki'` |
 | `einsum('ij,jk->ij', A, B)` | `np.inner(A, B)` | inner product of `A` and `B` (sum product over the last axes) |
-| `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` | broadcasting: 3D array, each row of `A` multiplied by `B` |  
-| `einsum('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | broadcasting: 4D array, each value of `A` multiplied by `B` |
+| `einsum('ij,jk->ijk', A, B)` | `A[:, None] * B` | broadcasting, 3D array, each row of `A` multiplied by `B` |  
+| `einsum('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | broadcasting, 4D array, each value of `A` multiplied by `B` |
 
 If you're familiar with these results, it's possible to start applying the ideas to arrays with more dimensions.
  
