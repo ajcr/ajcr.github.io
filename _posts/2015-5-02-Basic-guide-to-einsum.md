@@ -99,18 +99,18 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
 
-| `einsum` function call           | Typical NumPy equivalent | Comments                |
+| **`einsum` function call**           | **Typical NumPy equivalent** | **Comments**                |
 | ---------------------------- | ---------------------- | --------------------- |
 | `('i', A)`             | `A`                      | returns a view of `A`|
 | `('i->', A)`           | `sum(A)`              | sums the values of `A`  |
-| `('i,i->i', A, B)`      | `A * B`                | element-wise multiplication of `A` and `B`|
-| `('i,i', A, B)`        | `inner(A, B)` **or** `(A * B).sum()` | inner product of `A` and `B` |
-| `('i,j', A, B)`    | `outer(A, B)` **or** `A[:, None] * B` | outer product, `'i,j->ji'` transposes |
+| `('i,i->i', A, B)`      | `A * B`                | element multiplication of `A` and `B`|
+| `('i,i', A, B)`        | `inner(A, B)` | inner product of `A` and `B` |
+| `('i,j', A, B)`    | `outer(A, B)`  | outer product of `A` and `B` |
 
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
 
-| `einsum` function call   | Typical NumPy equivalent | Comments |
+| **`einsum` function call**   | **Typical NumPy equivalent** | **Comments** |
 | ---------------------------- | ------------------- | ---------------------- |
 | `('ij', A)`            | `A`                     | returns a view of `A`|
 | `('ji', A)`            | `A.T`                   |view of the transpose of `A` |
@@ -119,12 +119,12 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
 | `('ij->', A)`          | `sum(A)`             | sums the values of `A` |
 | `('ij->j', A)`          | `sum(A, axis=0)`    | sums the columns of `A` |
 | `('ij->i', A)`          | `sum(A, axis=1)`    | sums the rows of `A` |
-| `('ij,ij->ij', A, B)`  | `A * B`    | element-wise multiplication of `A` and `B` |
-| `('ij,ji->ij', A, B)` | `A * B.T`   | element-wise multiplication of `A` and `B.T` |
+| `('ij,ij->ij', A, B)`  | `A * B`    | element multiplication of `A` and `B` |
+| `('ij,ji->ij', A, B)` | `A * B.T`   | element multiplication of `A` and `B.T` |
 | `('ij,jk', A, B)`  | `dot(A, B)`    | matrix multiplication of `A` and `B`|
 | `('ij,jk->ij', A, B)` | `inner(A, B)` | inner product of `A` and `B` |
-| `('ij,jk->ijk', A, B)` | `A[:, None] * B` | 3D array, each row of `A` multiplied by `B` |  
-| `('ij,kl->ijkl', A, B)` | `A[:, :, None, None] * B` | 4D array, each value of `A` multiplied by `B` |
+| `('ij,jk->ijk', A, B)` | `A[:,None]*B` | each row of `A` multiplied by `B` |  
+| `('ij,kl->ijkl', A, B)` | `A[:,:,None,None]*B` | each value of `A` multiplied by `B` |
 
 If you're familiar with these results, it's possible to start applying the ideas to arrays with more dimensions. Just make sure that the axes you want to multiply together are compatible, and drop any labels of axes you want to sum.
  
