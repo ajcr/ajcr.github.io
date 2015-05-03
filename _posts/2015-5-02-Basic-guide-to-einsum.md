@@ -99,7 +99,7 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
 
-| `einsum` operation           | Plain NumPy equivalent | Comments                |
+| `einsum` function call           | Typical NumPy equivalent | Comments                |
 | ---------------------------- | ---------------------- | --------------------- |
 | `('i', A)`             | `A`                      | returns a view of `A`|
 | `('i->', A)`           | `sum(A)`              | sums the values of `A`  |
@@ -110,7 +110,7 @@ Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broa
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
 
-| `einsum` operation           | Plain NumPy equivalent | Comments |
+| `einsum` function call   | Typical NumPy equivalent | Comments |
 | ---------------------------- | ------------------- | ---------------------- |
 | `('ij', A)`            | `A`                     | returns a view of `A`|
 | `('ji', A)`            | `A.T`                   |view of the transpose of `A` |
