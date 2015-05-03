@@ -3,9 +3,9 @@ layout: post
 title: A basic introduction to einsum
 ---
 
-The `einsum` function is one of NumPy's jewels. It can deliver significant increases in speed and efficiency, but on the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a problem. 
+The `einsum` function is one of NumPy's jewels. It can often outperform vanilla array functions in terms of speed and efficiency, thanks to its expressive power and smart loops. On the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a tricky problem. 
 
-There a fair few questions on sites like Stack Overflow that are asking what `einsum` does and how it works, so this post hopes to serve as a basic introduction to the function and what you need to know to begin using it.
+There are quite a few questions on sites like Stack Overflow which ask for the lowdown on what `einsum` does and how it works, so this post hopes to serve as a basic introduction to the function and what you need to know to begin using it.
 
 ## What `einsum` can do
 
