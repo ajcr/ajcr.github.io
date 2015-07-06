@@ -4,4 +4,9 @@ title: About
 permalink: /about/
 ---
 
-Things I like: writing, mathematics and drawing.
+My name's Alex and I like to dabble in a lot of things. Right now, my core interests are drawing, programming, maths and writing.
+
+I'm an analyst by trade, living and working in the UK. If you have any interesting projects and need a hand, or if you're after any of the data I've written about, feel free to get in touch. You can find me at the links below or contact me at ajcriley<at-symbol>gmail.com.
+
+
+
