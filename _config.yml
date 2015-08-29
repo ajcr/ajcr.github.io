@@ -28,7 +28,7 @@ footer-links:
   rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
   twitter: #jekyllrb
   stackoverflow: users/3923281/ajcr
-  careers: alex_riley
+  careers: alex-riley
 
 # Your disqus shortname, entering this will enable commenting on posts
 disqus: ajcr00
