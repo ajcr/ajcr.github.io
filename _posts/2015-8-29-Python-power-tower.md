@@ -9,7 +9,7 @@ In other words, the aim is to take the list and calculate the answer to `3**(2**
 
 Trivial... or so I thought for ten seconds.  
 
-It turns out that this is a bit of a pain to do nicely. Unlike addition and multiplication, exponentiation is not commutative. That is, `x**y` does not necessarily equal `y**x`. This means you can't simply reduce the list using `pow` (Python's built in function for exponentiation) because you'll get 6561, that is `((3**2)**2)**2`). Power towers are collapsed from the top; the list must be reduced 'backwards'.
+It turns out that this is a bit of a pain to do nicely. Unlike addition and multiplication, exponentiation is not commutative. That is, `x**y` does not necessarily equal `y**x`. This means you can't simply reduce the list using `pow` (Python's built in function for exponentiation) because you'll get 6561, that is `((3**2)**2)**2`. Power towers are collapsed from the top; the list must somehow be reduced 'backwards' or 'from the inside-out'.
 
 For a first attempt at turning a list into a power tower, recall that Python is smart enough to evaluate a sequence of powers from right to left:
 
@@ -33,7 +33,7 @@ There has to be a better way! After some pencil-on-paper scribbling, I arrived a
 from functools import reduce # not necessary in Python 2.x
 
 def pow_swap_args(x, y):
-    return y ** x
+    return y**x
 ```
 
 Then we can write:
@@ -43,6 +43,6 @@ Then we can write:
 43046721
 ``` 
 
-This is a definite improvement over using `eval`. Reversing the list takes care of the reduce right-to-left evaluation requirement; a power function with swapped arguments completes the calculation.
+This is a definite improvement over the previous method. Reversing the list takes care of the reduce right-to-left evaluation requirement; a power function with swapped arguments completes the calculation.
 
-I'm still sure there's another nicer way. Ultimately I want to find either a nicer way to swap the arguments of `pow`, or a way to order the list that avoids the need to create a new function. If I discover this elusive better way, I'll post an update here.
+I'm still sure there's another nicer way. I want to find either a nicer way to swap the arguments of `pow`, or a way to order the list that avoids the need to create a new function. Ultimately I'd like to find a fast vectorised way to do this on NumPy arrays instead of lists. If I discover any better ways to make power towers, I'll post an update here.
