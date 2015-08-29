@@ -11,7 +11,7 @@ Trivial... or so I thought for ten seconds.
 
 It turns out that this is a bit of a pain to do nicely. Unlike addition and multiplication, exponentiation is not commutative. That is, `x**y` does not necessarily equal `y**x`. This means you can't simply reduce the list using `pow` (Python's built in function for exponentiation) because you'll get 6561, that is `((3**2)**2)**2`. Power towers are collapsed from the top; the list must somehow be reduced 'backwards' or 'from the inside-out'.
 
-For a first attempt at turning a list into a power tower, recall that Python is smart enough to evaluate a sequence of powers from right to left:
+For a first attempt at turning a list into a power tower, recall that Python is smart enough to evaluate an expression with chained powers from right to left:
 
 ```
 >>> 3**2**2**2
@@ -21,7 +21,7 @@ For a first attempt at turning a list into a power tower, recall that Python is 
 Therefore, if `lst` is your list of numbers `[3, 2, 2, 2]`, you *could* write:
 
 ```
->>> eval('**'.join([str(x) for x in lst])
+>>> eval('**'.join([str(x) for x in lst]))
 43046721
 ```
 
@@ -32,14 +32,14 @@ There has to be a better way! After some pencil-on-paper scribbling, I arrived a
 ```python
 from functools import reduce # not necessary in Python 2.x
 
-def pow_swap_args(x, y):
+def pow_swapped_args(x, y):
     return y**x
 ```
 
-Then we can write:
+Then we can evaluate a list as a power tower by writing:
 
 ```
->>> reduce(pow_swap_args, reversed([3, 2, 2, 2]))
+>>> reduce(pow_swapped_args, reversed([3, 2, 2, 2]))
 43046721
 ``` 
 
