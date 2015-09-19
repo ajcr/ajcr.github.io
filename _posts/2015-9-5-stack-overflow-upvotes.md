@@ -64,16 +64,16 @@ That said, you have easy access to all of the dates that your own posts were vot
 
 As a case study, I'll look at a [question and answer I posted](http://stackoverflow.com/q/30100725/3923281) a while ago. I'd stumbled upon the intricacies of comparing arbitrarily-large integers and floats in Python and wanted to write things up as best I could. The graph below shows how my question/answer was upvoted each day, from publication in May 2015 to the end of August 2015: 
 
-<img src="{{ site.baseurl }}/images/upvotes-over-time.png" "upvotes-over-time" style="width: 1000px;"/>
+<img src="{{ site.baseurl }}/images/upvotes-over-time.png" "upvotes-over-time" />
 
 
-This graph can be divided into three distict parts:
+This graph can be divided visually into three distict parts:
 
 1. The initial surge of upvotes. The post is new and getting a lot of views; two days in and the answer has been upvoted nearly 100 times. After that comes the weekend: a couple of votes on Saturday and nothing on Sunday (did I mention weekends are quiet on Stack Overflow?) On Monday, an avalanche of views and upvotes hits and over the next few days the answer has over 250 upvotes with the question not too far behind.
 
 2. The drift into obscurity. The post is no longer brand new and suddenly gets far fewer views and upvotes. In fact, in the two months between the start of June and end of July, the question was upvoted just 9 times and the question only 6 times. As far as I've seen, this fate is inevitable on Stack Overflow; the site is huge and only very few questions sustain an impressive rate of views and upvotes.
 
-3. The Meta effect. The post is mentioned in a Meta question and large number of users view it out of interest resulting in two-dozen or so upvotes for both the question and answer. The question soon drops off the front page of Meta and the post returns once again to the background of Stack Overflow.
+3. The Meta effect. In early August, the post is mentioned in a Meta question and large number of users view it out of interest resulting in two-dozen or so upvotes for both the question and answer. The question soon drops off the front page of Meta and the post returns once again to the background of Stack Overflow.
 
 So unless you promote or improve your old posts, they could well be lost amongst the vast amounts of new material that pours in to Stack Overflow each day. 
 
