@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Want more upvotes on Stack Overflow? Try playing the long game
+title: Want more upvotes on Stack Overflow? Try playing the slow game
 ---
 
-Stack Overflow, the hugely-popular programming Q&A website, has often been called an online game. To play, you ask interesting questions or provide good answers to other people's questions. Other users will upvote your post (if you're correct and/or wrote something good), netting you wonderful green reputation points. You are competing with other users for those upvotes, pitting your knowledge, quick-thinking and writing skill against theirs. Some people are *very* good at the this game and have earned hundreds of thousands of points.
+Stack Overflow, the hugely-popular programming Q&A website, has often been called an online game. To play, you post correct answers or ask interesting questions. Correct and interesting content is upvoted by other users, netting you precious green reputation points.
 
 The two most common strategies to get a lot of upvotes on Stack Overflow are to:
 
 - answer as many new questions as you can, as quickly as you can.
-- write interesting, well-written posts that people will read and upvote for years to come.
+- choose your target carefully and write interesting, well-written posts that people will read and upvote for years to come.
 
-There's not much to say about the first approach. You wait for someone to ask a question about your favourite programming language and then you answer as quickly as possible. 
+There's not much to say about the first approach. You wait for someone to ask a question about your favourite programming language and then you answer. You have to be very quick, as there are usually a lot of people waiting to answer.
 
-The second approach is more interesting. Not only do you improve the quality and longevity of the site when you post well-written content, but you have more opportunities to maximise the chances that as many people as possible will upvote you. This post looks at some of these strategies and how successfully they can earn you reputation. 
+The second approach is more interesting. Not only do you improve the quality and longevity of the site when you post well-written content, but you have more opportunities to maximise the chances that as many people as possible will upvote you. This post looks at some of these strategies and how playing the slow game can earn you reputation. 
 
 ### Answer old questions that get lots of views
 
@@ -77,4 +77,4 @@ This graph can be divided into three distict parts:
 
 So unless you promote or improve your old posts, they could well be lost amongst the vast amounts of new material that pours in to Stack Overflow each day. 
 
-All things considered, try and play the long game on Stack Overflow whenever you can. Post quality content, improve posts where needed and promote links to the site. You're highly likely to be repaid with upvotes, although how many depends a little on luck, just like any other game.
+All things considered, try and play the slow game on Stack Overflow whenever you can. Post quality content, improve posts where needed and promote links to the site. You're highly likely to be repaid with upvotes, although how many depends a little on luck, just like any other game.
