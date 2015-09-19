@@ -1,9 +1,7 @@
 ---
 layout: post
-title: Want more upvotes on Stack Overflow? Try playing the long game.
+title: Want more upvotes on Stack Overflow? Try playing the long game
 ---
-
-*Before I begin I should point out that Stack Overflow is first-and-foremost about sharing knowledge and helping others, not about gaining reputation points.*
 
 Stack Overflow, the hugely-popular programming Q&A website, has often been called an online game. To play, you ask interesting questions or provide good answers to other people's questions. Other users will upvote your post (if you're correct and/or wrote something good), netting you wonderful green reputation points. You are competing with other users for those upvotes, pitting your knowledge, quick-thinking and writing skill against theirs. Some people are *very* good at the this game and have earned hundreds of thousands of points.
 
@@ -12,24 +10,28 @@ The two most common strategies to get a lot of upvotes on Stack Overflow are to:
 - answer as many new questions as you can, as quickly as you can.
 - write interesting, well-written posts that people will read and upvote for years to come.
 
-There's not much to say about the first approach. You wait for someone to ask a question about your favourite programming language and then you answer as quickly as possible. Most questions in popular tags attract a lot of views when they are new. If you beat other to the correct answer, chances are you that will be rewarded with a few upvotes; more if you wrote well, or solved a challenging problem in an elegant way. From time to time, a question resonates with a lot of people, gets picked up by Stack Overflow's 'hot question' algorithm and then the views and votes come thick and fast. All you need is some basic knowledge, fast fingers for typing and the occasional bit of luck.
+There's not much to say about the first approach. You wait for someone to ask a question about your favourite programming language and then you answer as quickly as possible. 
 
 The second approach is more interesting. Not only do you improve the quality and longevity of the site when you post well-written content, but you have more opportunities to maximise the chances that as many people as possible will upvote you. This post looks at some of these strategies and how successfully they can earn you reputation. 
 
 ### Answer old questions that get lots of views
 
-You want your answers to be seen by a lot of people because views lead to upvotes. However, many questions on Stack Overflow are viewed just a few dozen times when they're new and then not viewed much at all after that. It's a good idea to look for slightly older questions that have a lot of views already. This means that a lot of people find that page (perhaps it's indexed by a major search engine) and a lot of them might be eligible to upvote. Study the existing answers and add another if you have something new to say: perhaps the existing answers don't provide the best way to do something in the most current release of a language, or maybe a crucial technical consideration has been overlooked. Write well and it's likely that people will upvote your post, too.
+You want your answers to be seen by a lot of people because views lead to upvotes. 
 
-How many upvotes can you get by answering old questions? The histogram below shows the number of answers wich have 100 or more upvotes, and how many days after the original question those answers were posted. We can see that most 'great answers' are posted within 30 days of the question being asked, but a significant number are posted one month or more later. One great answer ([this one](http://stackoverflow.com/a/30810322/3923281)) was posted a staggering 2355 days after the question appeared. In short, writing a quality answer to a popular old question can be very lucrative.
+However, many questions on Stack Overflow are viewed just a few dozen times when they're new and then not viewed much at all after that. It's a good idea to look for slightly older questions that have a lot of views already. Study the existing answers and add another if you have something new to say: perhaps the existing answers don't provide the best way to do something in the most current release of a language, or maybe a crucial technical consideration has been overlooked. Write well and it's likely that people will upvote your post, too.
+
+How many upvotes can you get by answering old questions? 
+
+The histogram below shows the number of answers wich have 100 or more upvotes, and how many days after the original question those answers were posted. We can see that most 'great answers' are posted within 30 days of the question being asked, but a significant number are posted one month or more later. One great answer ([this one](http://stackoverflow.com/a/30810322/3923281)) was posted a staggering 2355 days after the question appeared. Writing a quality answer to a popular old question can be very lucrative.
 
 <img src="{{ site.baseurl }}/images/great-answers.png" "great answers" style="width: 1000px;"/>
 
-Data collected using [this SQL query](http://data.stackexchange.com/stackoverflow/query/353836/high-scoring-late-answers).
+(Data collected using [this SQL query](http://data.stackexchange.com/stackoverflow/query/353836/high-scoring-late-answers).)
 
 
 ### Ask your own question *and* answer it
 
-Asking and answering your own question is encouraged on Stack Overflow. The advantage of this is from a points perspective is that you've got all the time in the world to make the posts as perfect as possible. People want to upvote quality answers to meaningful questions and Stack Overflow lets you deliver both simultaneously. Also, because you're posting brand new content, it's likely it'll be viewed a lot it in a short period of time. 
+Asking and answering your own question is encouraged on Stack Overflow. The advantage of doing this is from a points perspective is that you've got all the time in the world to make the posts as perfect as possible. People want to upvote quality answers to meaningful questions and Stack Overflow lets you deliver both simultaneously. Also, because you're posting brand new content, it's likely it'll be viewed a lot it in a short period of time.
 
 Think of it as a blog post or text book chapter: ask how something works or why something is implemented a particular way, then answer the question as comprehensively as possible. Here are three useful ingredients that go towards making an upvote-worthy question/self-answer:
 
