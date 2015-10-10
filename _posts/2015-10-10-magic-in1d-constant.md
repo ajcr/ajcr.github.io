@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Picking the magic number for in1d
+title: Picking magic numbers for numpy.in1d
 ---
 
 If you've played about with NumPy before, you'll probably know that given two arrays of numbers, `ar1` and `ar2`, the function [`in1d`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.in1d.html) returns a boolean array indicating whether or not each number in `ar1` appears somewhere in `ar2`. Very useful!
@@ -24,21 +24,17 @@ It turns out that the fast path with the inequality above was introduced back in
 
 Perfect: the constants were derived by experiment and, whatsmore, the original script to compare the two paths [still exists](http://projects.scipy.org/numpy/attachment/ticket/1603/setmember.py). The following contour plot originally produced by the script was attached, showing why 0.145 (the red dotted line) was a good choice for the inequality:
 
-<img src="{{ site.baseurl }}/images/n1d-setmember-script-original.png" "original-plot" style="width: 800px;"/>
+<img src="{{ site.baseurl }}/images/in1d-setmember-script-original.png" "original-plot" style="width: 800px;"/>
 
 Here the contours are time ratios; the 0.0 contour follows where the fast path and default path were equal. Lower contours show where the fast path is fater, higher contours show where it is slower.
 
 Is it still the case that 0.145 is the best choice today? I mean NumPy has been developed and improved since 2011, and operations such as indexing and sorting have been optimised further. Curious, I re-ran the script on my own machine with only some minor sytactical changes (hello from Python 3). The original red dotted line is drawn on for comparison:
 
-<img src="{{ site.baseurl }}/images/n1d-setmember-script-my-run.png" "my-plot" style="width: 800px;"/>
+<img src="{{ site.baseurl }}/images/in1d-setmember-script-my-run.png" "my-plot" style="width: 800px;"/>
 
 Not so good! The red line misses the 0.0 contour completely. It needs a higher value to intercept it and could also do with a steeper gradient. If I were tasked with the tricky problem of picking new constants, it seems reasonable to go with the inequality `len(ar2) < 8 * len(ar1) ** 0.25`. Here's what that red dotted line looks like:
 
-<img src="{{ site.baseurl }}/images/n1d-setmember-script-my-run.png" "my-plot-2" style="width: 800px;"/>
+<img src="{{ site.baseurl }}/images/in1d-setmember-script-my-run-new-constants.png" "my-plot-2" style="width: 800px;"/>
 
 Interesting graphs aside, I don't recommend that you rush to patch your `in1d` function with new "better" constants. If performance really matters, it would better to test which path is faster for the size of arrays you're working with and then use a custom function containing the speedier code.
-
-
-
-
 
