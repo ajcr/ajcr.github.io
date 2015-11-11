@@ -110,33 +110,33 @@ Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broad
 </style>
 <table class="tg">
   <tr>
-    <th class="tg-baqh">call signature</th>
-    <th class="tg-baqh">NumPy equivalent</th>
-    <th class="tg-baqh">Description</th>
+    <th class="tg-baqh"><b>Call signature</b></th>
+    <th class="tg-baqh"><b>NumPy equivalent</b></th>
+    <th class="tg-baqh"><b>Description</b></th>
   </tr>
   <tr>
-    <td class="tg-yw4l">('i', A)</td>
-    <td class="tg-yw4l">A</td>
+    <td class="tg-yw4l"><code>('i', A)</code></td>
+    <td class="tg-yw4l"><code>A</code></td>
     <td class="tg-yw4l">returns a view of A</td>
   </tr>
   <tr>
-    <td class="tg-yw4l">('i-&gt;', A)</td>
-    <td class="tg-yw4l">sum(A)</td>
+    <td class="tg-yw4l"><code>('i-&gt;', A)</code></td>
+    <td class="tg-yw4l"><code>sum(A)</code></td>
     <td class="tg-yw4l">sums the values of A</td>
   </tr>
   <tr>
-    <td class="tg-yw4l">('i,i-&gt;i', A, B)</td>
-    <td class="tg-yw4l">A * B</td>
+    <td class="tg-yw4l"><code>('i,i-&gt;i', A, B)</code></td>
+    <td class="tg-yw4l"><code>A * B</code></td>
     <td class="tg-yw4l">element mult. of A and B</td>
   </tr>
   <tr>
-    <td class="tg-yw4l">('i,i', A, B)</td>
-    <td class="tg-yw4l">inner(A, B)</td>
+    <td class="tg-yw4l"><code>('i,i', A, B)</code></td>
+    <td class="tg-yw4l"><code>inner(A, B)</code></td>
     <td class="tg-yw4l">inner product of A and B</td>
   </tr>
   <tr>
-    <td class="tg-yw4l">('i,j', A, B)</td>
-    <td class="tg-yw4l">outer(A, B)</td>
+    <td class="tg-yw4l"><code>('i,j', A, B)</code></td>
+    <td class="tg-yw4l"><code>outer(A, B)</code></td>
     <td class="tg-yw4l">outer product of A and B</td>
   </tr>
 </table>
