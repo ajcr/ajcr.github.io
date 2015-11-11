@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A basic introduction to einsum
+title: A basic introduction to NumPy's einsum
 ---
 
 The `einsum` function is one of NumPy's jewels. It can often outperform familiar array functions in terms of speed and memory efficiency, thanks to its expressive power and smart loops. On the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a tricky problem. 
@@ -31,14 +31,14 @@ How do we normally do this in NumPy? The first thing to notice is that we need t
 
 Putting this together, we have:
 
-``` python
+```
 >>> (A[:, np.newaxis] * B).sum(axis=1)
 array([ 0, 22, 76])
 ```
 
 This works fine, but, using `einsum`, we can do better:
 
-``` python
+```
 >>> np.einsum('i,ij->i', A, B)
 array([ 0, 22, 76])
 ```
