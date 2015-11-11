@@ -3,23 +3,23 @@ layout: post
 title: A basic introduction to einsum
 ---
 
-The `einsum` function is one of NumPy's jewels. It can often outperform vanilla array functions in terms of speed and efficiency, thanks to its expressive power and smart loops. On the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a tricky problem. 
+The `einsum` function is one of NumPy's jewels. It can often outperform familiar array functions in terms of speed and memory efficiency, thanks to its expressive power and smart loops. On the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a tricky problem. 
 
-There are quite a few questions on sites like Stack Overflow which ask for the lowdown on what `einsum` does and how it works, so this post hopes to serve as a basic introduction to the function and what you need to know to begin using it.
+There are quite a few questions on sites like Stack Overflow which about what `einsum` does and how it works, so this post hopes to serve as a basic introduction to the function and what you need to know to begin using it.
 
-## What `einsum` can do
+## What `einsum` does
 
-Suppose you have two arrays, `A` and `B`. Now suppose that you want to:
+Suppose you have two arrays, `A` and `B`. Now suppose that we want to:
 
 - **multiply** `A` with `B` in a particular way to create new array of products, *and then maybe*
 - **sum** this new array along particular axes, *and/or*
 - **transpose** the axes of the array in a particular order.
 
-Then there's a very good chance `einsum` will help you do this much faster and more memory-efficiently that combinations of the NumPy functions `multiply`, `sum` and `transpose` will allow.
+Then there's a good chance `einsum` will help us do this much faster and more memory-efficiently that combinations of the NumPy functions `multiply`, `sum` and `transpose` would allow.
 
-As a small example of `einsum`'s power, here are two arrays that we want to multiply element-wise and then sum along axis 1 (the rows):
+As a small example of the function's power, here are two arrays that we want to multiply element-wise and then sum along axis 1 (the rows of the array):
 
-``` python
+```
 A = np.array([0, 1, 2])
 
 B = np.array([[ 0,  1,  2,  3],
@@ -27,12 +27,12 @@ B = np.array([[ 0,  1,  2,  3],
               [ 8,  9, 10, 11]])
               
 ```
-How do we normally do this in NumPy? The first thing to notice is that we need to reshape `A` so that we can broadcast it with `B` (specifically `A` needs to be column vector). Then we can multiply `0` with the first row of `B`, multiply `1` with the second row, and `2` with the third row. This will give use a new array and the three rows can then be summed.
+How do we normally do this in NumPy? The first thing to notice is that we need to reshape `A` so that we can broadcast it with `B` (specifically `A` needs to be column vector). Then we can multiply `0` with the first row of `B`, multiply `1` with the second row, and `2` with the third row. This will give us a new array and the three rows can then be summed.
 
 Putting this together, we have:
 
 ``` python
->>> (A[:, np.newaxis] * B).sum(axis=0)
+>>> (A[:, np.newaxis] * B).sum(axis=1)
 array([ 0, 22, 76])
 ```
 
@@ -45,26 +45,31 @@ array([ 0, 22, 76])
 
 Even for this tiny example, I timed `einsum` to be about three times faster. 
 
-Why? We didn't need to reshape `A` and, most importantly, the multiplication didn't create a temporary array like `A[:, np.newaxis] * B` did. Instead, `einsum` simply summed the products along the rows as it went and returned them in an array.
+This is because we didn't need to reshape/index `A` and, most importantly, the multiplication didn't create a temporary array like `A[:, np.newaxis] * B` did. Instead, `einsum` simply summed the products along the rows as it went.
 
 ## How to use `einsum`
 
-To use `einsum` we need to label the axes of the arrays that we want to operate on. 
+The key is to choose the correct labelling for the axes of the inputs arrays and the array that we want to get out. 
 
-The function lets us do that in one of two ways: using a string of letters, or using lists of integers. For simplicity, this post will stick to the first option (which appears to be the more commonly used of the two).
+The function lets us do that in one of two ways: using a string of letters, or using lists of integers. For simplicity, we'll stick to the strings (this appears to be the more commonly used of the two options).
 
-Take the matrix multiplication example from the documentation. For two 2D arrays `A` and `B`, matrix multiplication can be done with `np.einsum('ij,jk->ik', A, B)`.
+A good example to look at is matrix multiplication, which involves multiplying rows with columns and then summing the products. For two 2D arrays `A` and `B`, matrix multiplication can be done with `np.einsum('ij,jk->ik', A, B)`.
 
-What does this string mean? Well, think of `'ij,jk->ik'` as split in two at the arrow `->`. The left-hand part labels the axes of the *input* arrays: `'ij'` labels `A` and `'jk'` labels `B`. The right-hand part of the string labels the axes of the single *output* array with the letters `'ik'`. In other words, we're putting two 2D arrays in and getting a new 2D array out.
+What does this string mean? Think of `'ij,jk->ik'` as split in two at the arrow `->`. The left-hand part labels the axes of the *input* arrays: `'ij'` labels `A` and `'jk'` labels `B`. The right-hand part of the string labels the axes of the single *output* array with the letters `'ik'`. In other words, we're putting two 2D arrays in and we want a new 2D array out.
 
-Here's a picture to show what's going on. The two arrays I'll use are:
+The two arrays we'll multiply are:
 
-``` python
-A = np.array([[1, 1, 1],[2, 2, 2],[5, 5, 5]])
-B = np.array([[0, 1, 0],[1, 1, 0],[1, 1, 1]])
+```
+A = np.array([[1, 1, 1],
+              [2, 2, 2],
+              [5, 5, 5]])
+
+B = np.array([[0, 1, 0],
+              [1, 1, 0],
+              [1, 1, 1]])
 ```
 
-Then drawing on the labels our matrix multiplication `np.einsum('ij,jk->ik', A, B)` looks like this:
+Drawing on the labels, our matrix multiplication with `np.einsum('ij,jk->ik', A, B)` looks like this:
 
 <img src="{{ site.baseurl }}/images/matrix_mul_reduce.png" "colour-pairs" style="width: 500px;"/>
 
@@ -72,7 +77,7 @@ To understand how the output array is calculated, remember these three rules:
 
 - **Repeating letters between input arrays means that values along those axes will be multiplied together. The products make up the values for the output array.**
 
-In this case, we used the letter `j` twice: once for `A` and once for `B`. This means that we're multiplying each row of `A` with each column of `B`. Obviously this will only work if the axis labelled by `j` is the same length in both arrays (or the length is 1 in either array).
+In this case, we used the letter `j` twice: once for `A` and once for `B`. This means that we're multiplying each row of `A` with each column of `B`. This will only work if the axis labelled by `j` is the same length in both arrays (or the length is 1 in either array).
 
 - **Omitting a letter from the output means that values along that axis will be summed.**
 
@@ -88,13 +93,13 @@ It should now be easier to see how the matrix multiplication worked. This image 
 
 Note that with `np.einsum('ij,jk->ik', A, B)`, the function doesn't construct a 3D array and then sum, it just accumulates the sums into a 2D array.
 
-## A glossary of simple operations
+## A handful of simple operations
 
-That's really all you need to start using `einsum`. Knowing how to multiply different axes together and then how to sum the products, we can express a lot of different operations succinctly. This allows us to generalise problems to higher-dimensions relatively easily. 
+That's all we need to know to start using `einsum`. Knowing how to multiply different axes together and then how to sum the products, we can express a lot of different operations succinctly. This allows us to generalise problems to higher-dimensions relatively easily. For example, we don't have to insert new axes or transpose arrays to get them to line up correctly.
 
 Below are two tables showing how `einsum` can stand in for various NumPy operations. It's useful to play about with these to get the hang of the notation.
 
-Let `A` and `B` be two 1D arrays of compatible shapes (i.e. one axis can be broadcast to the other):
+Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broadcastable with the other):
 
 | **`einsum` call signature**           | **NumPy equivalent** | **Comments**                |
 | ---------------------------- | ---------------------- | --------------------- |
@@ -123,22 +128,22 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
 | `('ij,jk->ijk', A, B)`  | `A[:,None]*B` | each row of `A` multiplied by `B` |  
 | `('ij,kl->ijkl', A, B)`   | `A[:,:,None,None]*B` | each value of `A` multiplied by `B` |
 
-As you start to work with larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with `b`. There are more examples in the documentation.
+When workng larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with `b`. There are more examples in the documentation.
  
 ## A few quirks to watch out for
 
-Here a few things to be mindful of when using the function.
+Here a few things to be mindful/wary of when using the function.
 
-`einsum` [does not promote datatypes when summing](http://stackoverflow.com/a/18366008/3923281). If you're using a more limited datatype, you might get unexpected results: 
+`einsum` [does not promote data types when summing](http://stackoverflow.com/a/18366008/3923281). If you're using a more limited datatype, you might get unexpected results: 
 
-``` python
+```
 >>> a = np.ones(300, dtype=np.int8)
 >>> np.sum(a) # correct result
 300
->>> np.einsum('i->', a) # incorrect result
+>>> np.einsum('i->', a) # produces incorrect result
 44
 ```
 
-`einsum` [might not permute axes in the intended order](http://stackoverflow.com/a/28233465/3923281). The documentation highlights `np.einsum('ji', M)` as a way to transpose a 2D array. You'd be forgiven for thinking that for a 3D array, `np.einsum('kij', M)` moves the last axis to the first position and shifts the first two axes along. Actually, `einsum` creates its own output labelling by rearranging labels in alphabetical order. Therefore `'kij'` becomes `'kij->ijk'` and we have a sort of inverse permutation instead.
+Also `einsum` [might not permute axes in the order inteded](http://stackoverflow.com/a/28233465/3923281). The documentation highlights `np.einsum('ji', M)` as a way to transpose a 2D array. You'd be forgiven for thinking that for a 3D array, `np.einsum('kij', M)` moves the last axis to the first position and shifts the first two axes along. Actually, `einsum` creates its own output labelling by rearranging labels in alphabetical order. Therefore `'kij'` becomes `'kij->ijk'` and we have a sort of inverse permutation instead.
 
-Finally, `einsum` is not always the fastest option in NumPy. Functions such as `dot` and `inner` often link to lightening-quick BLAS routines which can outperform `einsum` and certainly shouldn't be forgotten about. The `tensordot` function is also worth comparing for speed. If you search around, you'll find examples of posts highlighting cases where `einsum` appears to be slow, especially when operating on several arrays (such as [this GitHub issue](https://github.com/numpy/numpy/issues/5366)).
+Finally, `einsum` is not always the fastest option in NumPy. Functions such as `dot` and `inner` often link to lightening-quick BLAS routines which can outperform `einsum` and certainly shouldn't be forgotten about. The `tensordot` function is also worth comparing for speed. If you search around, you'll find examples of posts highlighting cases where `einsum` appears to be slow, especially when operating on several input arrays (such as [this GitHub issue](https://github.com/numpy/numpy/issues/5366)).
