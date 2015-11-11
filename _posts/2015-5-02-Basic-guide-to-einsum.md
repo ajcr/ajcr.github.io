@@ -101,14 +101,38 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broadcastable with the other):
 
-| **`einsum` call signature**           | **NumPy equivalent** | **Comments**                |
-| ---------------------------- | ---------------------- | --------------------- |
-| `('i', A)`             | `A`                      | returns a view of `A`|
-| `('i->', A)`           | `sum(A)`              | sums the values of `A`  |
-| `('i,i->i', A, B)`      | `A * B`                | element mult. of `A` and `B`|
-| `('i,i', A, B)`        | `inner(A, B)` | inner product of `A` and `B` |
-| `('i,j', A, B)`    | `outer(A, B)`  | outer product of `A` and `B` |
-
+<table>
+  <tr>
+    <th>Call signature</th>
+    <th>NumPy equivalent</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>('i', A)</code></td>
+    <td><code>A</code></td>
+    <td>returns a view of A</td>
+  </tr>
+  <tr>
+    <td><code>('i-&gt;', A)</code></td>
+    <td><code>sum(A)</code></td>
+    <td>sums the values of A</td>
+  </tr>
+  <tr>
+    <td><code>('i,i-&gt;i', A, B)</code></td>
+    <td><code>A * B</code></td>
+    <td>element mult. of A and B</td>
+  </tr>
+  <tr>
+    <td><code>('i,i', A, B)</code></td>
+    <td><code>inner(A, B)</code></td>
+    <td>inner product of A and B</td>
+  </tr>
+  <tr>
+    <td><code>('i,j', A, B)</code></td>
+    <td><code>outer(A, B)</code></td>
+    <td>outer product of A and B</td>
+  </tr>
+</table>
 
 Now let `A` and `B` be two 2D arrays with compatible shapes:
 
