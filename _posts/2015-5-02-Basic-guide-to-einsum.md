@@ -101,36 +101,43 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broadcastable with the other):
 
-<table>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
   <tr>
-    <th>Call signature</th>
-    <th>NumPy equivalent</th>
-    <th>Description</th>
+    <th class="tg-baqh">call signature</th>
+    <th class="tg-baqh">NumPy equivalent</th>
+    <th class="tg-baqh">Description</th>
   </tr>
   <tr>
-    <td><code>('i', A)</code></td>
-    <td><code>A</code></td>
-    <td>returns a view of A</td>
+    <td class="tg-yw4l">('i', A)</td>
+    <td class="tg-yw4l">A</td>
+    <td class="tg-yw4l">returns a view of A</td>
   </tr>
   <tr>
-    <td><code>('i-&gt;', A)</code></td>
-    <td><code>sum(A)</code></td>
-    <td>sums the values of A</td>
+    <td class="tg-yw4l">('i-&gt;', A)</td>
+    <td class="tg-yw4l">sum(A)</td>
+    <td class="tg-yw4l">sums the values of A</td>
   </tr>
   <tr>
-    <td><code>('i,i-&gt;i', A, B)</code></td>
-    <td><code>A * B</code></td>
-    <td>element mult. of A and B</td>
+    <td class="tg-yw4l">('i,i-&gt;i', A, B)</td>
+    <td class="tg-yw4l">A * B</td>
+    <td class="tg-yw4l">element mult. of A and B</td>
   </tr>
   <tr>
-    <td><code>('i,i', A, B)</code></td>
-    <td><code>inner(A, B)</code></td>
-    <td>inner product of A and B</td>
+    <td class="tg-yw4l">('i,i', A, B)</td>
+    <td class="tg-yw4l">inner(A, B)</td>
+    <td class="tg-yw4l">inner product of A and B</td>
   </tr>
   <tr>
-    <td><code>('i,j', A, B)</code></td>
-    <td><code>outer(A, B)</code></td>
-    <td>outer product of A and B</td>
+    <td class="tg-yw4l">('i,j', A, B)</td>
+    <td class="tg-yw4l">outer(A, B)</td>
+    <td class="tg-yw4l">outer product of A and B</td>
   </tr>
 </table>
 
