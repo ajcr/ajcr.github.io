@@ -5,21 +5,23 @@ title: Words nobody wants for websites
 
 There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/domain-registry-products/zone-file-information/index.xhtml) .com and .net domain names. Is every single English word being used?
 
-Not at all. Checking the domains against a list of over 375,000 words, names and places, it turns out that only around 64% are actually in use. What's more, the most popular words (*online*, *group*, *design*, etc.) are incredibly popular. In fact, just over 1,000 words account for half of all words in registered .com and .net domains. 
+Curious, I hatched a plan and found the answer: **not at all**.
 
-This means that the pool of unused or rarely-used words is very large indeed.
+By my reckoning, only around 64% of all recognisable English are actually in use. What's more, the most popular words (*online*, *group*, *design*, etc.) are incredibly common. In fact, just over 1,000 English words account for *half* of all words that appear in registered .com and .net domains. 
+
+The pool of rarely-used words is very large indeed!
 
 <img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
 
 ---
 
-To find all of this out, I took a list of 130 million domains and split every one back into distinct words. For example, *buycheapcars.com* becomes *buy cheap cars* while *dropbox.com* becomes *drop box*. I then counted how many times each individual word appeared.
+To find out what this pool contains, I decided to take a list of 130 million domains and split every single one back into distinct words. For example, *buycheapcars.com* splits into three words: *buy cheap cars*. The domain name *dropbox.com* becomes *drop box*. I would then counted how many times each individual word appeared.
 
-This is especially useful because it prevents common substrings from being counted too frequently: *buycheapcars.com* contributes just three words. Subwords such as *heap* and *car* do not get counted at all here.
+This methodology is good, I reasoned, because it prevents common substrings from being counted too frequently and making the counts biased. For example, *sandinmyeyes.com* would contribute just three words (*sand*, *in*, *my*, *eyes*). Subwords such as *and*, *din* and *yey* do not get counted at all. This is good because no straight-thinking person would think the domain owner intended to choose those words.
 
-Splitting is not a trivial problem and took me a little while to work out. There might be many different ways to break up the domain into recognisable words and finding the "correct" way could require some advanced natural language processing (which I ideally wanted to avoid). After some experimentation, I found that simply splitting to the fewest words possible gave the most accurate-looking results and also had the advantage of being much faster than finding and comparing all possible splits. I decided that any domain than could not be split cleanly would be discarded. I wrote a short program based on [this function](https://github.com/ajcr/string-splitter/blob/master/splitter.py) to read a list of English words and spit out the words making up each domain name.
+Splitting strings is not a trivial problem however. There could be many different ways to break up the domain into recognisable words; finding the "correct" way could require some advanced natural language processing. This is difficult to implement, computationally expensive and I wanted more immediate gratification. After some experiments, I found that simply splitting into the *fewest* words possible gave accurate-looking results. This also had the advantage of avoiding the comparison of all possible splits. I decided that any domain than could not be split cleanly would be discarded. My final function was based on [this function](https://github.com/ajcr/string-splitter/blob/master/splitter.py) I wrote some time ago.
 
-My computer ground through the 130 million domains in about four hours, only failing to split 18 million gobbledegook domains. A bit of cleaning up and I had a long list of 356,580,878 words. The computer whirred for a few more minutes while it counted them.
+Not optimised, but fast enough. My computer churned through the 130 million domains in about four hours, only failing to split 18 million gobbledegook domains. A bit of cleaning up and I had a long list of 356,580,878 words (looks like domains contain an average of 2-3 words). The computer whirred for a few more minutes while it counted them and then was quiet.
 
 ---
 
@@ -38,8 +40,8 @@ The shortest English word that did not appear in any domain was the five-letter 
 
 Reading through a list of words that appeared only once, I saw **_seqed_** and learned that it is an ancient Egyptian unit of measurement. I smiled at **_winced_**, **_gobbed_** and **_plebby_**. I was surprised that **_meatiest_** is so underused.
 
-As a rule, longer words are used infrequently. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in just five domains. There are two other 29-letter words, each appearing only once: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. These are both powerful explosives.
+Predictably, longer words are used less frequently than shorter words. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in just five domains. There are two other 29-letter words, each appearing only once: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. These are both powerful explosives.
 
-Lastly, I checked a list of first names for any which weren't being used. Most are accounted for, but the woman's names **_Goldarina_** and **_Elladine_** are nowhere to be found. If you're male, you've no hope of being unique unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
+Lastly, I checked a list of first names for any which weren't being used. Most are accounted for, but the woman's names **_Goldarina_** and **_Elladine_** are nowhere to be found. If you're male, you've no hope of owning a unique domain unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
 
 However vast the Internet may be, there's still a long way to go before it exhausts the English language.

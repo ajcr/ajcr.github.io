@@ -36,16 +36,14 @@ Putting this together, we have:
 array([ 0, 22, 76])
 ```
 
-This works fine, but, using `einsum`, we can do better:
+This works fine, but using `einsum` we can do better:
 
 ```
 >>> np.einsum('i,ij->i', A, B)
 array([ 0, 22, 76])
 ```
 
-Even for this tiny example, I timed `einsum` to be about three times faster. 
-
-This is because we didn't need to reshape/index `A` and, most importantly, the multiplication didn't create a temporary array like `A[:, np.newaxis] * B` did. Instead, `einsum` simply summed the products along the rows as it went.
+Why better? In short because we didn't need to reshape `A` at all and, most importantly, the multiplication didn't create a temporary array like `A[:, np.newaxis] * B` did. Instead, `einsum` simply summed the products along the rows as it went. Even for this tiny example, I timed `einsum` to be about three times faster. 
 
 ## How to use `einsum`
 
