@@ -42,6 +42,6 @@ Reading through a list of words that appeared only once, I saw **_seqed_** and l
 
 Predictably, longer words are used less frequently than shorter words. That well-known 29-letter word **_floccinaucinihilipilification_** makes an appearance in just five domains. There are two other 29-letter words, each appearing only once: **_trinitrophenylmethylnitramine_** and **_cyclotrimethylenetrinitramine_**. These are both powerful explosives.
 
-Lastly, I checked a list of first names for any which weren't being used. Most are accounted for, but the woman's names **_Goldarina_** and **_Elladine_** are nowhere to be found. If you're male, you've no hope of owning a unique domain unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
+Armed with long lists of names, I checked to see if there were any which weren't being used. Most are accounted for, but the women's names **_Goldarina_** and **_Elladine_** are not taken. If you're male, you've no hope of owning a unique domain name unless you happen to be named **_Giselbert_**, **_Reginauld_** or **_Cecilius_**.
 
 However vast the Internet may be, there's still a long way to go before it exhausts the English language.
