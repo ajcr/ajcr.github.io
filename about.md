@@ -8,7 +8,7 @@ Welcome to the simple blog where I occasionaly write about questions that have d
 
 To get more of an idea about who I am in real life, click any of the links at the foot of the page.
 
-If you don't feel like clicking here are three snippets:
+If you don't feel like clicking, here are three snippets:
 
 - I used to spend a lot of time drawing and attended several art courses before going to university to study "various other things".
 
