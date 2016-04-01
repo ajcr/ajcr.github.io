@@ -109,13 +109,13 @@ def numpy_isqrt(number):
     y = y * (threehalfs - (x2 * y * y))
     return float(y)
 ```
-Using `view` looks a lot neater than `struct.pack`/`struct.upack`. The function gives the same result as the previous two:
+Using `view` looks a lot neater than `struct.pack` and `struct.upack`. The function gives the same result as the previous two:
 
 ```
 >>> numpy_isqrt(16.0)
 0.24957678739619552
 ```
-i
+
 ## Timings
 
 All of these functions are too slow and too inaccurate to be of any practical use in normal code. For comparison, here's a function for the inverse square root as it should be implemented in Python:
@@ -133,5 +133,5 @@ ctypes_isqrt:   6.88 µs per loop
 numpy_isqrt:    21.2 µs per loop
 ```
 
-The additional method calls and arithmetic slow down all of the implementations of the Fast Inverse Square Root. I was a little surprised that the "simplest-looking" implementation, `numpy_isqrt`, came last: perhaps this is because we had to do a few more type conversions and turning Python types into NumPy dtypes is not quick. 
+The additional method calls and arithmetic slow down all of the implementations of the Fast Inverse Square Root. I was a little surprised that the "simplest-looking" implementation, `numpy_isqrt`, came last by a significant margin. Perhaps this is because we had to do a few more type conversions and turning Python types into NumPy dtypes is not quick. 
 
