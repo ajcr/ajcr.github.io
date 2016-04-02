@@ -9,6 +9,6 @@ The graph below shows 12 colours and the number of times each one appears in .co
 
 <img src="{{ site.baseurl }}/images/colour-pairs-crop.png" "colour-pairs" style="width: 1200px;">
 
-![colour-pairs][http://ajcr.net/images/colour-pairs-crop.png]
+![colour-pairs](http://ajcr.net/images/colour-pairs-crop.png)
 
 You can see that green is often paired with blue, black is more popular than white, and that nobody really likes purple.
