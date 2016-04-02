@@ -24,7 +24,7 @@ It turns out that the fast path with the inequality above was introduced back in
 
 Perfect: the constants were derived by experiment and, whatsmore, the original script to compare the two paths [still exists](http://projects.scipy.org/numpy/attachment/ticket/1603/setmember.py). The following contour plot originally produced by the script was attached ("kern" is the fast path). The key part is the red dotted line which plots the equation `10 * len(ar1) ** 0.145`:
 
-<img src="{{ site.baseurl }}/images/in1d-setmember-script-original.png" "original-plot" style="width: 800px;"/>
+![original-plot]({{ site.baseurl }}/images/in1d-setmember-script-original.png)
 
 Here the contours are time ratios; the 0.0 contour follows where the fast path and default path were equal. Lower contours show where the fast path is fater, higher contours show where it is slower. We can see that the constants 10 and 0.145 were good choices since the red dotted line nicely approximates the 0.0 contour.
 
@@ -32,11 +32,11 @@ Is it still the case that 0.145 is the best choice today?
 
 NumPy has been developed and improved since 2011, and key indexing and sorting routines have been optimised further. Curious, I re-ran the script on my own machine with only some minor syntactical changes (hello from Python 3). The original red dotted line using the original magic numbers is drawn on for comparison:
 
-<img src="{{ site.baseurl }}/images/in1d-setmember-script-my-run.png" "my-plot" style="width: 800px;"/>
+![my-plot]({{ site.baseurl }}/images/in1d-setmember-script-my-run.png)
 
 Not so good! Now that red dotted line misses the 0.0 contour completely. It needs a higher value to intercept it and could also do with a steeper gradient. If I were tasked with the tricky problem of picking new constants, it seems reasonable to go with the inequality `8 * len(ar1) ** 0.25`. Here's what *that* red dotted line looks like:
 
-<img src="{{ site.baseurl }}/images/in1d-setmember-script-my-run-new-constants.png" "my-plot-2" style="width: 800px;"/>
+![my-plot-2]({{ site.baseurl }}/images/in1d-setmember-script-my-run-new-constants.png)
 
 So on my machine, it looks like 8 and 0.25 are better magic numbers than 10 and 0.145.
 
