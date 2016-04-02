@@ -40,7 +40,7 @@ Compiling this function and using the float 16.0 as my input, I get back a value
 This function uses one iteration of Newton's method to improve the accuracy of the returned float value. I'll do the same in the Python functions below. The other difference is that my functions will take Python `float` objects as input and also return a Python `float` object. Other than that, I'll stick as close as possible to the lines of the C function for the purpose of exposition.
 
 ### Using ctypes
-i
+
 The [ctypes](https://docs.python.org/3/library/ctypes.html) library lets you create native C data type values in Python (int32, float16, pointers) so you can delgate hard work to C code. This makes it useful for implementing the Fast Inverse Square Root method where we really need to work with data types which Python lacks. However, we still need to convert between C data types and Python data types as we can't do arithmetic on C types from within Python itself. This means a lot of function calls and attribute lookups, slowing the code down:
 
 ``` python
@@ -58,7 +58,7 @@ def ctypes_isqrt(number):
     y = y * (1.5 - (x2 * y * y))
     return y
 ```
-This function works as expected, calculating the inverse square root as well as can be expected after one iteration of Newton's method:
+This function calculates the inverse square root as well as can be expected after one iteration of Newton's method:
 
 ```
 >>> ctypes_isqrt(16.0)
