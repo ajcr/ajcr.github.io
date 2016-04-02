@@ -48,7 +48,7 @@ from ctypes import c_float, c_int32, cast, byref, POINTER
 
 def ctypes_isqrt(number):
     threehalfs = 1.5
-    x2 = number.value * 0.5
+    x2 = number * 0.5
     y = c_float(number)
 
     i = cast(byref(y), POINTER(c_int32)).contents.value
@@ -134,4 +134,5 @@ numpy_isqrt:    21.2 µs per loop
 ```
 
 The additional method calls and arithmetic slow down all of the implementations of the Fast Inverse Square Root. I was a little surprised that the "simplest-looking" implementation, `numpy_isqrt`, came last by a significant margin. Perhaps this is because we had to do a few more type conversions and turning Python types into NumPy dtypes is not quick. 
+
 
