@@ -17,7 +17,7 @@ Python doesn't use plain machine types like 32 bit integers and floats; it uses 
 
 I'll base the Python functions on the following C implementation of the Fast Inverse Square Root method taken from [Wikipedia](https://en.wikipedia.org/wiki/Fast_inverse_square_root#Overview_of_the_code):
 
-``` C
+``` c 
 float Q_rsqrt( float number )
 {
     int i;
