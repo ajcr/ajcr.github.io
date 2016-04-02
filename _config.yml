@@ -54,7 +54,7 @@ baseurl: ""
 #redcarpet:
 #extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 #highlighter: rouge
-#permalink: /:title/
+permalink: /:title/
 kramdown:
   # Use GitHub flavored markdown, including triple backtick fenced code blocks
   input: GFM
