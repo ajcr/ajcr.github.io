@@ -11,7 +11,7 @@ By my reckoning, only around 64% of all recognisable English are actually in use
 
 The pool of rarely-used words is very large indeed!
 
-<img src="{{ site.baseurl }}/images/N-most-popular.png" "N most popular words / Percentage of all words" style="width: 800px;"/>
+![n-most-popular]({{ site.baseurl }}/images/N-most-popular.png)
 
 ---
 

@@ -69,7 +69,7 @@ B = np.array([[0, 1, 0],
 
 Drawing on the labels, our matrix multiplication with `np.einsum('ij,jk->ik', A, B)` looks like this:
 
-<img src="{{ site.baseurl }}/images/matrix_mul_reduce.png" "colour-pairs" style="width: 500px;"/>
+![matrix-mul-reduce]({{ site.baseurl }}/images/matrix_mul_reduce.png)
 
 To understand how the output array is calculated, remember these three rules:
 
@@ -87,7 +87,7 @@ If we leave out the arrow `'->'`, NumPy will take the labels that appeared once 
 
 It should now be easier to see how the matrix multiplication worked. This image shows what we'd get if we *didn't* sum the `j` axis and instead included it in the output by writing `np.einsum('ij,jk->ijk', A, B)`). To the right, axis `j` has been summed:
 
-<img src="{{ site.baseurl }}/images/matrix_mul_full_and_reduce.png" "colour-pairs" style="width: 400px;"/>
+![mat-mul-full-and-reduce]({{ site.baseurl }}/images/matrix_mul_full_and_reduce.png)
 
 Note that with `np.einsum('ij,jk->ik', A, B)`, the function doesn't construct a 3D array and then sum, it just accumulates the sums into a 2D array.
 

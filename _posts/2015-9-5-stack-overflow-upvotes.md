@@ -24,7 +24,7 @@ How many upvotes can you get by answering old questions?
 
 The histogram below shows the number of answers wich have 100 or more upvotes, and how many days after the original question those answers were posted. We can see that most 'great answers' are posted within 30 days of the question being asked, but a significant number are posted one month or more later. One great answer ([this one](http://stackoverflow.com/a/30810322/3923281)) was posted a staggering 2355 days after the question appeared. Writing a quality answer to a popular old question can be very lucrative.
 
-<img src="{{ site.baseurl }}/images/great-answers.png" "great answers" />
+![great-answers]({{ site.baseurl }}/images/great-answers.png)
 
 (Data collected using [this SQL query](http://data.stackexchange.com/stackoverflow/query/353836/high-scoring-late-answers).)
 
@@ -64,7 +64,7 @@ That said, you have easy access to all of the dates that your own posts were vot
 
 As a case study, I'll look at a [question and answer I posted](http://stackoverflow.com/q/30100725/3923281) a while ago. I'd stumbled upon the intricacies of comparing arbitrarily-large integers and floats in Python and wanted to write things up as best I could. The graph below shows how my question/answer was upvoted each day, from publication in May 2015 to the end of August 2015: 
 
-<img src="{{ site.baseurl }}/images/upvotes-over-time.png" "upvotes-over-time" />
+![upvotes-over-time]({{ site.baseurl }}/images/upvotes-over-time.png)
 
 
 This graph can be divided visually into three distict parts:
