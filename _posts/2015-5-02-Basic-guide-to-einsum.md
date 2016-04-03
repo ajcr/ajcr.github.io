@@ -99,13 +99,6 @@ Below are two tables showing how `einsum` can stand in for various NumPy operati
 
 Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broadcastable with the other):
 
-| `einsum` call signature        | NumPy equivalent           | Notes  |
-| -------------                  |:-------------:             | -----:|
-| `einsum('i', A)`               | `A`                        | returns a view of `A` |
-| `eissum('i->', A)`             | `np.sum(A)`                | sums values of `A` |
-
-Tables:
-
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
