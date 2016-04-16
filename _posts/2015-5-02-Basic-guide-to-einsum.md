@@ -9,7 +9,9 @@ There are quite a few questions on sites like Stack Overflow which about what `e
 
 ## What `einsum` does
 
-Suppose you have two arrays, `A` and `B`. Now suppose that we want to:
+Using the `einsum` function, we can specify operations on NumPy arrays using the [**Ein**stein **sum**mation convention](https://en.wikipedia.org/wiki/Einstein_notation).
+
+Suppose we have two arrays, `A` and `B`. Now suppose that we want to:
 
 - **multiply** `A` with `B` in a particular way to create new array of products, *and then maybe*
 - **sum** this new array along particular axes, *and/or*
@@ -239,3 +241,15 @@ Here a few things to be mindful/wary of when using the function.
 Also `einsum` [might not permute axes in the order inteded](http://stackoverflow.com/a/28233465/3923281). The documentation highlights `np.einsum('ji', M)` as a way to transpose a 2D array. You'd be forgiven for thinking that for a 3D array, `np.einsum('kij', M)` moves the last axis to the first position and shifts the first two axes along. Actually, `einsum` creates its own output labelling by rearranging labels in alphabetical order. Therefore `'kij'` becomes `'kij->ijk'` and we have a sort of inverse permutation instead.
 
 Finally, `einsum` is not always the fastest option in NumPy. Functions such as `dot` and `inner` often link to lightening-quick BLAS routines which can outperform `einsum` and certainly shouldn't be forgotten about. The `tensordot` function is also worth comparing for speed. If you search around, you'll find examples of posts highlighting cases where `einsum` appears to be slow, especially when operating on several input arrays (such as [this GitHub issue](https://github.com/numpy/numpy/issues/5366)).
+
+# Historical notes and links
+
+The `einsum` function was written by [Mark Wiebe](https://github.com/mwiebe). Here is a [thread](http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html) from the NumPy mailing list announcing its existence, followed by discussion about the motivation for introducing it into the library. In 2011, the function was included as part of NumPy 1.6.0.
+
+Three further links that may be of interest:
+
+- [Official `einsum` documentation](http://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.einsum.html)
+- [Source for `einsum` on GitHub](https://github.com/numpy/numpy/blob/master/numpy/core/src/multiarray/einsum.c.src)
+- [`einsum` on Stack Overflow](http://stackoverflow.com/questions/tagged/numpy-einsum)
+
+
