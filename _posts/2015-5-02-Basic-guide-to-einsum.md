@@ -198,7 +198,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
   <tr>
     <td class="tg-yw4l"><code>('ij,ji-&gt;ij', A, B)</code></td>
     <td class="tg-yw4l"><code>A * B.T</code></td>
-    <td class="tg-yw4l">element multiplication of A and B.T</td>
+    <td class="tg-yw4l">element-wise multiplication of A and B.T</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij,jk', A, B)</code></td>
