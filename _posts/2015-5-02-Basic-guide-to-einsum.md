@@ -99,7 +99,7 @@ That's all we need to know to start using `einsum`. Knowing how to multiply diff
 
 Below are two tables showing how `einsum` can stand in for various NumPy operations. It's useful to play about with these to get the hang of the notation.
 
-Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broadcastable with the other):
+Let `A` and `B` be two 1D arrays of compatible shapes (meaning the lengths of the axes we pair together either equal, or one of them has length 1):
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -127,7 +127,7 @@ Let `A` and `B` be two 1D arrays of compatible shapes (meaning one axis is broad
   <tr>
     <td class="tg-yw4l"><code>('i,i-&gt;i', A, B)</code></td>
     <td class="tg-yw4l"><code>A * B</code></td>
-    <td class="tg-yw4l">element mult. of A and B</td>
+    <td class="tg-yw4l">element-wise multiplication of A and B</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('i,i', A, B)</code></td>
@@ -193,17 +193,17 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
   <tr>
     <td class="tg-yw4l"><code>('ij,ij-&gt;ij', A, B)</code></td>
     <td class="tg-yw4l"><code>A * B</code></td>
-    <td class="tg-yw4l">element mult. of A and B</td>
+    <td class="tg-yw4l">element-wise multuliplication of A and B</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij,ji-&gt;ij', A, B)</code></td>
     <td class="tg-yw4l"><code>A * B.T</code></td>
-    <td class="tg-yw4l">element mult. of A and B.T</td>
+    <td class="tg-yw4l">element multiplication of A and B.T</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij,jk', A, B)</code></td>
     <td class="tg-yw4l"><code>dot(A, B)</code></td>
-    <td class="tg-yw4l">matrix mult. of A and B</td>
+    <td class="tg-yw4l">matrix multiplication of A and B</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij,jk-&gt;ij', A, B)</code></td>
@@ -222,7 +222,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
   </tr>
 </table>
 
-When workng larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with `b`. There are more examples in the documentation.
+When workng larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with the 2D array `b`. There are more examples in the documentation.
  
 ## A few quirks to watch out for
 
@@ -242,7 +242,7 @@ Also `einsum` [might not permute axes in the order inteded](http://stackoverflow
 
 Finally, `einsum` is not always the fastest option in NumPy. Functions such as `dot` and `inner` often link to lightening-quick BLAS routines which can outperform `einsum` and certainly shouldn't be forgotten about. The `tensordot` function is also worth comparing for speed. If you search around, you'll find examples of posts highlighting cases where `einsum` appears to be slow, especially when operating on several input arrays (such as [this GitHub issue](https://github.com/numpy/numpy/issues/5366)).
 
-# Historical notes and links
+## Historical notes and links
 
 The `einsum` function was written by [Mark Wiebe](https://github.com/mwiebe). Here is a [thread](http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html) from the NumPy mailing list announcing its existence, followed by discussion about the motivation for introducing it into the library. In 2011, the function was included as part of NumPy 1.6.0.
 
