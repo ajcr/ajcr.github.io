@@ -183,12 +183,12 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
   <tr>
     <td class="tg-yw4l"><code>('ij-&gt;j', A)</code></td>
     <td class="tg-yw4l"><code>sum(A, axis=0)</code></td>
-    <td class="tg-yw4l">sums the columns of A</td>
+    <td class="tg-yw4l">sum down the columns of A (across rows)</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij-&gt;i', A)</code></td>
     <td class="tg-yw4l"><code>sum(A, axis=1)</code></td>
-    <td class="tg-yw4l">sums the rows of A</td>
+    <td class="tg-yw4l">sum horizontally along the rows of A</td>
   </tr>
   <tr>
     <td class="tg-yw4l"><code>('ij,ij-&gt;ij', A, B)</code></td>
