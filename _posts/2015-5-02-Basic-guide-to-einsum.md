@@ -135,7 +135,7 @@ Let `A` and `B` be two 1D arrays of compatible shapes (meaning the lengths of th
     <td class="tg-yw4l">inner product of A and B</td>
   </tr>
   <tr>
-    <td class="tg-yw4l"><code>('i,j', A, B)</code></td>
+    <td class="tg-yw4l"><code>('i,j->ij', A, B)</code></td>
     <td class="tg-yw4l"><code>outer(A, B)</code></td>
     <td class="tg-yw4l">outer product of A and B</td>
   </tr>
