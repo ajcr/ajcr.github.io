@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Welcome to the simple blog where I occasionaly write about questions that have distracted me, or summarise any of my mini-projects that weren't abject failures.
+Welcome to the simple blog where I mainly write about computer/science/technology problems that have intrigued me in some way.
 
-Some of the links at the foot of the page give more of an idea about who I am in real life.
+My name is Alex, I live in the UK and work at a bioinformatics company based near Cambridge. Some of the links at the foot of the page give more of an idea about who I am in real life.
 
