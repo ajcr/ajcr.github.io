@@ -9,7 +9,7 @@ name: ajcr
 description: Haphazard investigations
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: http://i.stack.imgur.com/y58MA.jpg?s=128&g=1
+avatar: https://avatars1.githubusercontent.com/u/6031088?v=3&s=460
 
 #
 # Flags below are optional
@@ -28,7 +28,6 @@ footer-links:
   rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
   twitter: #jekyllrb
   stackoverflow: users/3923281/ajcr
-  careers: alex-riley
 
 # Your disqus shortname, entering this will enable commenting on posts
 disqus: ajcr00
