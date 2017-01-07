@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/ajcr
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://ajcr.net
+  * I am ajcr (https://keybase.io/ajcr) on keybase.
+  * I have a public key with fingerprint 0A1F 4BF3 728A 9AFA 98E4  BC14 279A 8B72 1873 4EB8
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01018f8ebc83addc64eaea06491b426a8372d683c7a12434539825ad0ac83cf98d4e0a",
+            "fingerprint": "0a1f4bf3728a9afa98e4bc14279a8b7218734eb8",
+            "host": "keybase.io",
+            "key_id": "279a8b7218734eb8",
+            "kid": "01018f8ebc83addc64eaea06491b426a8372d683c7a12434539825ad0ac83cf98d4e0a",
+            "uid": "9332769a38d8cb18f27b46d094759a19",
+            "username": "ajcr"
+        },
+        "service": {
+            "hostname": "ajcr.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1483817071,
+    "expire_in": 157680000,
+    "prev": "5e746e45d633e9da7bfe88a22d91dccb637a6b52e2f8ace05db7591c77fae674",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.61
+Comment: https://keybase.io/crypto
+
+yMIaAnicrZJvaE5RHMef2cxswyIL4cXFLGbuufc895z7JCF/s1Yi/zJP59zzu3M9
+c++z+9zNNMsmxVKIyH9Fw9rCG2RJJqxYFnpKFi9oqJV/KZbCuYvywkvnzen8zvfz
+Pd/fr3N3RGYkN2N7aUfHrd70lYyHnftqImur53n1CvfENiVWryRgcIMqAakgnnCE
+ElNUpCJqU+AW1ZkQloGBAVMNbCKONYNRnWjCoLpFGNKwjqO6SbUoEyqTgGWbVGBQ
+mVKi2I5bCX7Sd9wgtGXIxtyWMGUms5lJAXMLYY2YjHKiIUp0DJxKcJOXCgkZjrMU
+lDqerMlDfDDeP/T/OXfNoJ2p6xoxTKZTQS0unTXCsSFUE5OoyZAZClPgu2wLSDXb
+bPlKQ4kiK7WOBeFQwy7+ui11IZBM0vcCz/KqZHVTECRjIRRsS4aqrcDjv/k4d1wh
+xyeBWvBTjucqMSSVVuCEhghTnSKiElSiQF3S8SHuhIooMagqV/gM1ErLKBBsAI4K
+Q9fBFIxwGyhlmiZMJCyLGzphBo9qoNmUWaBGBZfdIYsQm4FBsBJ2VO16SgzLmKxS
+WqacSpcFNT4oDXdub8iKZORGsocOCb9VJHd4wZ/PVgfDfi7RUc/qHzv70/BM+Zws
+PjLhXN6oPd+n9LozYVH53PzCBxf5yFkVu76taFiZyjHGd/UuiJ2fNWdKS3ffpzE5
+Zdwd5RsX1p3c6VdD09JHvcGqxP629smNBU1zTuUnDhV92WjnPVAv5fXPfv9hcVUT
+8kj/zUT3q+Jkxdv12enao2eaO8njcTNOj+7anTNQtChz2cfsyY0Rt37dsdbjb05l
+1rUcyO4o2PxmfnF6oLyv/vaPqT1tO3Y9Ts6+d6Vw3vTDWUUT884uPbgXXU03tqan
+DcT3ta4Z9+Ld149dfVD+chIdK+7f6sv51nz5edby1tdlT9dfLyxceKCpfci168XT
+T9xoftKSf/IXZX05XQ==
+=7eK6
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/ajcr
+
+==================================================================
