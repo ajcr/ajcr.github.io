@@ -206,7 +206,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
     <td class="tg-yw4l">matrix multiplication of A and B</td>
   </tr>
   <tr>
-    <td class="tg-yw4l"><code>('ij,jk-&gt;ij', A, B)</code></td>
+    <td class="tg-yw4l"><code>('ij,kj-&gt;ik', A, B)</code></td>
     <td class="tg-yw4l"><code>inner(A, B)</code></td>
     <td class="tg-yw4l">inner product of A and B</td>
   </tr>
