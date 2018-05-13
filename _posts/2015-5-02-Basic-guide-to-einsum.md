@@ -211,7 +211,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
     <td class="tg-yw4l">inner product of A and B</td>
   </tr>
   <tr>
-    <td class="tg-yw4l"><code>('ij,jk-&gt;ijk', A, B)</code></td>
+    <td class="tg-yw4l"><code>('ij,kj-&gt;ikj', A, B)</code></td>
     <td class="tg-yw4l"><code>A[:, None] * B</code></td>
     <td class="tg-yw4l">each row of A multiplied by B</td>
   </tr>
