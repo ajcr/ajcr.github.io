@@ -274,8 +274,8 @@ We see that the guesses for each parameter converge quite quickly (using a preci
   </tr>
   <tr>
     <td class="tg-yw4l">$\theta_B$</td>
-    <td class="tg-yw4l">0.75396</td>
-    <td class="tg-yw4l">0.75396</td>
+    <td class="tg-yw4l">0.75714</td>
+    <td class="tg-yw4l">0.39311</td>
   </tr>
 </table>
 
