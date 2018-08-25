@@ -31,7 +31,7 @@ The simplest approach is to generate each and every possible permutation of the 
 The following code uses Python's itertools module to generate the permutations (and also to simplify the process of checking for repeated letters):
 
 ```python
-import itertools
+from itertools import permutations, groupby, filterfalse
 
 def length(iterable):
     """
@@ -47,16 +47,16 @@ def has_equal_adjacent_letters(string):
       yoyo -> False
 
     """
-    return any(length(letters) > 1 for _, letters in itertools.groupby(string))
+    return any(length(letters) > 1 for _, letters in groupby(string))
 
 def approach_1(string):
     """
     Count the permuations of string that have no repeated letters
     by generating all permutations and checking them one by one.
     """
-    all_permuations = itertools.permutations(string)
+    wanted_perms = filterfalse(has_equal_adjacent_letters, permutations(string))
     # keep track of unique permutations using a set
-    unique_perms = set(perm for perm in all_permuations if not has_equal_adjacent_letters(perm))
+    unique_perms = set(wanted_perms)
     return len(unique_perms)
 ```
 
