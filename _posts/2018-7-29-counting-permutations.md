@@ -188,15 +188,10 @@ It any case, this approach can be implemented using a symbolic mathematics libra
 from collections import Counter
 
 import sympy
-from sympy.abc import i, x
+from sympy import assoc_laguerre
+from sympy.abc import x
 
-
-def make_polynomial(degree):
-    """
-    Make the generalised Laguerre polynomial of specified degree.
-    """
-    coeff_term_i = (-1)**(i-degree) / sympy.factorial(i) * sympy.binomial(degree-1, i-1)
-    return sympy.Sum(coeff_term_i * x**i, (i, 1, degree)).doit()
+# N.B. assoc_laguerre creates a generalised Laguerre polynomial
 
 def eval_gamma(term):
     """
@@ -214,10 +209,10 @@ def approach_3(string):
     """
     letters = Counter(string)
     # multiply polynomials given by the frequency of each letter
-    product = sympy.prod(make_polynomial(degree) for degree in letters.values()).apart()
+    product = sympy.prod(assoc_laguerre(degree, -1, x) for degree in letters.values()).apart()
     terms = product.as_ordered_terms()
     # evaluate \sum \integral_0^oo term*e^-x dx
-    return sum(eval_gamma(t) for t in terms)
+    return abs(sum(eval_gamma(t) for t in terms))
 ```
 
 We have used fewer lines of code than in the backtracking approach! Now let's see how it performs:
