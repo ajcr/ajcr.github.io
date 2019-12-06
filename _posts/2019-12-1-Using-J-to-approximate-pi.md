@@ -13,21 +13,17 @@ title: J hooks make exotic expressions easy
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-You might see the approximations:
+You might see the approximation:
 
 $$ \ln(6) ^ {\ln(5) ^ {\ln(4) ^ {\ln(3) ^{\ln(2)}}}} \approx \pi $$
 
-and
-
-$$ \sqrt{ 7 + \sqrt{6 + \sqrt{5}}} \approx \pi $$
-
 and think:
 
-_Hmmm! How accurate are those..?_
+__Hmmm! How accurate is that?__
 
 You might then proceed to check using a scientific calculator, your phone, or your favourite programming language. But if you're like me, your next thought will be:
 
-_...this is tedious and surely more effort than necessary for a simple pattern._
+__...this is tedious and surely more effort than necessary for a simple pattern.__
 
 Here we have a compelling reason to learn a language that allows us to express and extend computional patterns with minimal effort.
 
