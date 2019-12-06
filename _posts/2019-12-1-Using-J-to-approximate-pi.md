@@ -1,6 +1,6 @@
 ---
 layout: post
-title: J hooks make exotic pi approximations easy
+title: J hooks make exotic expressions easy
 ---
 
 <script type="text/x-mathjax-config">
@@ -15,11 +15,11 @@ title: J hooks make exotic pi approximations easy
 
 You might see the approximations:
 
-$$ \sqrt{ 7 + \sqrt{6 + \sqrt{5}}} \approx \pi $$
+$$ \ln(6) ^ {\ln(5) ^ {\ln(4) ^ {\ln(3) ^{\ln(2)}}}} \approx \pi $$
 
 and
 
-$$ \ln(6) ^ {\ln(5) ^ {\ln(4) ^ {\ln(3) ^{\ln(2)}}}} \approx \pi $$
+$$ \sqrt{ 7 + \sqrt{6 + \sqrt{5}}} \approx \pi $$
 
 and think:
 
@@ -27,9 +27,9 @@ _Hmmm! How accurate are those..?_
 
 You might then proceed to check using a scientific calculator, your phone, or your favourite programming language. But if you're like me, your next thought will be:
 
-_...this is tedious and feels like more effort than necessary for a simple pattern of operations._
+_...this is tedious and surely more effort than necessary for a simple pattern._
 
-This is a compelling reason for learning a language that allows you to express and extend computional patterns with minimal effort.
+Here we have a compelling reason to learn a language that allows us to express and extend computional patterns with minimal effort.
 
 I want to focus on the [J programming language](https://www.jsoftware.com/#/) and one of its many clever abstractions: hooks. This is not-too-difficult to learn and will make swathes of repetitive mathematical expressions typable in a dozen or so characters. Once you get the hang of the language, it's a great replacement for a scientific calculator.
 
