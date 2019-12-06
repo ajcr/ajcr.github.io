@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using J hooks to verify exotic expressions for pi
+title: J hooks make exotic pi approximations easy
 ---
 
 <script type="text/x-mathjax-config">
@@ -13,18 +13,21 @@ title: Using J hooks to verify exotic expressions for pi
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-You might see these approximations:
+You might see the approximations:
 
 $$ \sqrt{ 7 + \sqrt{6 + \sqrt{5}}} \approx \pi $$
+
+and
+
 $$ \ln(6) ^ {\ln(5) ^ {\ln(4) ^ {\ln(3) ^{\ln(2)}}}} \approx \pi $$
 
 and think:
 
-> Hmmm! How accurate are those..?
+_* Hmmm! How accurate are those..? *_
 
 You might then proceed to check using a scientific calculator, your phone, or your favourite programming language. But if you're like me, your next thought will be:
 
-> ...this is tedious and feels like more effort than necessary for a simple pattern of operations.
+_* ...this is tedious and feels like more effort than necessary for a simple pattern of operations. *_
 
 This is a compelling reason for learning a language that allows you to express and extend computional patterns with minimal effort.
 
@@ -45,7 +48,7 @@ Here's a well-known approximation which is accurate to two decimal places:
 
 $$ \frac{22}{7} \approx \pi $$
 
-Like many other languages, `+`, `-` and `*` represent addition, subtraction and multiplication of two numbers in J. However, the symbol `[%](https://code.jsoftware.com/wiki/Vocabulary/percent#dyadic)` is the _verb_ for division:
+Like many other languages, `+`, `-` and `*` represent addition, subtraction and multiplication of two numbers in J. However, the symbol [`%`](https://code.jsoftware.com/wiki/Vocabulary/percent#dyadic) is the _verb_ for division:
 
 ```j
     22 % 7
@@ -60,7 +63,7 @@ Secondly, verbs in J associate to the right and have the same precedence as each
 
 $$ \sqrt{2} + \sqrt{3} \approx \pi $$
 
-Knowing that the monadic verb `[%:](https://code.jsoftware.com/wiki/Vocabulary/percentco)` computes the square-root of its argument, we could try:
+Knowing that the monadic verb [`%:`](https://code.jsoftware.com/wiki/Vocabulary/percentco) computes the square-root of its argument, we could try:
 
 ```j
    %: 2 + %: 3
@@ -91,7 +94,7 @@ To compute the square root of each element of the array, apply the verb to the a
 1.41421 1.73205
 ```
 
-How can we sum the elements of this new array? To do this we can modify the verb `+` using the _insert_ adverb `[/](https://code.jsoftware.com/wiki/Vocabulary/slash)`. This has the effect of putting the verb between each element of the array. For example, `+/ 7 8 9` is equivalent to `7 + 8 + 9`.
+How can we sum the elements of this new array? To do this we can modify the verb `+` using the _insert_ adverb [`/`](https://code.jsoftware.com/wiki/Vocabulary/slash). This has the effect of putting the verb between each element of the array. For example, `+/ 7 8 9` is equivalent to `7 + 8 + 9`.
 
 For our purposes, `+/` is placed to the left of `%:` to sum our array of square roots:
 
@@ -122,23 +125,23 @@ Here is how it works. Let's first pick out the numbers 2, 3, 4, 5 and 6 which ap
     2 + i.5
 2 3 4 5 6
 ```
-The monadic verb `[i.](https://code.jsoftware.com/wiki/Vocabulary/idot)` gives you an array of integers from 0 up to the specified argument. In this case, we want five integers. We also want to begin at 2 rather than 0, so we add 2 to each of the numbers in the array using `+`.
+The monadic verb [`i.`](https://code.jsoftware.com/wiki/Vocabulary/idot) gives you an array of integers from 0 up to the specified argument. In this case, we want five integers. We also want to begin at 2 rather than 0, so we add 2 to each of the numbers in the array using `+`.
 
-Reading up the tower, it will be convenient to consider these integers numbers in reverse order. The monad `[|.](https://code.jsoftware.com/wiki/Vocabulary/bardot)` reverses the array:
+Reading up the tower, it will be convenient to consider these integers numbers in reverse order. The monad [`|.`](https://code.jsoftware.com/wiki/Vocabulary/bardot) reverses the array:
 
 ```j
     |. 2 + i. 5
 6 5 4 3 2
 ```
 
-Next, we require the natural logarithm of each integer. To produce an array of these logarithms, we apply the mondaic verb `[^.](https://code.jsoftware.com/wiki/Vocabulary/hatdot)`:
+Next, we require the natural logarithm of each integer. To produce an array of these logarithms, we apply the mondaic verb [`^.`](https://code.jsoftware.com/wiki/Vocabulary/hatdot):
 
 ```j
     ^. |. 2 + i. 5
 1.79176 1.60944 1.38629 1.09861 0.693147
 ```
 
-Finally, we want to stack these logarithms in a tower and evaluate the result. In J, the dyadic verb `[^](https://code.jsoftware.com/wiki/Vocabulary/hat)` is used to raise the left-hand argument to the power of the right-hand argument. As we have seen, J expressions are right-associative so `x ^ y ^ z` will be treated as $x ^ {y ^ z}}$.
+Finally, we want to stack these logarithms in a tower and evaluate the result. In J, the dyadic verb [`^`](https://code.jsoftware.com/wiki/Vocabulary/hat) is used to raise the left-hand argument to the power of the right-hand argument. As we have seen, J expressions are right-associative so `x ^ y ^ z` will be treated as $x ^ {y ^ z}}$.
 
 We want to stick `^` between each element of our array. We do this by using the adverb `/` again to modify `^` and produce the new verb `^/` to operate on the array:
 
@@ -211,7 +214,7 @@ Imagine the tedium of trying to verify this approximation using a scientific cal
 
 $$ 768{\sqrt {2-{\sqrt {2+{\sqrt {2+{\sqrt {2+{\sqrt {2+{\sqrt {2+{\sqrt {2+{\sqrt {2+{\sqrt {2+1}}}}}}}}}}}}}}}}}} \approx \pi $$ 
 
-Hmmm, so that's a run of seven $2$'s, then $2+1$, all preceded by a couple of other operations. Knowing that the dyad `[$](https://code.jsoftware.com/wiki/Vocabulary/dollar#dyadic)` will build an array of the right-hand side value repeated left-hand-side-many times, and the dyad `[,](https://code.jsoftware.com/wiki/Vocabulary/comma#dyadic)` concatenates arrays, we can write this in J without much effort:
+Hmmm, so that's a run of seven $2$'s, then $2+1$, all preceded by a couple of other operations. Knowing that the dyad [`$`](https://code.jsoftware.com/wiki/Vocabulary/dollar#dyadic) will build an array of the right-hand side value repeated left-hand-side-many times, and the dyad [`,`](https://code.jsoftware.com/wiki/Vocabulary/comma#dyadic) concatenates arrays, we can write this in J without much effort:
 
 ```j
     768 * %: 2 - %: (+%:)/ (7$2),2+1
@@ -222,7 +225,7 @@ As we've made it this far, here's one final use of hooks: continued fractions.
 
 $$ \pi = 3+{\cfrac {1^{2}}{6+{\cfrac {3^{2}}{6+{\cfrac {5^{2}}{6+\ddots }}}}}}) $$
 
-This continued fraction is merely an 'add-six-then-divide' pattern so our hook is just `(% 6&+)` (the `&` binds an argument to a verb, making a dyad into a monad). The only slightly fiddly bit is building an array of odd squares. I'll use `*: 1 + 2 * i.100` to build an array of the first hundred, so then:
+This continued fraction is merely an 'add-six-then-divide' pattern so our hook is just `(% 6&+)` (the [`&`](https://code.jsoftware.com/wiki/Vocabulary/ampm) binds an argument to a verb, making a dyad into a monad). The only slightly fiddly bit is building an array of odd squares. I'll use `*: 1 + 2 * i.100` to build an array of the first hundred, so then:
 
 ```j
     3 + (% 6&+)/ *:1+2*i.100
