@@ -225,7 +225,7 @@ Hmmm, so that's a run of seven $2$'s, then $2+1$, all preceded by a couple of ot
 
 As we've made it this far, here's one final use of hooks: continued fractions.
 
-$$ \pi = 3+{\cfrac {1^{2}}{6+{\cfrac {3^{2}}{6+{\cfrac {5^{2}}{6+\ddots }}}}}}) $$
+$$ \pi = 3+{\cfrac {1^{2}}{6+{\cfrac {3^{2}}{6+{\cfrac {5^{2}}{6+\ddots }}}}}} $$
 
 This continued fraction is merely an 'add-six-then-divide' pattern so our hook is just `(% 6&+)` (the [`&`](https://code.jsoftware.com/wiki/Vocabulary/ampm) binds an argument to a verb, making a dyad into a monad). The only slightly fiddly bit is building an array of odd squares. I'll use `*: 1 + 2 * i.100` to build an array of the first hundred, so then:
 
