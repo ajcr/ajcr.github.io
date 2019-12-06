@@ -23,15 +23,17 @@ $$ \ln(6) ^ {\ln(5) ^ {\ln(4) ^ {\ln(3) ^{\ln(2)}}}} \approx \pi $$
 
 and think:
 
-_* Hmmm! How accurate are those..? *_
+_Hmmm! How accurate are those..?_
 
 You might then proceed to check using a scientific calculator, your phone, or your favourite programming language. But if you're like me, your next thought will be:
 
-_* ...this is tedious and feels like more effort than necessary for a simple pattern of operations. *_
+_...this is tedious and feels like more effort than necessary for a simple pattern of operations._
 
 This is a compelling reason for learning a language that allows you to express and extend computional patterns with minimal effort.
 
-I want to focus on the [J programming language](https://www.jsoftware.com/#/) and one of its many clever abstractions: hooks. This is not-too-difficult to learn and will make swathes of repetitive mathematical expressions typable in a dozen or so characters. Once you get the hang of the language, it's a great replacement for a scientific calculator. You can even get a free [J interpretor app](https://apps.apple.com/us/app/j-programming-language/id532587550) for your phone.
+I want to focus on the [J programming language](https://www.jsoftware.com/#/) and one of its many clever abstractions: hooks. This is not-too-difficult to learn and will make swathes of repetitive mathematical expressions typable in a dozen or so characters. Once you get the hang of the language, it's a great replacement for a scientific calculator.
+
+You can even get a free [J interpretor app](https://apps.apple.com/us/app/j-programming-language/id532587550) for your phone.
 
 Before you read on, I should tell you that I myself am very much a beginner in J. This fact should:
 
@@ -141,7 +143,7 @@ Next, we require the natural logarithm of each integer. To produce an array of t
 1.79176 1.60944 1.38629 1.09861 0.693147
 ```
 
-Finally, we want to stack these logarithms in a tower and evaluate the result. In J, the dyadic verb [`^`](https://code.jsoftware.com/wiki/Vocabulary/hat) is used to raise the left-hand argument to the power of the right-hand argument. As we have seen, J expressions are right-associative so `x ^ y ^ z` will be treated as $x ^ {y ^ z}}$.
+Finally, we want to stack these logarithms in a tower and evaluate the result. In J, the dyadic verb [`^`](https://code.jsoftware.com/wiki/Vocabulary/hat) is used to raise the left-hand argument to the power of the right-hand argument. As we have seen, J expressions are right-associative so `x ^ y ^ z` will be treated as $x ^ {y ^ z}$.
 
 We want to stick `^` between each element of our array. We do this by using the adverb `/` again to modify `^` and produce the new verb `^/` to operate on the array:
 
@@ -171,11 +173,11 @@ J can't handle limits, so we'll only use the first 1 million odd integers. If yo
 
 So far we have executed verbs on arrays one after the other in the sequence they appear from right to left.
 
-For example, `-%: 4` will produce `-2`, as both the verbs `-` (negative) and `%:` (square root) operate in turn on their input, equivalent to the expression $-\sqrt{4}$. 
+For example, `-%: 4` will produce $-2$, as both the verbs `-` (negative) and `%:` (square root) operate in turn on their input, equivalent to the expression $-\sqrt{4}$. 
 
-J allows multiple verbs grouped with parentheses to be composed using [trains](https://www.jsoftware.com/help/learning/09.htm): $(v_1 v_2 \...)$. A train consisting of two verbs is called a hook. This is an interesting form of function composition that allows a single input to be operated on separately by two different functions to produce a new result.
+J allows multiple verbs grouped with parentheses to be composed using [trains](https://www.jsoftware.com/help/learning/09.htm). A train consisting of two verbs is called a hook. This is an interesting form of function composition that allows a single input to be operated on separately by two different functions to produce a new result.
 
-Here's another approximation of $\pi$, due to Ramanujan:
+To motivate hooks, here's another approximation of $\pi$, due to Ramanujan:
 
 $$ \frac{9}{5} + \sqrt{\frac{9}{5}} \approx \pi $$
 
