@@ -143,7 +143,7 @@ These 1D examples demonstrate how the shape and stride attributes of an array de
 
 ### N-Dimensions
 
-The same idea applies in all higher dimensions; the array just has more axes.
+The same ideas apply in all higher dimensions. The array just has more axes, and NumPy must keep track of how to move between these axes when visiting the items in sequence.
 
 Let's look again at `b`, our 2D array with three rows and four columns:
 
@@ -176,14 +176,13 @@ To iterate over all items the 2D array `b`, the backstride for axis 1 tells NumP
 
 ![two-dimensional-array-c-order-backstrides]({{ site.baseurl }}/images/stride-guide/2d_array_b_backstrides.png)
 
-In English, this means the algorithm for visiting all items in the array in sequence is as follows:
+In English, this means the algorithm for visiting all items in the 2D array `b` in sequence is as follows:
 
-0. (Put pointer at start address in data buffer)
-1. Read 8 bytes (`b.itemsize`) from pointer to get item, then move pointer 8 bytes (`b.strides[1]`)
-2. Repeat step **1** a total of 3 times (`b.shape[1] - 1`), then read 8 bytes (read last item in row)
+1. Read 8 bytes (`b.itemsize`) from pointer to get the integer, then move pointer 8 bytes (`b.strides[1]`)
+2. Repeat step **2** a total of 3 times (`b.shape[1] - 1`), then read 8 bytes (read last integer in the row)
 3. Move pointer -24 bytes (minus backstride for axis 1)
 4. Advance 32 bytes (`b.strides[0]`)
-5. Repeat steps **1**-**5** a total of 3 times (`b.shape[0]`)
+5. Repeat steps **1**-**4** a total of 3 times to read the remaining rows (`b.shape[0]`)
 
 #### Indexing and Slicing
 
@@ -239,9 +238,21 @@ If we slice out subarrays as we did with 2D arrays (e.g. `c[1:3, :, :1]` or `c[:
 
 So for `c[:, ::-1]` (which just reverses the second axis of `c`), the strides are `(32, -16, 8)`. To iterate through this array in sequence, the start position is part-way into the memory buffer, at value 2.
 
-The sequence of strides taken to read the first four integers (2, 3, 0, 1) and then moves along axis 0 to integer 4 is as follows:
+The sequence of strides taken to read the first four integers (`2`, `3`, `0`, `1`) and then move along axis 0 to integer `4` is as follows:
 
 ![three-dimensional-array-c-order-reverse-axis-1-backstrides]({{ site.baseurl }}/images/stride-guide/3d_array_c_reverse_axis_1_backstrides.png)
+
+In words:
+
+1. Read 8 bytes (integer `2`) and then move 8 bytes (axis 2) to the next memory address 
+2. Read 8 bytes (integer `3`) and then move -8 bytes (backstride for axis 2)
+3. Move -16 bytes to advance along axis 1
+4. Read 8 bytes (integer `0`) and then move 8 bytes (axis 2) to the next memory address 
+5. Read 8 bytes (integer `1`) and then move -8 bytes (backstride for axis 2)
+6. Move 16 bytes (backstride for axis 1)
+7. Move 32 bytes to advance along axis 1
+
+Steps **1** to **6** then repeat to read the integers `6`, `7`, `4` and `5`.
 
 ## 3. Impossible Reshapes
 
