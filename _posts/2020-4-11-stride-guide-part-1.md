@@ -15,7 +15,7 @@ This post, Part 1, will cover the following topics:
 
 Part 2 will cover:
 
-1. C Contiguity and F Contiguity
+1. C vs. Fortran order
 2. Ravelling
 3. Transposing and Permuting Axes
 
@@ -76,6 +76,8 @@ The "start" of the buffer is also tracked internally by NumPy (as far as I know 
 
 Exactly how these attributes are used to reinterpret the memory buffer and change the shape of an array is detailed in the next section.
 
+Two topics that I think are key to understanding how strides define shape are **indexing/slicing** (getting part of an array), and **iteration** (using strides to navigate the array values in sequence).
+
 ## 2. How shape and strides define dimensions
 
 ### 1-Dimension
@@ -95,8 +97,6 @@ The stride indicates the number of bytes to jump in order to reach the next valu
 ![one-dimensional-array]({{ site.baseurl }}/images/stride-guide/1d_array_a.png)
 
 The 8 byte stride matches the `itemsize` attribute. For a smaller data type such as `int8`, then the itemsize would be 1 byte and the stride would also be 1 byte.
-
-When NumPy needs to iterate over the values in `a` (e.g. to sum them with `a.sum()`), it can see that there are 12 values along the axis, each separated by 8 bytes. It knows where to begin reading from in the memory buffer and to get the next item, it jumps 8 bytes forward to read the new bit of memory.
 
 #### Indexing and Slicing
 
@@ -135,15 +135,23 @@ array([11,  8,  5,  2])
 (-24,)
 ```
 
-The axis of `a_reversed` has length 4. To get these 4 values, `a_reversed` begins at the _end_ of the same memory buffer as `a` and jumps backwards 24 bytes at a time to get to the next item: 
+The axis of `a_reversed` has length 4. To get these 4 values, `a_reversed` begins at the _end_ of the same memory buffer as `a` and jumps -24 bytes at a time to get to the next item: 
 
 ![one-dimensional-array-reversed]({{ site.baseurl }}/images/stride-guide/1d_array_a_reversed.png)
 
 These 1D examples demonstrate how the shape and stride attributes of an array determine which values in a region of memory are part of the array, and the order that they take.
 
+#### Iteration
+
+Iteration over the sequence of values in a 1D array is straightforward.
+
+When NumPy needs to iterate over the values in `a` (e.g. to sum them with `a.sum()`), it can see that there are 12 values along the axis (i.e. `a.shape[0]`), with each one separated by 8 bytes. It knows where to begin reading from in the memory buffer and to get the next item it jumps 8 bytes forward to the new memory address. 
+
+For slices, the start position in the buffer will change along with the shape (and possibly the stride if a step parameter has been used), but the idea is exactly the same.
+
 ### N-Dimensions
 
-The same ideas apply in all higher dimensions. The array just has more axes, and NumPy must keep track of how to move between these axes when visiting the items in sequence.
+The same ideas apply in all higher dimensions. The array just has more axes, and NumPy must keep track of how to move between these axes when traversing the items in sequence.
 
 Let's look again at `b`, our 2D array with three rows and four columns:
 
@@ -168,21 +176,7 @@ To move down one place in a column (axis 0), 32 bytes need to be skipped. To mov
 
 ![two-dimensional-array-c-order]({{ site.baseurl }}/images/stride-guide/2d_array_b.png)
 
-We can see also that the values for each of the three rows are stored together in memory. NumPy defaults to row-major order ("C order"), meaning that elements on rows (higher axes) are closer together in memory than columns (lower axes). We'll look at the column-major order (Fortran order) in the next post of this series.
-
-When iterating over arrays with two or more dimensions, NumPy needs to compute and make use of [backstrides](https://docs.scipy.org/doc/numpy-1.13.0/reference/c-api.types-and-structures.html#c.PyArrayIterObject.PyArrayIterObject.backstrides) for each axis. These values tell NumPy how far it needs to jump back once it reaches the end of each axis, before it can advance along the next axis.
-
-To iterate over all items the 2D array `b`, the backstride for axis 1 tells NumPy how to get back to the beginning of the row, before it can move down the column (axis 0). The backstride is the length of the axis minus 1, multiplied by the stride for that axis. For axis 1, this is `(4 - 1) * 8 == 24`:
-
-![two-dimensional-array-c-order-backstrides]({{ site.baseurl }}/images/stride-guide/2d_array_b_backstrides.png)
-
-In English, this means the algorithm for visiting all items in the 2D array `b` in sequence is as follows:
-
-1. Read 8 bytes (`b.itemsize`) from pointer to get the integer, then move pointer 8 bytes (`b.strides[1]`)
-2. Repeat step **2** a total of 3 times (`b.shape[1] - 1`), then read 8 bytes (read last integer in the row)
-3. Move pointer -24 bytes (minus backstride for axis 1)
-4. Advance 32 bytes (`b.strides[0]`)
-5. Repeat steps **1**-**4** a total of 3 times to read the remaining rows (`b.shape[0]`)
+We can see also that the values for each of the three rows are stored together in memory. NumPy defaults to row-major order ("C order"), meaning that elements on rows (higher axes) are closer together in memory than columns (lower axes). We'll look at the column-major order (Fortran order) in Part 2 of this series.
 
 #### Indexing and Slicing
 
@@ -195,7 +189,7 @@ For example, to get the value in row 1, column 1, you specify `b[1, 1]`. NumPy c
 Through Python's indexing semantics, we can slice out a view of part of `b`. For example, let's get the second and third rows and columns:
 
 ```python
->>> b1 = `b[1:3, 1:3]`
+>>> b1 = b[1:3, 1:3]
 >>> b1
 array([[ 5,  6],
        [ 9, 10]])
@@ -234,7 +228,23 @@ To navigate the axes of this array, NumPy uses the strides `(32, 16, 8)`:
 
 Again, you can see that C order means that NumPy must use a greater stride length to traverse the lower axes than the higher axes.
 
-If we slice out subarrays as we did with 2D arrays (e.g. `c[1:3, :, :1]` or `c[:, ::-1]`), you'll see that the strides for each axis retain the same magnitude (the sign changes if you use a negative step). It's just the shape and the initial offset into the buffer that NumPy needs to adjust.
+#### Iteration
+
+When iterating over arrays with two or more dimensions, NumPy needs to compute and make use of [backstrides](https://docs.scipy.org/doc/numpy-1.13.0/reference/c-api.types-and-structures.html#c.PyArrayIterObject.PyArrayIterObject.backstrides) for each axis. These values tell NumPy how far it needs to jump back once it reaches the end of each axis, before it can advance along the next axis.
+
+To iterate over all items the 2D array `b`, the backstride for axis 1 tells NumPy how to get back to the beginning of the row, before it can move down the column (axis 0). The backstride is the length of the axis minus 1, multiplied by the stride for that axis. For axis 1, this is `(4 - 1) * 8 == 24`:
+
+![two-dimensional-array-c-order-backstrides]({{ site.baseurl }}/images/stride-guide/2d_array_b_backstrides.png)
+
+In English, this means the algorithm for visiting all items in the 2D array `b` in sequence is as follows:
+
+1. Read 8 bytes (`b.itemsize`) from pointer to get the integer, then move pointer 8 bytes (`b.strides[1]`)
+2. Repeat step **2** a total of 3 times (`b.shape[1] - 1`), then read 8 bytes (read last integer in the row)
+3. Move pointer -24 bytes (minus backstride for axis 1)
+4. Advance 32 bytes (`b.strides[0]`)
+5. Repeat steps **1**-**4** a total of 3 times to read the remaining rows (`b.shape[0]`)
+
+If we slice out subarrays of the 3D (e.g. `c[1:3, :, :1]` or `c[:, ::-1]`), you'll see that the strides for each axis retain the same magnitude, or are scaled by multiplying by the step, if given (e.g. a step of 2 will multiply the stride for that axis by 2). Other than that, it's just the shape and the initial offset into the buffer that NumPy needs to adjust.
 
 So for `c[:, ::-1]` (which just reverses the second axis of `c`), the strides are `(32, -16, 8)`. To iterate through this array in sequence, the start position is part-way into the memory buffer, at value 2.
 
