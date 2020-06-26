@@ -4,7 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Welcome to the simple blog where I mainly write about computer/science/technology problems that have intrigued me in some way.
+My name is Alex, I live in the UK and work as a software developer at a bioinformatics company based near Cambridge.
 
-My name is Alex, I live in the UK and work at a bioinformatics company based near Cambridge. Some of the links at the foot of the page give more of an idea about who I am in real life.
+This is a blog where I investigate or explain, with varying degrees of rigour, questions and ideas that I've stumbled across and found intriguing.
 
+Much of the content here is programming focused, but I've followed a convoluted path through numerous studies and careers to get here, so expect haphazard investigations in all directions. 
