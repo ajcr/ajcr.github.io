@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Brute force, Backtracking and SymPy - counting permutations with no repeated letters
+title: The fast way to count permutations with no repeated letters
 ---
 
 <script type="text/x-mathjax-config">
@@ -51,7 +51,7 @@ def has_equal_adjacent_letters(string):
 
 def approach_1(string):
     """
-    Count the permuations of string that have no repeated letters
+    Count the permutations of string that have no repeated letters
     by generating all permutations and checking them one by one.
     """
     wanted_perms = filterfalse(has_equal_adjacent_letters, permutations(string))
@@ -71,7 +71,7 @@ However, we're in trouble if our word is much longer. As you may be aware, the n
 
 $$n! = n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 2 \cdot 1$$
 
-If our word is 'television' then we have to wait about 30 seconds to get our answer because the code generates all $10! = 3628800$ permuations and checks each of them before returning the answer:
+If our word is 'television' then we have to wait about 30 seconds to get our answer because the code generates all $10! = 3628800$ permutations and checks each of them before returning the answer:
 
 ```python
 >>> approach_1('television')
@@ -131,9 +131,9 @@ def extend_word(counts, word, target_len, total):
 
 def approach_2(string):
     """
-    Count the permuations of a string that have no
+    Count the permutations of a string that have no
     repeated letters by adding one letter at a time,
-    backtracking when the permuation is full or no
+    backtracking when the permeation is full or no
     next letter can legally be added.
     """
     counts = Counter(string)
@@ -152,7 +152,7 @@ Let's test this code:
 
 Same answers as before. It works correctly!
 
-This algorithm is significantly faster than the brute force approach for words with a lot of repreated letters. However, this code will sometimes execute more slowly than the brute force approach, especially if there are mostly unique letters in the string ('television' took around 50 seconds compared to about 30 seconds previously).
+This algorithm is significantly faster than the brute force approach for words with a lot of repeated letters. However, this code will sometimes execute more slowly than the brute force approach, especially if there are mostly unique letters in the string ('television' took around 50 seconds compared to about 30 seconds previously).
 
 The reason is that we're doing some very high-level manipulation of Python objects when tracking these permutations. Thousands and millions of attribute lookups and instance checks have a real impact on performance.
 
@@ -160,11 +160,11 @@ The speed can no doubt be improved in various ways (fewer "high-level" manipulat
 
 ## Approach 3: SymPy and Generalised Laguerre Polynomials
 
-Let's step back a moment and recall that our goal here was to simply *count*, rather than generate, the permuations. We know that constructing permutations one after the other can be slow, so it stands to reason that a more mathemical approach to derive the count will be quicker.
+Let's step back a moment and recall that our goal here was to simply *count*, rather than generate, the permutations. We know that constructing permutations one after the other can be slow, so it stands to reason that a more mathematical approach to derive the count will be quicker.
 
-The place to start is to go through the string and count the frequency of each letter. If you enjoy combinatorics, you may decide to play around and use these frequenies to find some optimisations that will cut down the run time of the code. For instance, we could treat the two 'o' in 'food' as a single letter and count $3!$ illegal arrangements to the deduce that there must be $12 - 3! = 6$ good ones.
+The place to start is to go through the string and count the frequency of each letter. If you enjoy combinatorics, you may decide to play around and use these frequencies to find some optimisations that will cut down the run time of the code. For instance, we could treat the two 'o' in 'food' as a single letter and count $3!$ illegal arrangements to the deduce that there must be $12 - 3! = 6$ good ones.
 
-If you know a little bit about [generating functions](https://en.wikipedia.org/wiki/Generating_function), you might get even further and find an explicit formula for specific cases. Still, to me, this particular problem seems fundamentally difficult to solve in full generality using a strictly mathetical approach.
+If you know a little bit about [generating functions](https://en.wikipedia.org/wiki/Generating_function), you might get even further and find an explicit formula for specific cases. Still, to me, this particular problem seems fundamentally difficult to solve in full generality using a strictly mathematical approach.
 
 In 2012 I read [Jair Taylor's solution](https://math.stackexchange.com/a/129802/172714) to this permutation problem on math.stackexchange.com in which he presents a remarkable formula. It turns out that the count of permutations in which no two adjacent letters are equal is given by:
 
@@ -202,7 +202,7 @@ def eval_gamma(term):
 
 def approach_3(string):
     """
-    Count the permuations of string that have no repeated letters
+    Count the permutations of string that have no repeated letters
     by multiplying Laguerre polynomials with degrees determined by
     the frequency of each letter and evaluating this product as
     a definite integral.
@@ -224,11 +224,11 @@ We have used fewer lines of code than in the backtracking approach! Now let's se
 584640
 ```
 
-We see the same answers and the two previous appraches, but counting the permuations for 'television' took just 0.006 seconds. Using this awesome new firepower we can fight far more fearsome words.
+We see the same answers and the two previous approaches, but counting the permutations for 'television' took just 0.006 seconds. Using this awesome new firepower we can fight far more fearsome words.
 
 ## Challenge: OEIS A190945
 
-The sequence [A190945](http://oeis.org/A190945) on OEIS counts the permuations of the string with one 'a', two of letter 'b', three of letter 'c', etc., such that adjacent letters are not equal:
+The sequence [A190945](http://oeis.org/A190945) on OEIS counts the permutations of the string with one 'a', two of letter 'b', three of letter 'c', etc., such that adjacent letters are not equal:
 
 ```
 a               = 1
@@ -247,7 +247,7 @@ Currently, the sequence shown there stops at the string containing 11 occurrence
 
 such permutations of this string.
 
-Taking aim at the string 'abbccc...zzzzzzzzzzzzzzzzzzzzzzzzzz' (that's 26 occurrences of 'z'), we can count the following number of permuations with no adjacent letters equal to each other in just 10 seconds:
+Taking aim at the string 'abbccc...zzzzzzzzzzzzzzzzzzzzzzzzzz' (that's 26 occurrences of 'z'), we can count the following number of permutations with no adjacent letters equal to each other in just 10 seconds:
 
 ```
 1997511428 0340904092 0511371088 5094277089
