@@ -13,9 +13,9 @@ title: The intuition behind Expectation Maximisation
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-Expectation Maximistation is a fantastically useful algorithm used to estimate model parameters (e.g. the bias of a coin, or the mean of data points) when some information about our data is hidden from us.
+Expectation Maximisation is a fantastically useful algorithm used to estimate model parameters (e.g. the bias of a coin, or the mean of data points) when some information about our data is hidden from us.
 
-A while ago, I felt that I didn't have a good inutition about how the algorithm worked and why the estimates for parameters always converged. This post is an attempt to organise my reasoning and present EM as straightforwardly as possible using simple code, skirting much of the mathematical formalism that often accompanies explanations of this algorithm.
+A while ago, I felt that I didn't have a good intuition about how the algorithm worked and why the estimates for parameters always converged. This post is an attempt to organise my reasoning and present EM as straightforwardly as possible using simple code, skirting much of the mathematical formalism that often accompanies explanations of this algorithm.
 
 The example in this post is based on the article *[What is the expectation maximization
 algorithm?](https://www.nature.com/nbt/journal/v26/n8/pdf/nbt1406.pdf)* by Do & Batzoglou. There are already a variety of other blog posts and code snippets which follow the coin flipping setup used in the article, but I felt that most of the code written was too verbose and the accompanying explanations didn't make things "click" for me.
@@ -104,7 +104,7 @@ What is a likelihood function? It tells you, given some data and a parameter, ho
 
 What is the likelihood function in this coin flip example?
 
-Recall that the [binomial formula](https://en.wikipedia.org/wiki/Binomial_distribution#Probability_mass_function) computes the probability that we have $H$ successes in $H+T$ independent trials, given that the proability of success is $\theta$:
+Recall that the [binomial formula](https://en.wikipedia.org/wiki/Binomial_distribution#Probability_mass_function) computes the probability that we have $H$ successes in $H+T$ independent trials, given that the probability of success is $\theta$:
 
 $$p(H,T  \mid \theta)=\left({H+T \atop H}\right) \theta^H (1-\theta)^T$$
 
@@ -279,7 +279,7 @@ We see that the guesses for each parameter converge quite quickly (using a preci
   </tr>
 </table>
 
-You might notice that the estimates for the coins appear to have been switched around. This can depend on the intial guesses for the parameters. EM has no opinion about which coin has which parameter here, just the most likely values of the parameters.
+You might notice that the estimates for the coins appear to have been switched around. This can depend on the initial guesses for the parameters. EM has no opinion about which coin has which parameter here, just the most likely values of the parameters.
 
 ## The weight intuition
 
