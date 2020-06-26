@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Want more upvotes on Stack Overflow? Try playing the slow game
+title: Three tactics to boost Stack Overflow upvotes
 ---
 
 Stack Overflow, the hugely-popular programming Q&A website, has often been called an online game. To play, you post correct answers or ask interesting questions. Correct and interesting content is upvoted by other users, netting you precious green reputation points.
