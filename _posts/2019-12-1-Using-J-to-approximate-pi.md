@@ -1,6 +1,6 @@
 ---
 layout: post
-title: J hooks make exotic expressions easy
+title: J hooks make evaluating exotic expressions easy
 ---
 
 <script type="text/x-mathjax-config">
