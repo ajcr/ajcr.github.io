@@ -222,7 +222,7 @@ Now let `A` and `B` be two 2D arrays with compatible shapes:
   </tr>
 </table>
 
-When workng larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with the 2D array `b`. There are more examples in the documentation.
+When working with larger numbers of dimensions, keep in mind that `einsum` allows the ellipses syntax `'...'`. This provides a convenient way to label the axes we're not particularly interested in, e.g. `np.einsum('...ij,ji->...', a, b)` would multiply just the last two axes of `a` with the 2D array `b`. There are more examples in the documentation.
  
 ## A few quirks to watch out for
 
