@@ -13,13 +13,13 @@ This post, Part 1, will cover the following topics:
 2. How Shape and Strides Define Dimensions
 3. When Reshaping Copies Data
 
-Part 2 will cover:
+[Part 2]({{ site.baseurl }}/stride-guide-part-2/) covers:
 
 1. C vs. Fortran order
 2. Ravelling
 3. Transposing and Permuting Axes
 
-Finally, Part 3 will cover:
+Finally, Part 3 (currently in progress!) will cover:
 
 1. Stride Tricks
 2. The View Method

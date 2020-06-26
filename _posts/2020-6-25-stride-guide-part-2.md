@@ -3,7 +3,7 @@ layout: post
 title: An Illustrated Guide to Shape and Strides (Part 2)
 ---
 
-Part 2 follows on from the key concepts of strided arrays introduced in the [previous post](https://ajcr.net/stride-guide-part-1/) and examines how NumPy implements other fundamental array concepts using strides:
+Part 2 follows on from the key concepts of strided arrays introduced in the [previous post]({{ site.baseurl }}/stride-guide-part-1/) and examines how NumPy implements other fundamental array concepts using strides:
 
 1. Transposing Arrays and Permuting Axes
 2. C order vs. Fortran order
