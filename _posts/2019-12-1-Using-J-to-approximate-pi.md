@@ -25,11 +25,11 @@ You might then proceed to check using a scientific calculator, your phone, or yo
 
 __...this is tedious and surely more effort than necessary for a simple pattern.__
 
-Here we have a compelling reason to learn a language that allows us to express and extend computional patterns with minimal effort.
+Here we have a compelling reason to learn a language that allows us to express and extend computational patterns with minimal effort.
 
 I want to focus on the [J programming language](https://www.jsoftware.com/#/) and one of its many clever abstractions: hooks. This is not-too-difficult to learn and will make swathes of repetitive mathematical expressions typable in a dozen or so characters. Once you get the hang of the language, it's a great replacement for a scientific calculator.
 
-You can even get a free [J interpretor app](https://apps.apple.com/us/app/j-programming-language/id532587550) for your phone.
+You can even get a free [J interpreter app](https://apps.apple.com/us/app/j-programming-language/id532587550) for your phone.
 
 Before you read on, I should tell you that I myself am very much a beginner in J. This fact should:
 
@@ -75,7 +75,7 @@ Because of the right-associativity and equal precedence of these verbs, we are a
 3.14626
 ```
 
-Here we compute the square-roots of 2 and 3, then add these results using the dyadic verb `+`. However, we can write expressions such as these more easily and idiomatically using J's fundamentental data structure: the array.
+Here we compute the square-roots of 2 and 3, then add these results using the dyadic verb `+`. However, we can write expressions such as these more easily and idiomatically using J's fundamental data structure: the array.
 
 ## Array building and reduction
 
@@ -132,7 +132,7 @@ Reading up the tower, it will be convenient to consider these integers numbers i
 6 5 4 3 2
 ```
 
-Next, we require the natural logarithm of each integer. To produce an array of these logarithms, we apply the mondaic verb [`^.`](https://code.jsoftware.com/wiki/Vocabulary/hatdot):
+Next, we require the natural logarithm of each integer. To produce an array of these logarithms, we apply the monadic verb [`^.`](https://code.jsoftware.com/wiki/Vocabulary/hatdot):
 
 ```
     ^. |. 2 + i. 5
@@ -193,7 +193,7 @@ This computes the square root of the input and then adds this new value back on 
 
 If there is a left-hand argument to the hook, then it uses that argument instead of the first argument (a dyadic hook).
 
-It turns out that dyadic hooks are great for repetive mathematical expressions:
+It turns out that dyadic hooks are great for repetitive mathematical expressions:
 
 $$ \sqrt{ 7 + \sqrt{ 6 + \sqrt{ 5 } } } \approx \pi $$
 
@@ -244,4 +244,4 @@ To go beyond this post, there are excellent J resources available online:
 
 - Henry Rich's '[J for C programmers](https://www.jsoftware.com/help/jforc/contents.htm)' is a great resource and helped me understand J's concept of 'rank' a little bit better.
 
-- Unsuprisingly, the thoughts and themes in this post are not unique. Half-way through typing it I searched and found various other blog posts. Here are a couple I read: '[Handwriting J](https://www.hillelwayne.com/post/handwriting-j/)', '[Beyond Functional Programming: Manipulate Functions with the J Language](https://www.adamtornhill.com/articles/jlang/beyondfunctional.html)'.
+- Unsurprisingly, the thoughts and themes in this post are not unique. Half-way through typing it I searched and found various other blog posts. Here are a couple I read: '[Handwriting J](https://www.hillelwayne.com/post/handwriting-j/)', '[Beyond Functional Programming: Manipulate Functions with the J Language](https://www.adamtornhill.com/articles/jlang/beyondfunctional.html)'.
