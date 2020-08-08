@@ -5,7 +5,9 @@ title: An Illustrated Guide to Shape and Strides (Part 1)
 
 Welcome to the first part of a three-part illustrated guide examining shapes, strides and multidimensionality in [NumPy](https://numpy.org/).
 
-The idea of [strided arrays](https://en.wikipedia.org/wiki/Stride_of_an_array) is simple, but enables solutions to mind-bending multidimensional problems. A better understanding of how strides work will make you a more efficient NumPy programmer. Also, the concept is elegant and worthy of study in its own right.
+The idea of [strided arrays](https://en.wikipedia.org/wiki/Stride_of_an_array) is simple, and is a basis for implementing arrays, matrices and tensors in many higher-level languages and frameworks including TensorFlow, PyTorch, Matlab and Julia.
+
+Strides allow solutions to mind-bending multi-dimensional problems. A better understanding of how they work could make you a more efficient programmer! Practicalities aside, the concept is elegant and worthy of study in its own right.
 
 This post, Part 1, will cover the following topics:
 
@@ -21,14 +23,13 @@ This post, Part 1, will cover the following topics:
 
 Finally, Part 3 (currently in progress!) will cover:
 
-1. Stride Tricks
-2. The View Method
-3. Study 1: Swapping Tiles
-4. Study 2: Array Inflation
+1. Stride Tricks and Direct Array Construction
+2. Study 1: Swapping Tiles
+3. Study 2: Array Inflation
 
-The intended audience is those that have used NumPy already, but not yet seriously scratched below the surface of how multi-dimensional arrays are implemented.
+The intended audience has used NumPy already, but has not yet seriously scratched below the surface of how multi-dimensional arrays are implemented.
 
-If you're already an experienced user of NumPy (or a similar array-based language/library), the chances are you'll know much (or all) of the material. However, I hope you'll find the presentation of interest nonetheless.
+If you're already an experienced user of NumPy (or a similar array-based language/library), the chances are you'll know at least some of the material. However, I hope you'll find the presentation of interest nonetheless.
 
 ## 1. Array Fundamentals
 
@@ -65,24 +66,26 @@ To put it more plainly: `a` and `b` are separate Python objects, but both share 
 
 ![array-anatomy]({{ site.baseurl }}/images/stride-guide/array-anatomy.png)
 
-Some relevant array attributes were highlighted above in the diagram above. In more detail:
+Some key array attributes were highlighted above in the diagram above. In more detail:
 
 - `a.data` returns a [memoryview](https://docs.python.org/3/library/stdtypes.html?highlight=memoryview#memory-views) of the underlying buffer holding the twelve integers.
 - `a.itemsize` is the number of bytes occupied by a single item in the buffer (each item uses the same number of bytes).
 - `a.shape` holds the length of each dimension of the array.
 - `a.strides` holds the number of bytes needed to advance one value along each dimension.
 
-The "start" of the buffer is also tracked internally by NumPy (as far as I know it is not exposed as at attribute of the array, see [here](https://github.com/numpy/numpy/blob/v1.18.2/numpy/core/include/numpy/ndarraytypes.h#L680-L681)). This tells NumPy where to begin reading from - it's not necessarily at the first memory address covered by the buffer.
+The `offset` (or "start") of the buffer is also tracked internally by NumPy (as far as I know it is not exposed as an attribute of the array, see the internal attribute [here](https://github.com/numpy/numpy/blob/v1.18.2/numpy/core/include/numpy/ndarraytypes.h#L680-L681)). This tells NumPy where to begin reading from: not necessarily at the first memory address covered by the buffer.
 
-Exactly how these attributes are used to reinterpret the memory buffer and change the shape of an array is detailed in the next section.
+Now, a fundamental point that I want to get across in this series of posts is this: 
 
-Two topics that I think are key to understanding how strides define shape are **indexing/slicing** (getting part of an array), and **iteration** (using strides to navigate the array values in sequence).
+> Array operations such as **reshaping**, **transposing**, **indexing**, **slicing** can be thought of as convenient high-level methods to manipulate **shape**, **strides** and **offset** to change how data in memory is traversed.
+
+Two topics that I think are key to understanding how shape and strides work together are **indexing** and **slicing** (roughly: getting parts of a larger array), and array **iteration** (using shape and strides to navigate the array values in sequence).
 
 ## 2. How shape and strides define dimensions
 
 ### 1-Dimension
 
-`a` is our 1D array `array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])`. It has the following shape and strides:
+`a` is our 1D array `array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])`. It has the following shape and strides set by NumPy on construction:
 
 ```python
 >>> a.shape
@@ -96,7 +99,7 @@ The stride indicates the number of bytes to jump in order to reach the next valu
 
 ![one-dimensional-array]({{ site.baseurl }}/images/stride-guide/1d_array_a.png)
 
-The 8 byte stride matches the `itemsize` attribute. For a smaller data type such as `int8`, then the itemsize would be 1 byte and the stride would also be 1 byte.
+The 8 byte stride matches the `itemsize` attribute: to read (or jump) one value, this many bytes has to be read (or jumped). For a smaller data type such as `int8`, then the itemsize would be 1 byte and the stride would also be 1 byte.
 
 #### Indexing and Slicing
 
@@ -115,15 +118,15 @@ array([ 0,  2,  4,  6,  8,  10])
 >>> a2.strides
 (16,)
 ```
-`a2` is a new array object which uses the same memory as `a`, it just interprets it differently using different shape and strides. `a2` reads the memory buffer like this:
+`a2` is a new array object which uses the same memory as `a`, it just interprets it differently using a different shape and strides. `a2` reads the memory buffer like this:
 
 ![one-dimensional-array-getitem-step-2]({{ site.baseurl }}/images/stride-guide/1d_array_a_getitem_step_2.png)
 
-Six values, each separated by a stride of 16 bytes.
+Six values, each separated by a stride of 16 bytes. If the stride if doubled, the length of the axis (the shape) must be halved.
 
-If you reverse an array, the stride changes sign (becomes negative if it was previously positive, and vice-versa).
+Now let's see every third value of `a`, working backwards from the end of the array:
 
-Now let's see every third value of `a`, working backwards from the very end of the array:
+Note that if you reverse an array, the stride changes sign (becomes negative if it was previously positive, and vice-versa). The offset into the memory buffer will also change as NumPy must begin reading from the opposite end.
 
 ```python
 >>> a_reversed = a[::-3]
@@ -135,7 +138,7 @@ array([11,  8,  5,  2])
 (-24,)
 ```
 
-The axis of `a_reversed` has length 4. To get these 4 values, `a_reversed` begins at the _end_ of the same memory buffer as `a` and jumps -24 bytes at a time to get to the next item: 
+The axis of `a_reversed` has length 4. To get these 4 values, `a_reversed` begins at the end of the same memory buffer as `a` and jumps -24 bytes at a time to get to the next item: 
 
 ![one-dimensional-array-reversed]({{ site.baseurl }}/images/stride-guide/1d_array_a_reversed.png)
 
@@ -145,13 +148,13 @@ These 1D examples demonstrate how the shape and stride attributes of an array de
 
 Iteration over the sequence of values in a 1D array is straightforward.
 
-When NumPy needs to iterate over the values in `a` (e.g. to sum them with `a.sum()`), it can see that there are 12 values along the axis (i.e. `a.shape[0]`), with each one separated by 8 bytes. It knows where to begin reading from in the memory buffer and to get the next item it jumps 8 bytes forward to the new memory address. 
+When NumPy needs to iterate over the values in `a` (e.g. to sum them with `a.sum()`), it can see that there are 12 values along the axis (i.e. `a.shape[0]`), with each one separated by 8 bytes. It knows where to begin reading from in the memory buffer (the offset) and to get the next item it jumps 8 bytes forward to the new memory address. 
 
 For slices, the start position in the buffer will change along with the shape (and possibly the stride if a step parameter has been used), but the idea is exactly the same.
 
 ### N-Dimensions
 
-The same ideas apply in all higher dimensions. The array just has more axes, and NumPy must keep track of how to move between these axes when traversing the items in sequence.
+The same ideas for apply in all higher dimensions. The array just has more axes and NumPy must keep track of how to move between these axes when traversing the items in sequence.
 
 Let's look again at `b`, our 2D array with three rows and four columns:
 
@@ -182,11 +185,11 @@ We can see also that the values for each of the three rows are stored together i
 
 Extending Python's indexing syntax, NumPy allows you to index/slice each dimension of an array separately.
 
-For example, to get the value in row 1, column 1, you specify `b[1, 1]`. NumPy computes the number of bytes it needs to jump from the start of the buffer in order to retrieve this value:
+For example, to get the value in row 1, column 1 of `b`, you write `b[1, 1]`. NumPy computes the number of bytes it needs to jump from the start of the buffer in order to retrieve this value:
 
 ![two-dimensional-array-c-order-getitem-1-1]({{ site.baseurl }}/images/stride-guide/2d_array_b_getitem_1_1.png)
 
-Through Python's indexing semantics, we can slice out a view of part of `b`. For example, let's get the second and third rows and columns:
+Through Python's indexing semantics, we can slice out a view of part of `b`. For example, let's get the second and third row, and second and third columns:
 
 ```python
 >>> b1 = b[1:3, 1:3]
@@ -230,7 +233,7 @@ Again, you can see that C order means that NumPy must use a greater stride lengt
 
 #### Iteration
 
-When iterating over arrays with two or more dimensions, NumPy needs to compute and make use of [backstrides](https://docs.scipy.org/doc/numpy-1.13.0/reference/c-api.types-and-structures.html#c.PyArrayIterObject.PyArrayIterObject.backstrides) for each axis. These values tell NumPy how far it needs to jump back once it reaches the end of each axis, before it can advance along the next axis.
+When iterating over arrays with two or more dimensions, NumPy computes and makes use of [backstrides](https://docs.scipy.org/doc/numpy-1.13.0/reference/c-api.types-and-structures.html#c.PyArrayIterObject.PyArrayIterObject.backstrides) for each axis. These values tell NumPy how far it needs to jump back once it reaches the end of each axis, before it can advance along the next axis.
 
 To iterate over all items the 2D array `b`, the backstride for axis 1 tells NumPy how to get back to the beginning of the row, before it can move down the column (axis 0). The backstride is the length of the axis minus 1, multiplied by the stride for that axis. For axis 1, this is `(4 - 1) * 8 == 24`:
 
@@ -274,7 +277,7 @@ Take the array `b1` from above. This was a view of a buffer created from a large
 
 ![two-dimensional-array-c-order-getitem-1-3-1-3]({{ site.baseurl }}/images/stride-guide/2d_array_b_getitem_1_3_1_3.png)
 
-Now let's try and reshape `b1` into a 1D array by setting the `.shape` attribute directly, which tries to change the shape in C order (traversing higher axes first):
+Now let's try and reshape `b1` into a 1D array by setting the `.shape` attribute directly, which tries to change the shape in C order (traversing higher axes first - more on order in [Part 2]({{ site.baseurl }}/stride-guide-part-2/)):
 
 ```python
 >>> b1.shape = (4,)
@@ -290,3 +293,9 @@ The reason this happens is because the stride for an axis has to be _constant_. 
 ![two-dimensional-array-c-order-getitem-1-3-1-3-ravel]({{ site.baseurl }}/images/stride-guide/2d_array_b_getitem_1_3_1_3_ravel.png)
 
 Whenever it cannot hit all values in a row or column using a constant stride length, the `reshape` method will copy the values into a new buffer. For large arrays this copying can be noticeable: in extreme cases NumPy may even fail to allocate memory!
+
+## Summary
+
+In this post, the fundamental attributes used to define NumPy arrays were introduced, and it was demonstrated how array operations such as indexing and reshaping manipulated these attributes to change how data is read from memory.
+
+[Part 2]({{ site.baseurl }}/stride-guide-part-2/) continues this theme and examines how other high-level array operations are expressed as manipulations of these attributes.
