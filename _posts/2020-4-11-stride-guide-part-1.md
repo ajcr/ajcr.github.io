@@ -24,8 +24,7 @@ This post, Part 1, will cover the following topics:
 Finally, Part 3 (currently in progress!) will cover:
 
 1. Stride Tricks and Direct Array Construction
-2. Study 1: Swapping Tiles
-3. Study 2: Array Inflation
+2. Stride Study: Swapping Tiles
 
 The intended audience has used NumPy already, but has not yet seriously scratched below the surface of how multi-dimensional arrays are implemented.
 
