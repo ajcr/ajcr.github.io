@@ -5,7 +5,7 @@ title: An Illustrated Guide to Shape and Strides (Part 1)
 
 Welcome to the first part of a three-part illustrated guide examining shapes, strides and multidimensionality in [NumPy](https://numpy.org/).
 
-The idea of [strided arrays](https://en.wikipedia.org/wiki/Stride_of_an_array) is simple, and is a basis for implementing arrays, matrices and tensors in many higher-level languages and frameworks including TensorFlow, PyTorch, Matlab and Julia.
+The idea of [strided arrays](https://en.wikipedia.org/wiki/Stride_of_an_array) is simple, and is a basis for implementing arrays, matrices and tensors in many higher-level languages and frameworks including [TensorFlow](https://www.tensorflow.org/api_docs/python/tf/strided_slice) and [Julia](https://docs.julialang.org/en/v1/base/arrays/#Base.strides).
 
 Strides allow solutions to mind-bending multi-dimensional problems. A better understanding of how they work could make you a more efficient programmer! Practicalities aside, the concept is elegant and worthy of study in its own right.
 
@@ -21,20 +21,20 @@ This post, Part 1, will cover the following topics:
 2. Ravelling
 3. Transposing and Permuting Axes
 
-Finally, Part 3 (currently in progress!) will cover:
+Finally, [Part 3]({{ site.baseurl }}/stride-guide-part-3/) will cover methods to specify the strides of an array directly, and how this can be useful for solving problems:
 
-1. Stride Tricks and Direct Array Construction
+1. Specifying Strides Directly
 2. Stride Study: Swapping Tiles
 
-The intended audience has used NumPy already, but has not yet seriously scratched below the surface of how multi-dimensional arrays are implemented.
+The intended audience for these posts who have used NumPy already, but have not yet seriously scratched below the surface of how multi-dimensional arrays are implemented.
 
-If you're already an experienced user of NumPy (or a similar array-based language/library), the chances are you'll know at least some of the material. However, I hope you'll find the presentation of interest nonetheless.
+If you're already an experienced user of NumPy (or a similar array-based language/library), the chances are you'll know at least some of the material. However, I hope you'll still find the presentation of interest.
 
 ## 1. Array Fundamentals
 
-Let's first establish what a NumPy array actually is.
+Let's first establish what a NumPy array is made of.
 
-In your favourite Python shell, create a NumPy array holding 12 integer values:
+In a Python shell, create a NumPy array holding 12 integer values:
 
 ```python
 >>> import numpy as np
@@ -78,9 +78,9 @@ Now, a fundamental point that I want to get across in this series of posts is th
 
 > Array operations such as **reshaping**, **transposing**, **indexing**, **slicing** can be thought of as convenient high-level methods to manipulate **shape**, **strides** and **offset** to change how data in memory is traversed.
 
-Two topics that I think are key to understanding how shape and strides work together are **indexing** and **slicing** (roughly: getting parts of a larger array), and array **iteration** (using shape and strides to navigate the array values in sequence).
+Two topics which I think are key to understanding how shape and strides work together are **indexing** and **slicing** (roughly: getting parts of a larger array), and array **iteration** (using shape and strides to navigate the memory to return values in a defined sequence).
 
-## 2. How shape and strides define dimensions
+## 2. How Shape and Strides Define Dimensions
 
 ### 1-Dimension
 
