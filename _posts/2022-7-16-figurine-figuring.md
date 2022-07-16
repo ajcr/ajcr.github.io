@@ -69,7 +69,7 @@ Now there are $15$ figurines in total and so $14!$ possible draws where we don't
 
 We want to calculate:
 
-$$ \binom{3}{3} \left[ \binom{2}{1} + \binom{4}{1} + \binom{5}{1} \right] + \binom{4}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{5}{1} \right] + \binom{5}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{4}{1} \right] $$
+$$ \binom{3}{3} \left[ \binom{2}{1} + \binom{4}{1} + \binom{5}{1} \right] + \\ \binom{4}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{5}{1} \right] + \\ \binom{5}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{4}{1} \right] $$
 
 This works out to be $141$ ways of drawing exactly four figures and seeing _exactly_ 3 of any one type of figure in each draw.
 
@@ -87,11 +87,11 @@ This is a [standard way](https://en.wikipedia.org/wiki/Enumerative_combinatorics
 
 So if we use _at most_ 3 of each of these figurines, we can count number of possible draws of each possible length by truncating the rows of the triangle and multiplying the four polynomials (one for each type of figurine):
 
-$$ \left(x^{2} + 2 x + 1\right) \left(x^{3} + 3 x^{2} + 3 x + 1\right) \left(4 x^{3} + 6 x^{2} + 4 x + 1\right) \left(10 x^{3} + 10 x^{2} + 5 x + 1\right) \tag{1} $$
+$$ \left(x^{2} + 2 x + 1\right) \left(x^{3} + 3 x^{2} + 3 x + 1\right) \left(4 x^{3} + 6 x^{2} + 4 x + 1\right)  \\ \left(10 x^{3} + 10 x^{2} + 5 x + 1\right) \tag{1} $$
 
 Multiplied out, this is the polynomial:
 
-$$ 40 x^{11} + 300 x^{10} + 1020 x^{9} + 2084 x^{8} + 2856 x^{7} + 2769 x^{6} + 1946 x^{5} + 995 x^{4} + 364 x^{3} + 91 x^{2} + 14 x + 1 $$
+$$ 40 x^{11} + 300 x^{10} + 1020 x^{9} + 2084 x^{8} + 2856 x^{7} + 2769 x^{6} +  \\ 1946 x^{5} + 995 x^{4} + 364 x^{3} + 91 x^{2} + 14 x + 1 $$
 
 It tells us that, for example, there are 995 ways of drawing four figurines and having _at most_ three of any type of figurine.
 
@@ -111,7 +111,7 @@ As expected, we have $995 - 854 = 141$ possible draws of length 4.
 
 To get the _probability_ that the maximum of any type of figurine in the draw is exactly 3, we divide each term by some other numbers:
 
-$$ \frac{1}{15} \left( \frac{40 x^{11}}{\binom{14}{11}} + \frac{300 x^{10}}{\binom{14}{10}} + \frac{1020 x^{9}}{\binom{14}{9}} + \frac{1904 x^{8}}{\binom{14}{8}} + \frac{2106 x^{7}}{\binom{14}{7}} + \frac{1431 x^{6}}{\binom{14}{6}} + \frac{595 x^{5}}{\binom{14}{5}} + \frac{141 x^{4}}{\binom{14}{4}} + \frac{15 x^{3}}{\binom{14}{3}} \right) $$
+$$ \frac{1}{15} \left( \frac{40 x^{11}}{\binom{14}{11}} + \frac{300 x^{10}}{\binom{14}{10}} + \frac{1020 x^{9}}{\binom{14}{9}} + \frac{1904 x^{8}}{\binom{14}{8}} + \frac{2106 x^{7}}{\binom{14}{7}} \\ + \frac{1431 x^{6}}{\binom{14}{6}} + \frac{595 x^{5}}{\binom{14}{5}} + \frac{141 x^{4}}{\binom{14}{4}} + \frac{15 x^{3}}{\binom{14}{3}} \right) $$
 
 The $\frac{1}{15}$ is the probability that our draw is of a given size $k$, and $\binom{14}{k}$ counts the total number of draws of size $k$ from the 14 figurines (all figurines excluding the partridge).
 
