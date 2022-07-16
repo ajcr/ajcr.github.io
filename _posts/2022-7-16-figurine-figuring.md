@@ -15,23 +15,23 @@ title: Jane Street's 'Figuring Figuring' puzzle - solution and a tricky limit
 
 [Jane Street](https://www.janestreet.com/) posted a [Christmas-themed puzzle](https://www.janestreet.com/puzzles/figurine-figuring-index/) in January 2021:
 
-> Jane received 78 figurines as gifts this holiday season: 12 drummers drumming, 11 pipers piping, 10 lords a-leaping, etc., down to 1 partridge in a pear tree. They are all mixed together in a big bag. She agrees with her friend Alex that this seems like too many figurines for one person to have, so she decides to give some of her figurines to Alex. Jane will uniformly randomly pull figurines out of the bag one at a time until she pulls out the partridge in a pear tree, and will give Alex all of the figurines she pulled out of the bag (except the partridge, that’s Jane’s favorite).
+> Jane received 78 figurines as gifts this holiday season: 12 drummers drumming, 11 pipers piping, 10 lords a-leaping, etc., down to 1 partridge in a pear tree. They are all mixed together in a big bag. She agrees with her friend Alex that this seems like too many figurines for one person to have, so she decides to give some of her figurines to Alex. Jane will uniformly randomly pull figurines out of the bag one at a time until she pulls out the partridge in a pear tree, and will give Alex all of the figurines she pulled out of the bag (except the partridge, that’s Jane’s favourite).
 >
 > If *n* is the maximum number of any one type of ornament that Alex gets, what is the expected value of *n*, to seven significant figures?
 
 So we draw randomly from the collection of 78 days-of-Christmas figurines, stopping immediately when the partridge is drawn. We must find the average maximum count of any type of figurine across all possible draws. I'll denote this expected value $\mathop{\mathbb{E}}[\text{M}_{12}]$ (the subscript 12 denotes the number of days of Christmas).
 
-Initially I didn't have any good idea about how to calculate or approximate this value. I tentatively guessed it might be about half the number of days, $\frac{d}{2}$, so roughtly $6$.
+Initially I didn't have any good idea about how to calculate or approximate this value. I tentatively guessed it might be about half the number of days, $\frac{d}{2}$, so roughly $6$.
 
-My hand-wavey justification was that, across all draws, there's an equal probability of drawing the partridge on any turn so collections of each size are equally likely. A collection might overlap some or all of the $d$ types of figurines with equal probability. In each collection, only half the types of figurine (_six geese_, _seven swans_, etc.) could occur more than $\frac{d}{2}$ times or more (and $\frac{d}{2} - 1$ fewer than this).
+My hand-wavy justification was that, across all draws, there's an equal probability of drawing the partridge on any turn so collections of each size are equally likely. A collection might overlap some or all of the $d$ types of figurines with equal probability. In each collection, only half the types of figurine (_six geese_, _seven swans_, etc.) could occur more than $\frac{d}{2}$ times or more (and $\frac{d}{2} - 1$ fewer than this).
 
 Regardless of whether this line of reasoning is valid, it turns out to be a reasonably good guess!
 
-I'll show how I solved the orginal puzzle and then ask what the limit is as the number of days $d$ increases:
+I'll show how I solved the original puzzle and then ask what the limit is as the number of days $d$ increases:
 
 $$\lim_{d \to \infty } \frac{ \mathop{\mathbb{E}}[\text{M}_{d}] }{d} $$
 
-A limit of $\frac{1}{2}$ seems _possible_, though I couldn't get a handle on proving it. I'll breifly describe a few ways I started to explore the problem. If you know a way to compute this limit, I'd be interested to hear from you.
+A limit of $\frac{1}{2}$ seems _possible_, though I couldn't get a handle on proving it. I'll briefly describe a few ways I started to explore the problem. If you know a way to compute this limit, I'd be interested to hear from you.
 
 ## Solution to Jane Street's puzzle
 
@@ -45,13 +45,13 @@ As noted in the introduction, across all $78!$ possible sequences there is an eq
 
 These numbers are all quite big, so let's work with fewer days of Christmas to get a feel for the problem.
 
-What about $\mathop{\mathbb{E}}[\text{M}_{1}]$? There's a single partidge and no other figures, so the answer is $0$.
+What about $\mathop{\mathbb{E}}[\text{M}_{1}]$? There's a single partridge and no other figures, so the answer is $0$.
 
 Not very interesting, so let's add the two turtle doves and look at $\mathop{\mathbb{E}}[\text{M}_{2}]$. Now there are three figurines in total and $3!$ possible draws:
 
 $$P_1, T_1, T_2\\P_1, T_2, T_1\\ T_1, P_1, T_2\\ T_2, P_1, T_1\\T_1, T_2, P_1\\ T_2, T_1, P_1$$
 
-There are two draws with _no_ tutle-doves, two with a _one_ turtle-dove, and two with _two_ turtle-doves. As mentioned above, each size of draw is equally likely (the probability is $\frac{1}{6}$) so:
+There are two draws with _no_ turtle-doves, two with a _one_ turtle-dove, and two with _two_ turtle-doves. As mentioned above, each size of draw is equally likely (the probability is $\frac{1}{6}$) so:
 
 $$ \mathop{\mathbb{E}}[\text{M}_{2}] = 0 \cdot \frac{2}{6} + 1 \cdot \frac{2}{6} + 2 \cdot \frac{2}{6} = 0 + \frac{1}{3} + \frac{2}{3} = 1 $$
 
@@ -210,9 +210,9 @@ Plotting the Ratio column we see this:
 For day two, we have a ratio of exactly $0.5$. From there, it increases until day nine, before slowly decreasing.
 
 - Does the sequence continue to decrease monotonically?
-- Does the sequence coverge? Does it converge to $0.5$, or something else?
+- Does the sequence converge? Does it converge to $0.5$, or something else?
 
-Unfortuately, I can't work out the answers to these questions, or even calculate values (accurately) for days much further than 60 (multiplying polynomials with huge rational coefficients gets expensive, however much you try optimise the approach).
+Unfortunately, I can't work out the answers to these questions, or even calculate values (accurately) for days much further than 60 (multiplying polynomials with huge rational coefficients gets expensive, however much you try optimise the approach).
 
 ## Final thoughts
 
