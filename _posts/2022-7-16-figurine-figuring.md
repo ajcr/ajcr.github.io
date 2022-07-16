@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Jane Street's 'Figuring Figuring' puzzle - solution and a tricky limit
+title: Jane Street's 'Figurine Figuring' puzzle, solution and a tricky limit
 ---
 
 <script type="text/x-mathjax-config">
@@ -69,11 +69,7 @@ Now there are $15$ figurines in total and so $14!$ possible draws where we don't
 
 We want to calculate:
 
-\begin{align}
- \binom{3}{3} \cdot \left[ \binom{2}{1} + \binom{4}{1} + \binom{5}{1} \right] \\+ 
- \binom{4}{3} \cdot \left[ \binom{2}{1} + \binom{3}{1} + \binom{5}{1} \right] \\+ 
- \binom{5}{3} \cdot \left[ \binom{2}{1} + \binom{3}{1} + \binom{4}{1} \right]
-\end{align}
+$$ \binom{3}{3} \left[ \binom{2}{1} + \binom{4}{1} + \binom{5}{1} \right] + \binom{4}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{5}{1} \right] + \binom{5}{3} \left[ \binom{2}{1} + \binom{3}{1} + \binom{4}{1} \right] $$
 
 This works out to be $141$ ways of drawing exactly four figures and seeing _exactly_ 3 of any one type of figure in each draw.
 
@@ -87,7 +83,7 @@ For a given row $N$, let's set each entry $\binom{N}{k}$ as the coefficient of $
 
 ![pascal-triangle-annotated]({{ site.baseurl }}/images/figurine_figuring/pascal_triangle_annotated.png)
 
-This is a [standard way](https://en.wikipedia.org/wiki/Enumerative_combinatorics#Generating_functions) to associate the number of ways to draw ($\binom{2}{k}$) and the number of possible sizes of draws ($k$) in the polynomial. If we do this for other rows and create other polynomials, then _multiplying_ them gives us a new polynomial associating possible draw sizes and the number of different ways that draw can happen.
+This is a [standard way](https://en.wikipedia.org/wiki/Enumerative_combinatorics#Generating_functions) to associate the number of ways to draw, $\binom{2}{k}$, and the number of possible sizes of draws, $k$, in the polynomial. If we do this for other rows and create other polynomials, then _multiplying_ them gives us a new polynomial associating possible draw sizes and the number of different ways that draw can happen.
 
 So if we use _at most_ 3 of each of these figurines, we can count number of possible draws of each possible length by truncating the rows of the triangle and multiplying the four polynomials (one for each type of figurine):
 
@@ -117,7 +113,7 @@ To get the _probability_ that the maximum of any type of figurine in the draw is
 
 $$ \frac{1}{15} \left( \frac{40 x^{11}}{\binom{14}{11}} + \frac{300 x^{10}}{\binom{14}{10}} + \frac{1020 x^{9}}{\binom{14}{9}} + \frac{1904 x^{8}}{\binom{14}{8}} + \frac{2106 x^{7}}{\binom{14}{7}} + \frac{1431 x^{6}}{\binom{14}{6}} + \frac{595 x^{5}}{\binom{14}{5}} + \frac{141 x^{4}}{\binom{14}{4}} + \frac{15 x^{3}}{\binom{14}{3}} \right) $$
 
-The $\frac{1}{15}$ is the probability that our draw is of a given size $k$, and $\binom{14, k}$ counts the total number of draws of size $k$ from the 14 figurines (all figurines excluding the partridge).
+The $\frac{1}{15}$ is the probability that our draw is of a given size $k$, and $\binom{14}{k}$ counts the total number of draws of size $k$ from the 14 figurines (all figurines excluding the partridge).
 
 Summing these coefficients gives us a probability $0.20817$.
 
@@ -186,8 +182,14 @@ As I mentioned above, my estimate was for the expected value of the maximum coun
 
 Does the ratio of expected value over days get closer $0.5$ as the number of days increases? Here's a table showing a subset of results up to day 60:
 
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
+
 | Day    | Expected Value |  Ratio   |
-| :----: | :------------: | :-----:  |
+|:------:|:--------------:|:--------:|
 | 1      | 0              | _Inf_    |
 | 2      | 1.0            | 0.5      |
 | 3      | 1.65           | 0.55     |
@@ -202,6 +204,7 @@ Does the ratio of expected value over days get closer $0.5$ as the number of day
 | 40     | 22.34634       | 0.558659 |
 | 50     | 27.77765       | 0.555553 |
 | 60     | 33.17920       | 0.552987 |
+{: .tablelines}
 
 Plotting the Ratio column we see this:
 
