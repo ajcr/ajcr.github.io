@@ -218,7 +218,7 @@ Unfortunately, I can't work out the answers to these questions, or even calculat
 
 To calculate $ \mathop{\mathbb{E}}[\text{M}_{d}] $, a formula (unless I've made a mistake) is:
 
-$$ \frac{2}{d \left(d + 1\right)} \sum_{m=1}^{d} m \left(\prod_{i=2}^{d} \sum_{j=0}^{m} \frac{x^{j} {\binom{i}{j}}}{{\binom{\frac{d \left(d + 1\right)}{2} - 1}{j}}} - \prod_{i=2}^{d} \sum_{j=0}^{m - 1} \frac{x^{j} {\binom{i}{j}}}{{\binom{\frac{d \left(d + 1\right)}{2} - 1}{j}}}\right) $$ 
+![formula]({{ site.baseurl }}/images/figurine_figuring/formula.png)
 
 You can see the polynomial subtraction in the inner brackets. The summation over $m$ is for each possible maximum count (giving us the expected value).
 
