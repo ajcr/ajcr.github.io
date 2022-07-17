@@ -223,10 +223,10 @@ To calculate $ \mathop{\mathbb{E}}[\text{M}_{d}] $, a formula (unless I've made 
 
 ![formula]({{ site.baseurl }}/images/figurine_figuring/formula.png)
 
-You can see the polynomial subtraction in the inner brackets. The summation over $m$ is for each possible maximum count (giving us the expected value).
+You can see the polynomial subtraction in the inner brackets. The summation of coefficients over $m$ is for each possible maximum count (giving us the expected value).
 
 This is difficult (or even impossible?) to write in a way that admits an evaluation of the limit, and also seems difficult to approximate with simpler expressions.
 
-Computing the product of truncated binomial coefficient rows (there's [OEIS A145324](https://oeis.org/A145324) for $(1 + x)(1 + 2x)\...(1 + nx)$ but nothing general). The binomial coefficients could be bound or simplified in some way, but then there's still the problem of summing the necessary restricted partitions of an integer.
+Computing the product of truncated binomial coefficient rows (there's [OEIS A145324](https://oeis.org/A145324) for $(1 + 2x)(1 + 3x)\...(1 + nx)$ but nothing general). The binomial coefficients could be bounded or simplified in some way (e.g.\ $\binom{n}{k} \approx \frac{n^k}{k!} $), but then there's still the problem of summing over values in the restricted partitions of an integer.
 
-Perhaps there's an alternative approach to solving the puzzle, but I've not found one yet. If I make any meaningful progress, I'll update this post.
+Perhaps there's an alternative approach to solving the puzzle, but I've not found it yet. If I make any meaningful progress, I'll update this post.
