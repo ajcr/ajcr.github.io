@@ -117,7 +117,7 @@ The $\frac{1}{15}$ is the probability that our draw is of a given size $k$, and 
 
 Summing these coefficients gives us a probability $0.20817$.
 
-## Coding the solution
+### Coding the solution
 
 We now know how to count draws with a maximum figurine-type count, and then turn these counts in probabilities. From here, it is straightforward to compute the expected value and solve the puzzle. Here's some Python code (using the [SymPy](https://www.sympy.org/en/index.html) library) to do this:
 
@@ -176,7 +176,7 @@ $$ \frac{938773747614991791313078972801807}{136851726813476721146087646859200} $
 
 To the seven significant figures required by Jane Street, this is $ 6.859787 $.
 
-## So what about my initial guess?
+## What about the limit?
 
 As I mentioned above, my estimate was for the expected value of the maximum count amongst the drawn figurines to be around $\frac{12}{2} = 6$. The actual value of $6.859787...$ is not far off, but it's not close either.
 
@@ -190,7 +190,7 @@ Does the ratio of expected value over days get closer $0.5$ as the number of day
 
 | Day    | Expected Value |  Ratio   |
 |:------:|:--------------:|:--------:|
-| 1      | 0              | _Inf_    |
+| 1      | 0              | 0        |
 | 2      | 1.0            | 0.5      |
 | 3      | 1.65           | 0.55     |
 | 4      | 2.252778       | 0.563194 |
