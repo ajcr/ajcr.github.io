@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 
-My name is Alex, I live in the UK and work as a software engineer at a drug-discovery/machine-learning company in the Cambridge area.
+My name is Alex and I live in the UK.
 
-This is a blog where I try to investigate or explain, with varying levels of rigour, ideas and things that I've stumbled across and found interesting in some way.
+This is a blog where I write, with varying levels of rigour, about questions and ideas that I've stumbled across or experiments that I've tried.
 
-Much of the content here is programming themed. I've meandered through other studies and careers though, so there'll maybe be excursions down unrelated paths.
+The content here is largely programming themed (I currently work as a software engineer). I've meandered through various studies and industries though, so maybe expect excursions down other paths.
