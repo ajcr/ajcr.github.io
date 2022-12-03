@@ -18,20 +18,32 @@ html {
 }
 
 body {
-	background: $white;
+  background: $white;
   font: 18px/1.4 $helvetica;
   color: #2e3748;
 }
 
 tbody {
-    background: #a78888;
+  background: #a78888;
 }
 
 tg {
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-left: auto;
-    margin-right: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.tablelines {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  padding: 8px;
+}
+
+element.style {
+  font-weight: bold;
+  background-colour: #a78888;
 }
 
 .container {
