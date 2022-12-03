@@ -23,6 +23,17 @@ body {
   color: #2e3748;
 }
 
+tbody {
+    background: #a78888;
+}
+
+tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container {
   margin: 0 auto;
   max-width: 740px;
