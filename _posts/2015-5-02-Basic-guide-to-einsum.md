@@ -21,7 +21,7 @@ Then there's a good chance `einsum` will help us do this much faster and more me
 
 As a small example of the function's power, here are two arrays that we want to multiply element-wise and then sum along axis 1 (the rows of the array):
 
-```
+```python
 A = np.array([0, 1, 2])
 
 B = np.array([[ 0,  1,  2,  3],
@@ -33,14 +33,14 @@ How do we normally do this in NumPy? The first thing to notice is that we need t
 
 Putting this together, we have:
 
-```
+```python
 >>> (A[:, np.newaxis] * B).sum(axis=1)
 array([ 0, 22, 76])
 ```
 
 This works fine, but using `einsum` we can do better:
 
-```
+```python
 >>> np.einsum('i,ij->i', A, B)
 array([ 0, 22, 76])
 ```
@@ -59,7 +59,7 @@ What does this string mean? Think of `'ij,jk->ik'` as split in two at the arrow 
 
 The two arrays we'll multiply are:
 
-```
+```python
 A = np.array([[1, 1, 1],
               [2, 2, 2],
               [5, 5, 5]])
@@ -230,7 +230,7 @@ Here a few things to be mindful/wary of when using the function.
 
 `einsum` [does not promote data types when summing](http://stackoverflow.com/a/18366008/3923281). If you're using a more limited datatype, you might get unexpected results: 
 
-```
+```python
 >>> a = np.ones(300, dtype=np.int8)
 >>> np.sum(a) # correct result
 300
@@ -244,7 +244,7 @@ Finally, `einsum` is not always the fastest option in NumPy. Functions such as `
 
 ## Historical notes and links
 
-The `einsum` function was written by [Mark Wiebe](https://github.com/mwiebe). Here is a [thread](http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html) from the NumPy mailing list announcing its existence, followed by discussion about the motivation for introducing it into the library. In 2011, the function was included as part of NumPy 1.6.0.
+The `einsum` function was written by [Mark Wiebe](https://github.com/mwiebe). Here is a [thread](https://mail.python.org/pipermail/numpy-discussion/2011-January/054586.html) from the NumPy mailing list announcing its existence, followed by discussion about the motivation for introducing it into the library. In 2011, the function was included as part of NumPy 1.6.0.
 
 Three further links that may be of interest:
 
