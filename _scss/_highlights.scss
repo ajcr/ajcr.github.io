@@ -1,6 +1,6 @@
 
 .highlight {
-  background-color: #FBFBFB;
+  background-color: #343333;
   padding: 7px 7px 7px 10px;
   border: 1px solid #ddd;
   -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
@@ -8,6 +8,7 @@
   box-shadow: 3px 3px rgba(0,0,0,0.1);
   margin: 0px 0 0px 0;
   overflow: auto;
+  font-size: 95%;
 }
 
 .highlight .highlight {
@@ -16,7 +17,7 @@
 }
 
 code {
-  font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+  font-family:'Bitstream Vera Sans Mono','Courier', monospace; color:White;
 }
 
 .highlight .c { color: #586E75 } /* Comment */
@@ -24,7 +25,7 @@ code {
 .highlight .g { color: #93A1A1 } /* Generic */
 .highlight .k { color: #859900 } /* Keyword */
 .highlight .l { color: #93A1A1 } /* Literal */
-.highlight .n { color: #151515 } /* Name */
+.highlight .n { color: #fdd7d7 } /* Name */
 .highlight .o { color: #859900 } /* Operator */
 .highlight .x { color: #CB4B16 } /* Other */
 .highlight .p { color: #93A1A1 } /* Punctuation */
