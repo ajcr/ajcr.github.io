@@ -131,6 +131,9 @@ strong, b {
 
 img {
   max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 // Fixes images in popup boxes from Google Translate
