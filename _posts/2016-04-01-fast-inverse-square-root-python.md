@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The Fast Inverse Square Root method in Python
+synopsis: Jumping through hoops to write the famous Quake 3 code in Python.
 ---
 
 The inverse square root of a number x is x<sup>-1/2</sup>. For example, put in 25, you'll get back 0.2: the square root of 25 is 5, the inverse of 5 is 1/5, or 0.2 in decimal notation. It's a very common calculation in computer graphics, for example, where you need to normalise a lot of vectors.

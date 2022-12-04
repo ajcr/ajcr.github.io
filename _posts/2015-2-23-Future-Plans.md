@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Future Plans
+synopsis: Hello and welcome.
 ---
 
 Welcome! 

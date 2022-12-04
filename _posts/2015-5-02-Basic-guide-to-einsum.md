@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A basic introduction to NumPy's einsum
+synopsis: einsum is one of NumPy's jewels. What does it do?
 ---
 
 The `einsum` function is one of NumPy's jewels. It can often outperform familiar array functions in terms of speed and memory efficiency, thanks to its expressive power and smart loops. On the downside, it can take a little while understand the notation and sometimes a few attempts to apply it correctly to a tricky problem. 

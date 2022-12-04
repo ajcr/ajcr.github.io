@@ -1,6 +1,7 @@
 ---
 layout: post
 title: J hooks make evaluating exotic expressions easy
+synopsis: Implementing expressions to approximate $\pi$ using J and the power of hooks.
 ---
 
 <script type="text/x-mathjax-config">

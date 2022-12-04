@@ -1,6 +1,7 @@
 ---
 layout: post
 title: An Illustrated Guide to Shape and Strides (Part 1)
+synopsis: A detailed look at strides are used to define the shape and order of multi-dimensional arrays.
 ---
 
 Welcome to the first part of a three-part illustrated guide examining shapes, strides and multidimensionality in [NumPy](https://numpy.org/).

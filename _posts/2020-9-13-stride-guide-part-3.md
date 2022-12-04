@@ -1,6 +1,7 @@
 ---
 layout: post
 title: An Illustrated Guide to Shape and Strides (Part 3)
+synopsis: How manually manipulating strides opens up new array operations, and why swapping tiles of 2D arrays requires *four* dimensions.
 ---
 
 In [Part 1]({{ site.baseurl }}/stride-guide-part-1/) and [Part 2]({{ site.baseurl }}/stride-guide-part-2/) we looked at key array attributes such as shape, strides and offset and how NumPy implements array operations by changing these attributes to traverse a contiguous region of memory in different ways.

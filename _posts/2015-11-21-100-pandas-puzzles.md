@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 100 pandas puzzles
+synopsis: Well, not quite 100 yet. You can find them at github.com/ajcr/100-pandas-puzzles
 ---
 
 I've started compiling a list of short pandas puzzles of varying difficulty. You can find it over on GitHub [here](https://github.com/ajcr/100-pandas-puzzles).

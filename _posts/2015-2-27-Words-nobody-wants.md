@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Words nobody wants for websites
+synopsis: Exploring domain names to find the words nobody has used yet.
 ---
 
 There are [over 130 million](http://www.verisigninc.com/en_US/channel-resources/domain-registry-products/zone-file-information/index.xhtml) .com and .net domain names. Is every single English word being used?
@@ -19,9 +20,11 @@ To find out what this pool contains, I decided to take a list of 130 million dom
 
 This methodology is good, I reasoned, because it prevents common substrings from being counted too frequently and making the counts biased. For example, *sandinmyeyes.com* would contribute just three words (*sand*, *in*, *my*, *eyes*). Subwords such as *and*, *din* and *yey* do not get counted at all. This is good because no straight-thinking person would think the domain owner intended to choose those words.
 
-Splitting strings is not a trivial problem however. There could be many different ways to break up the domain into recognisable words; finding the "correct" way could require some advanced natural language processing. This is difficult to implement, computationally expensive and I wanted more immediate gratification. After some experiments, I found that simply splitting into the *fewest* words possible gave accurate-looking results. This also had the advantage of avoiding the comparison of all possible splits. I decided that any domain than could not be split cleanly would be discarded. My final function was based on [this function](https://github.com/ajcr/string-splitter/blob/master/splitter.py) I wrote some time ago.
+Splitting strings is not a trivial problem however. There could be many different ways to break up the domain into recognisable words; finding the "correct" way could require some advanced natural language processing. This is difficult to implement, computationally expensive and I wanted more immediate answers.
 
-Not optimised, but fast enough. My computer churned through the 130 million domains in about four hours, only failing to split 18 million gobbledegook domains. A bit of cleaning up and I had a long list of 356,580,878 words (looks like domains contain an average of 2-3 words). The computer whirred for a few more minutes while it counted them and then was quiet.
+ After some experiments, I found that simply splitting into the *fewest* words possible gave accurate-looking results. This also had the advantage of avoiding the comparison of all possible splits. I decided that any domain than could not be split cleanly would be discarded.
+
+My computer churned through the 130 million domains in about four hours, only failing to split 18 million gobbledegook domains. A bit of cleaning up and I had a long list of 356,580,878 words (looks like domains contain an average of 2-3 words). The computer whirred for a few more minutes while it counted them and then was quiet.
 
 ---
 

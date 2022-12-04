@@ -1,6 +1,7 @@
 ---
 layout: post
-title: The fast way to count permutations with no repeated letters
+title: The fastest way to count permutations with no repeated letters
+synopsis: Presenting the slow, faster and (possibly) fastest algorithms to count permutations that avoid repeating letters.
 ---
 
 <script type="text/x-mathjax-config">

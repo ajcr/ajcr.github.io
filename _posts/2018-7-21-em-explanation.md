@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The intuition behind Expectation Maximisation
+synopsis: What makes this algorithm work? A simple overview of the key steps and code involved.
 ---
 
 <script type="text/x-mathjax-config">

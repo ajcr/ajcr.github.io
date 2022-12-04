@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Jane Street's 'Figurine Figuring' puzzle, solution and a tricky limit
+title: Jane Street's 'Figurine Figuring' puzzle solution and a tricky follow-up question
+synopsis: Solving an expected value problem by multiplying polynomials. Also, I ask (and fail to answer) a seemingly difficult question about limits.
 ---
 
 <script type="text/x-mathjax-config">

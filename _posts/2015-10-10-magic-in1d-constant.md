@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Picking magic numbers for numpy.in1d
+synopsis: Where did the value of 0.145 come from? Contour plots.
 ---
 
 If you've played about with NumPy before, you'll probably know that given two arrays of numbers, `ar1` and `ar2`, the function [`in1d`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.in1d.html) returns a boolean array indicating whether or not each number in `ar1` appears somewhere in `ar2`. Very useful!
@@ -9,7 +10,7 @@ To compute this boolean array, one of two paths is taken inside `np.in1d`. The d
 
 Specifically, to see if `ar2` is short enough relative to `ar1`, the [following inequality](https://github.com/numpy/numpy/blob/master/numpy/lib/arraysetops.py#l371) is used:
 
-```
+```python
 if len(ar2) < 10 * len(ar1) ** 0.145:
     # iterate over ar2 and compare it to each element in ar1
 ```
@@ -41,4 +42,3 @@ Not so good! Now that red dotted line misses the 0.0 contour completely. It need
 So on my machine, it looks like 8 and 0.25 are better magic numbers than 10 and 0.145.
 
 Interesting graphs aside, I don't recommend that you rush to patch your `in1d` function with new "better" constants. If performance really matters, it would better to test which path is faster for the size of arrays you're working with and then use a custom function containing the speedier code.
-

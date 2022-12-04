@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Three tactics to boost Stack Overflow upvotes
+synopsis: There are two strategies to accumulating reputation: answer fast, or answer slow: here's how to go slow.
 ---
 
 Stack Overflow, the hugely-popular programming Q&A website, has often been called an online game. To play, you post correct answers or ask interesting questions. Correct and interesting content is upvoted by other users, netting you precious green reputation points.
