@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python Power Towers
-synopsis: 
+synopsis: Is there a neat way to turn a list into a tower of powers?
 ---
 
 If you have a sequence of numbers, say `[3, 2, 2, 2]`, what's the best way to turn it into a power tower?
