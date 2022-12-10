@@ -30,7 +30,7 @@ float Q_rsqrt( float number )
 
     i  = * ( long * ) &y;                      /* float to int */
     i  = 0x5f3759df - ( i >> 1 );              /* int arithmetic */
-    y  = * ( int * ) &i;                       /* int back to float */
+    y  = * ( float * ) &i;                     /* int back to float */
 
     y  = y * ( threehalfs - ( x2 * y * y ) );  /* Newton's method */
     return y;
