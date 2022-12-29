@@ -38,7 +38,7 @@ A limit of $\frac{1}{2}$ seems _possible_, though I couldn't get a handle on pro
 
 The original puzzle asks for the value of $\mathop{\mathbb{E}}[\text{M}_{12}]$.
 
-It's clear that this value will be between 0 (we draw the partridge on our fist turn) and 12 (we manage to draw all 12 drummers before we draw the partridge).
+It's clear that this value will be between 0 (we draw the partridge on our first turn) and 12 (we manage to draw all 12 drummers before we draw the partridge).
 
 It's also clear that there are $78!$ (more than $10^{115}$) possible draws of all figurines, so attempting any brute-force solution is a non-starter.
 
