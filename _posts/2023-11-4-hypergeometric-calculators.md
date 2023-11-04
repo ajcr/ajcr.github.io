@@ -217,15 +217,23 @@ $$ \binom{4}{2}x^2 + \binom{4}{3}x^3 + \binom{4}{4}x^4 $$
 
 If we multiply the polynomials for each item together, the coefficients in the expanded polynomial tell us the number of ways a draw of a particular size can occur:
 
-$$ \left(\binom{4}{2}x^2 + \binom{4}{3}x^3 + \binom{4}{4}x^4\right)\left(1 + \binom{4}{1}x + \binom{4}{2}x^2 + \binom{4}{3}x^3\right)\left(1\right)\left(1 + \binom{40}{1}x + \dots + \binom{40}{5}x^{5}\right) $$
+$$ \begin{align}
 
-This expands to the polynomial:
+\left(\binom{4}{2}x^2 + \binom{4}{3}x^3 + \binom{4}{4}x^4\right) \nonumber \tag{king}\\
+\left(1 + \binom{4}{1}x + \binom{4}{2}x^2 + \binom{4}{3}x^3\right) \nonumber \tag{queen}\\
+\left(1 + \binom{40}{1}x + \dots + \binom{40}{5}x^{5}\right) \nonumber \tag{other}
 
-$$ 2632032x^{12} + 14841736x^{11} + 36266516x^{10} + 39847184x^9 + 23798974x^8 + 7072052x^7 + 868422x^6 + 83292x^5 + 5853x^4 + 268x^3 + 6x^2 $$
+\end{align} $$
 
-This is essentially a factorisation of the numerator of the (multivariate) hypergeometric probability mass function.
+This is essentially a factorisation of the numerator of the (multivariate) hypergeometric probability mass function and expands to the polynomial:
 
-Now for a draw size of 7, we can extract the coefficient of $x^7$ and then use it to compute the probability $\frac{7072052}{\binom{52}{7}} = \frac{136001}{2572780} = 0.0528615\dots$.
+$$ 2632032x^{12} + 14841736x^{11} + 36266516x^{10} + \\
+39847184x^9 + 23798974x^8 + 7072052x^7 + \\
+868422x^6 + 83292x^5 + 5853x^4 + 268x^3 + 6x^2 $$
+
+Now for a draw size of 7, we can extract the coefficient of $x^7$ and then use it to compute the probability:
+
+$$\frac{7072052}{\binom{52}{7}} = \frac{136001}{2572780} = 0.0528615\dots$$
 
 As well as rational values, we get the counts and probabilities for _all_ draw sizes at the same time. I used [SymPy](https://www.sympy.org/en/index.html) for this calculation and for larger draws from larger collections the polynomial method was faster than the SciPy approach above, and even faster if SymPy uses [gmpy2](https://pypi.org/project/gmpy2/). For instance, with a collection containing 12 types of item with 5 cards each (60 items) and seeing at least 1 for each item from 30 draws returned the probability $0.71255$ instantly, whereas the other approach would potentially take many hours.
 
