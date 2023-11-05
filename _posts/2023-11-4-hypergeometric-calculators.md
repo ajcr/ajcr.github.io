@@ -52,7 +52,7 @@ Very nice! I'd definitely recommend this app.
 
 However, while using this and other online calculators, I found some things that I struggled with and that I thought could be improved upon:
 
-1. **Translation**: I still have to extract the numbers from my question and then put the numbers in the correct boxes for every set of constraints. This is quite tedious and feels like it should be easier.
+1. **Question translation**: I still have to extract the numbers from my question and then put the numbers in the correct boxes for every set of constraints. This is quite tedious and feels like it should be easier.
 2. **Question complexity**: I want to use multiple constraints or success criteria on items such as "_at least 2 kings and exactly 1 jack OR _ 2 jacks and between 1 and 3 queens_", but this wasn't particularly easy or natural to express (or even possible in most calculators).
 3. **Calculation capability**: calculations can be slow or not work at all, especially for larger collections with particular selection sizes and constraints.
 
@@ -62,7 +62,7 @@ My goal is to build a calculator that addresses these issues of mine.
 
 Let's look at each issue in turn and find a way to solve it.
 
-### Translation
+### Question translation
 
 I want to avoid having to extract information from my question to feed it to a calculator interface piece by piece. Fundamentally, I don't think a "numbers in boxes" UI is a good fit for this style of probability question.
 
@@ -135,7 +135,7 @@ class Calculation:
     draw_criteria: dict[str, list[int]]
 ```
 
-We need to use these numbers in a formula/function/algorithm to generate the answer to show to the user.
+We need to use these numbers as the input to some algorithm to generate the correct answer to show to the user.
 
 Let's look at a question where we have more than two kinds of item.
 ```
@@ -161,6 +161,8 @@ calc = Calculation(
 )
 ```
 To begin, let's look at using the statistical functions from a library such as [SciPy](https://docs.scipy.org/doc/scipy/reference/stats.html).
+
+### Statistics libraries
 
 Here, the king must be seen 2, 3 or 4 times in our draw. The queen must be seen 0, 1, 2 or 3 times. The jack must appear 0 times. The other items must therefore be equal to $7 - \left(\text{king} + \text{queen} + \text{jack}\right)$. We need to find all item counts for possible draws:
 ```python
@@ -203,6 +205,8 @@ The answer is $0.0528615\dots$. Using functions from statistical libraries is fa
 
 The library functions have some limitations though. First, generating large arrays of integers is going to be slow and require a lot of memory when item counts can range over many values. Second, probabilities can only be calculated as float values, not rational numbers. This is fine for not-too-small probabilities, but we'll lose precision when computing and comparing small values. Using log-probability gets us a bit further but the fundamental limitation remains. Third, we can only generate the probability for a single draw size at a time and cannot easily reuse parts of our computation.
 
+### Explicit loops and sums
+
 Another approach is to construct the mathematical formula as nested sums over the possible items (in programming this would be equivalent a nested-`for` loop). This would allow probabilities to computed as rational numbers and makes it easier to reuse parts of a computation:
 
 $$ \sum_{ \text{king}=2 }^{4} \sum_{ \text{queen}=0 }^{3} \frac{ {\binom{40}{7 - \text{king} - \text{queen}} \binom{4}{\text{king}} \binom{4}{\text{queen}} } }{ { \binom{52}{7} } } $$
@@ -210,6 +214,8 @@ $$ \sum_{ \text{king}=2 }^{4} \sum_{ \text{queen}=0 }^{3} \frac{ {\binom{40}{7 -
 The Deck-u-later app seems to take this approach based on the formula it shows the user. However, for collections with many types of item it can be extremely slow (see [_Why are some calculations slow?_](https://deckulator.blogspot.com/2010/12/why-are-some-calculations-slow.html)) as it computes the probability for all item choices using combinations with replacement.
 
 There's a different approach that I'd like to try.
+
+### Polynomials
 
 Instead of making an array of possible counts or summing over counts for each item, we can represent each item in can take in a draw that meets the criteria as a polynomial. The degree of each monomial is the number of times it can be chosen in a draw meeting the criteria. The coefficient is the number of ways a draw of that size can be chosen. For example, the king can be drawn 2, 3 or 4 times:
 
