@@ -52,32 +52,30 @@ Very nice! I'd definitely recommend this app.
 
 However, while using this and other online calculators, I found some things that I struggled with and that I thought could be improved upon:
 
-1. **Question translation**: I still have to extract the numbers from my question and then put the numbers in the correct boxes for every set of constraints. This is quite tedious and feels like it should be easier.
-2. **Question complexity**: I want to use multiple constraints or success criteria on items such as "_at least 2 kings and exactly 1 jack OR _ 2 jacks and between 1 and 3 queens_", but this wasn't particularly easy or natural to express (or even possible in most calculators).
-3. **Calculation capability**: calculations can be slow or not work at all, especially for larger collections with particular selection sizes and constraints.
+1. **Question translation**: I still have to extract the numbers from my English question and then put the numbers in the correct boxes for every set of constraints. This translation from English to named boxes introduces a gap between expressing the problem and finding the answer. It feels avoidable.
+2. **Question complexity**: I want to use multiple constraints or success criteria on items such as "_at least 2 kings and exactly 1 jack_ OR _2 jacks and between 1 and 3 queens_", but this wasn't particularly easy or natural to express (or even possible in most calculators).
+3. **Calculation capability**: I found some calculations to be slow or not work at all, especially for larger collections with particular selection sizes and constraints.
 
-My goal is to build a calculator that addresses these issues of mine.
+## Designing a new calculator
 
-## Designing the new calculator
-
-Let's look at each issue in turn and find a way to solve it.
+Let's look at each issue and find a way to address it.
 
 ### Question translation
 
-I want to avoid having to extract information from my question to feed it to a calculator interface piece by piece. Fundamentally, I don't think a "numbers in boxes" UI is a good fit for this style of probability question.
+I want to avoid having to extract information from my question to feed it to a calculator interface piece by piece. Fundamentally, I don't think a "numbers in boxes" UI is natural fit for this style of probability question.
 
-Ideally the input will be the question as expressed in English, or something close to English, and the calculator will understand it (as I might do for an LLM-backed chat application, if LLMs weren't so poor at numerical operations).
+Ideally the input should be the question as expressed in English, or something close to English, and the calculator will understand it (as I might do for an LLM-backed chat application, if LLMs weren't so poor at numerical operations).
 
 Here is the question from above:
 
 > Draw **7** cards from a standard deck of **52** cards. What's the probability we see **2** or more of the **4** kings in the draw?
 
 There are three key pieces of information in this question:
-- the size of draw
-- the collection of items that we will draw from
-- the description of what items we want to see in our draw
+- the **size** of the draw
+- the **collection** of items that we will draw from
+- the **constraints** on the items we want to see in our draw
 
-This looks like ingredients for a query in some query language. For example, in SQL a basic query might be written something like this:
+These look like ingredients for a query in some query-like language. For example, in SQL a basic query might be written something like this:
 ```
 SELECT [row values under some column names]
 FROM [table]
@@ -97,7 +95,9 @@ PROBABILITY DRAW [some number of items]
 FROM [collection of items]
 WHERE [items in draw satisfy some criteria]
 ```
-Using this approach we can express our questions in quite a natural way. We don't have to extract and translate any information for input to the calculator interface. The calculator can parse the expression and use the numbers and items names in the correct parts of whatever computation needs to happen.
+Using this approach we can express our questions in quite a natural way.
+
+We don't need to extract information from the query and translate it for the calculator interface. The calculator can use the numbers and items names in the correct parts of whatever computation needs to happen.
 
 ### Question complexity
 
@@ -118,7 +118,16 @@ WHERE king >= 2 AND queen <= 3 AND jack = 0
    OR king = 3 AND jack = 2 AND queen = 0
 ```
 
-The use of `OR` gives us much more flexibility and opens up a wider range of problems our calculator can understand. Importantly, the input still resembles how we might pose the problem in English. The user does not have to break up their question to feed into calculator one bit at a time.
+The use of `OR` gives us much more flexibility and opens up a wider range of problems our calculator can understand. Importantly, the input still resembles how we might pose the problem in English.
+
+It's easy to imagine how this language can be extended to express more complex constraints, e.g.:
+```
+...
+WHERE
+  king < queen              -- fewer kings than queens
+  jack IS EVEN              -- even number of jacks
+  king + queen + jack >= 5  -- 5 or more kings, queens and jacks
+```
 
 ### Calculation capability
 
@@ -135,15 +144,13 @@ class Calculation:
     draw_criteria: dict[str, list[int]]
 ```
 
-We need to use these numbers as the input to some algorithm to generate the correct answer to show to the user.
-
 Let's look at a question where we have more than two kinds of item.
 ```
 PROBABILITY DRAW 7
 FROM king = 4, queen = 4, jack = 4, other = 40
 WHERE king >= 2 AND queen <= 3 AND jack = 0
 ```
-We'd store this as:
+We'd store this query as:
 ```python
 calc = Calculation(
     draw_size=7,
@@ -160,11 +167,14 @@ calc = Calculation(
     },
 )
 ```
-To begin, let's look at using the statistical functions from a library such as [SciPy](https://docs.scipy.org/doc/scipy/reference/stats.html).
+
+We need to pass this object as the input to some algorithm to generate the correct answer.
 
 ### Statistics libraries
 
-Here, the king must be seen 2, 3 or 4 times in our draw. The queen must be seen 0, 1, 2 or 3 times. The jack must appear 0 times. The other items must therefore be equal to $7 - \left(\text{king} + \text{queen} + \text{jack}\right)$. We need to find all item counts for possible draws:
+To begin, let's look at using the statistical functions from a library such as [SciPy](https://docs.scipy.org/doc/scipy/reference/stats.html).
+
+The king must be seen 2, 3 or 4 times in our draw. The queen must be seen 0, 1, 2 or 3 times. The jack must appear 0 times. The other items must therefore be equal to $7 - \left(\text{king} + \text{queen} + \text{jack}\right)$. We need to find all item counts for possible draws:
 ```python
 import itertools
 
@@ -191,7 +201,7 @@ This gives 12 possible draw values (each row sums to 7):
  (4, 2, 0, 1),
  (4, 3, 0, 0)]
 ```
-We use give this array of draws to the SciPy function [`multivariate_hypergeom`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.multivariate_hypergeom.html#scipy.stats.multivariate_hypergeom) and sum the probabilities it returns for each row:
+We use give this array of draws to the SciPy function [`multivariate_hypergeom`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.multivariate_hypergeom.html#scipy.stats.multivariate_hypergeom) and sum the array of probabilities it returns for each row:
 ```python
 from scipy import stats
 
@@ -203,21 +213,23 @@ stats.multivariate_hypergeom.pmf(
 ```
 The answer is $0.0528615\dots$. Using functions from statistical libraries is fast and doesn't require us to write any particularly difficult code.
 
-The library functions have some limitations though. First, generating large arrays of integers is going to be slow and require a lot of memory when item counts can range over many values. Second, probabilities can only be calculated as float values, not rational numbers. This is fine for not-too-small probabilities, but we'll lose precision when computing and comparing small values. Using log-probability gets us a bit further but the fundamental limitation remains. Third, we can only generate the probability for a single draw size at a time and cannot easily reuse parts of our computation.
+The library functions have some limitations though. First, generating large list or arrays of integers is slow and requires a lot of memory when item counts can range over many values. Second, probabilities can only be calculated as float values, not rational numbers. This is fine for not-too-small probabilities, but we'll lose some precision when computing and comparing small values. Third, we can only generate the probability for a single draw size at a time and cannot easily reuse parts of our computation.
 
 ### Explicit loops and sums
 
-Another approach is to construct the mathematical formula as nested sums over the possible items (in programming this would be equivalent a nested-`for` loop). This would allow probabilities to computed as rational numbers and makes it easier to reuse parts of a computation:
+Another approach is to construct the multivariate hypergeometric probability mass function and use nested sums over the possible item counts (somewhat equivalent to a nested-`for` loop). This would allow probabilities to computed as rational numbers, keeps memory usage lower, and makes it easier for us to reuse parts of a computation:
 
 $$ \sum_{ \text{king}=2 }^{4} \sum_{ \text{queen}=0 }^{3} \frac{ {\binom{40}{7 - \text{king} - \text{queen}} \binom{4}{\text{king}} \binom{4}{\text{queen}} } }{ { \binom{52}{7} } } $$
 
 The Deck-u-later app seems to take this approach based on the formula it shows the user. However, for collections with many types of item it can be extremely slow (see [_Why are some calculations slow?_](https://deckulator.blogspot.com/2010/12/why-are-some-calculations-slow.html)) as it computes the probability for all item choices using combinations with replacement.
 
-There's a different approach that I'd like to try.
+There's another approach that I think will solve this latter issue.
 
 ### Polynomials
 
-Instead of making an array of possible counts or summing over counts for each item, we can represent each item in can take in a draw that meets the criteria as a polynomial. The degree of each monomial is the number of times it can be chosen in a draw meeting the criteria. The coefficient is the number of ways a draw of that size can be chosen. For example, the king can be drawn 2, 3 or 4 times:
+Instead of making an array of possible counts or summing over counts for each item, we can represent each item in can take in a draw that meets the criteria as a polynomial.
+
+The degree of each monomial is the number of times it can be chosen in a draw meeting the criteria. The coefficient of $x^n$ is the number of ways a draw of size $n$ can be chosen. For example, the king can be drawn 2, 3 or 4 times:
 
 $$ \binom{4}{2}x^2 + \binom{4}{3}x^3 + \binom{4}{4}x^4 $$
 
@@ -231,7 +243,7 @@ $$ \begin{align}
 
 \end{align} $$
 
-This is essentially a factorisation of the numerator of the (multivariate) hypergeometric probability mass function and expands to the polynomial:
+This is essentially a factorisation of the numerator of the summed multivariate hypergeometric probability mass function and expands to the polynomial:
 
 $$ 2632032x^{12} + 14841736x^{11} + 36266516x^{10} + \\
 39847184x^9 + 23798974x^8 + 7072052x^7 + \\
@@ -241,9 +253,13 @@ Now for a draw size of 7, we can extract the coefficient of $x^7$ and then use i
 
 $$\frac{7072052}{\binom{52}{7}} = \frac{136001}{2572780} = 0.0528615\dots$$
 
-As well as rational values, we get the counts and probabilities for _all_ draw sizes at the same time. I used [SymPy](https://www.sympy.org/en/index.html) for this calculation and for larger draws from larger collections the polynomial method was faster than the SciPy approach above, and even faster if SymPy uses [gmpy2](https://pypi.org/project/gmpy2/). For instance, with a collection containing 12 types of item with 5 cards each (60 items) and seeing at least 1 for each item from 30 draws returned the probability $0.71255$ instantly, whereas the other approach would potentially take many hours.
+As well as rational values, we get the counts and probabilities for _all_ draw sizes at the same time.
 
-I will use the polynomial approach.
+For large draw ranges the polynomials will also be large, but efficient algorithms for polynomial multipliaction are known (e.g. using the [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform#Applications)).
+
+I used [SymPy](https://www.sympy.org/en/index.html) for the calculation above. For larger draws from larger collections the polynomial method was faster than the SciPy approach above, and even faster if SymPy uses [gmpy2](https://pypi.org/project/gmpy2/). For instance, with a collection containing 12 types of item with 5 cards each (60 items) and seeing at least 1 for each item from 30 draws returned the probability $0.71255$ instantly, whereas the online calculator approach would potentially take many hours.
+
+I will use the polynomial method in my calculator.
 
 ## How to write the code
 
