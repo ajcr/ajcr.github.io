@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Building a multivariate hypergeometric calculator
-synopsis: Probability questions about choosing at random are incredibly easy to describe in English, but can be frustratingly difficult to calculate. I design and build a new calculator to make it faster and easier.
+title: Building a multivariate hypergeometric calculator with Lark and SymPy
+synopsis: Probability questions about choosing at random are easy to describe in English, but frustratingly difficult to compute. I design and build a new calculator to make it easier to ask and answer these probability problems.
 ---
 
 <script type="text/x-mathjax-config">
@@ -14,7 +14,7 @@ synopsis: Probability questions about choosing at random are incredibly easy to 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-In science, sampling and games of chance we often want to calculate the probability of picking certain items, at random, from some larger collection. For example:
+In science, sampling and games of chance we want to calculate the probability of picking certain items, at random, from some larger collection. For example:
 
 > Draw **7** cards from a standard deck of **52** cards. What's the probability we see **2** or more of the **4** kings in the draw?
 
@@ -48,7 +48,7 @@ These calculators remove the pain of constructing and evaluating the equation. M
 
 ![deck-u-lator]({{ site.baseurl }}/images/deckulator.png)
 
-Very nice! I'd definitely recommend this app.
+Very nice! I recommend this app.
 
 However, while using this and other online calculators, I found some things that I struggled with and that I thought could be improved upon:
 
@@ -272,14 +272,125 @@ As I'm just writing a proof-of-concept program, I'll make a CLI application inst
 
 I'll write a simple interpreter shell where the user can type the input and see the result using the Python standard library's [`cmd`](https://docs.python.org/3/library/cmd.html) module. Finally, I want to be able to show the probabilities to the user in the form of a table and a plot so I'll use [tabulate](https://pypi.org/project/tabulate/) and [uniplot](https://github.com/olavolav/uniplot).
 
-The structure of the program and flow of data through the code is relatively straightforward:
+The structure of the program and flow of data through the code is relatively straightforward. The basic components are outlined below.
 
-1. [Define the grammar](https://lark-parser.readthedocs.io/en/stable/grammar.html) for the query language in a file (`grammar.lark`). Lark reads this file and builds a parser.
-2. Receive the input from the user as a string. Give it to the Lark parser to build a `ParseTree`.
-3. Visit the nodes of the tree, storing the data in a `ComputationDescription` object (collection items, draw constraints, etc.). 
-4. Validate the `ComputationDescription` (e.g. are the constrained items in the collection?).
-5. Evaluate the computation. This involves generating the polynomials for each item, finding the product, and extracting an array of coefficients.
-6. The array of coefficients (the answers for the user) is then handed to the `Output` class so that it can be displayed according to the user's requirements.
+### 1. Define the grammar
+
+[The grammar](https://lark-parser.readthedocs.io/en/stable/grammar.html) for the query language goes in a file (`grammar.lark`). Lark reads this file and builds a parser for user input. The grammar looks a bit like this:
+
+```lark
+%import common.CNAME -> NAME
+%import common.INT -> NUMBER
+%import common.WS
+%ignore WS
+
+start: computation 
+
+computation: "PROBABILITY" "DRAW" selection_size "FROM" collection
+             "WHERE" constraints ";" -> prob_draw
+
+selection_size: NUMBER             -> selection_size_int
+              | NUMBER ".." NUMBER -> selection_size_range
+
+collection: (collection_item) ("," collection_item)* -> collection
+collection_item: NAME "=" NUMBER -> collection_item
+
+constraints: and_constraints ("OR" and_constraints)* -> constraints
+and_constraints: (constraint_count) ("AND" constraint_count)*
+constraint_count: NAME "="  NUMBER -> constraint_eq
+                | NAME "<"  NUMBER -> constraint_lt
+                | NAME ">"  NUMBER -> constraint_gt
+                | NAME "<=" NUMBER -> constraint_le
+                | NAME ">=" NUMBER -> constraint_ge
+```
+That's all we need to parse our query:
+```
+PROBABILITY DRAW 7 FROM king = 4, queen = 4, jack = 4, other = 40 WHERE king >= 2;
+```
+
+### 2. Parse user input to a tree structure
+
+User input is a string. Give it to the Lark parser to build a `ParseTree`.
+
+```python
+parser = lark.Lark.open("grammar.lark", rel_to=__file__)
+tree = parser.parse(user_query)
+```
+
+### 3. Walk the tree, organise the data
+
+Now we visit the nodes of the tree, storing the data for the computation we need to do in a `ComputationDescription` object (collection items, draw constraints, etc.).
+
+Lark offers a couple of classes to do this: the `Transformer` class visits the nodes of the tree (from the leaves to the root by default) and can also modify or discard parts of the tree which can simplify processing.
+
+In our subclass, every `... -> node_name` in the grammar file is a method on the class that defines how the node is processed.
+
+```python
+@lark.v_args(inline=True)
+class BuildComputation(lark.Transformer):
+
+    def __init__(self):
+        super().__init__()
+        self.computation = ComputationDescription()
+
+    @lark.v_args(tree=True)
+    def collection(self, tree):
+        self.computation.collection = dict(tree.children)
+        return lark.Discard
+
+    @lark.v_args(tree=True)
+    def constraints(self, tree):
+        self.computation.constraints = tree.children
+        return lark.Discard
+
+    def selection_size_int(self, size):
+        self.computation.selection_range = range(size, size+1)
+        return lark.Discard
+    
+    # ...and so on
+```
+
+The `@lark.v_args` decorator changes the arguments the method recieves (do we want the whole subtree, or the terminal arguments?)
+
+### 4. Do the computation
+
+We'll validate the `ComputationDescription` first (are all the constrained items in the collection? etc.) and then we're ready for the computation.
+
+This involves generating polynomials for each item in our draw, finding the product of these polynomials, and extracting an array of coefficients.
+
+```python
+from collections.abc import Collection, Mapping
+
+from sympy import Poly, binomial, prod, Rational
+from sympy.abc import x
+
+def degrees_to_poly_with_binomial_coeff(degrees: Collection[int], n: int) -> Poly:
+    """For each degree `d`, create the polynomial with terms
+    of degree `d` having binomial coefficient `bin(n, d)` where
+    `n` is the total number of the item:
+
+        {0, 2, 5} -> bin(n, 5)*x**5 + bin(n, 2)*x**2 + 1
+
+    """
+    coeffs = {degree: binomial(n, degree) for degree in degrees}
+    return Poly.from_dict(coeffs, x)
+
+
+def evaluate(computation: ComputationDescription) -> list[Rational]:
+    
+    # figure out constraints on each item count in legal from `ComputationDescription.collection`
+    # make polynomials for `ComputationDescription.collection`
+    # multiply polynomials to get all possible counts
+    # extract coefficients according to `ComputationDescription.selection_size`
+    # convert counts to probabilities/rational numbers as needed
+```
+
+### 5. Show the result
+
+The array of coefficients we extract from the polynomial are the numbers we want to show to the user as the answer.
+
+With the array, we can either produce a table or plot a graph.
+
 
 ## The finished calculator
 
