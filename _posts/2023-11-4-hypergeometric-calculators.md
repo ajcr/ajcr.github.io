@@ -278,7 +278,7 @@ The structure of the program and flow of data through the code is relatively str
 
 [The grammar](https://lark-parser.readthedocs.io/en/stable/grammar.html) for the query language goes in a file (`grammar.lark`). Lark reads this file and builds a parser for user input. The grammar looks a bit like this:
 
-```lark
+```
 %import common.CNAME -> NAME
 %import common.INT -> NUMBER
 %import common.WS
@@ -305,7 +305,9 @@ constraint_count: NAME "="  NUMBER -> constraint_eq
 ```
 That's all we need to parse our query:
 ```
-PROBABILITY DRAW 7 FROM king = 4, queen = 4, jack = 4, other = 40 WHERE king >= 2;
+PROBABILITY DRAW 7
+FROM king = 4, queen = 4, jack = 4, other = 40
+WHERE king >= 2;
 ```
 
 ### 2. Parse user input to a tree structure
