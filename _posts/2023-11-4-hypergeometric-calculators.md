@@ -379,12 +379,14 @@ def degrees_to_poly_with_binomial_coeff(degrees: Collection[int], n: int) -> Pol
 
 
 def evaluate(computation: ComputationDescription) -> list[Rational]:
-    
-    # figure out constraints on each item count in legal from `ComputationDescription.collection`
-    # make polynomials for `ComputationDescription.collection`
-    # multiply polynomials to get all possible counts
-    # extract coefficients according to `ComputationDescription.selection_size`
-    # convert counts to probabilities/rational numbers as needed
+    """
+    Figure out constraints on each item count in legal from `ComputationDescription.collection`.
+    Make polynomials for `ComputationDescription.collection`.
+    Multiply polynomials to get all possible counts.
+    Extract coefficients according to `ComputationDescription.selection_size`.
+    Convert counts to probabilities/rational numbers as needed.
+    """
+    ...
 ```
 
 ### 5. Show the result
